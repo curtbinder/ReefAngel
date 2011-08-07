@@ -170,6 +170,7 @@ void pushbuffer(byte inStr)
             else if (strncmp("GET /ma", m_pushback, 7)==0) reqtype = -REQ_M_ALL;
             else if (strncmp("GET /v", m_pushback, 6)==0) reqtype = -REQ_VERSION;
             else if (strncmp("GET /d", m_pushback, 6)==0) { reqtype = -REQ_DATE; weboption2 = -1; weboption3 = -1; bCommaCount = 0; }
+            else if (strncmp("HTTP/1.", m_pushback, 7)==0) reqtype = RES_HTTP;
             else reqtype = -REQ_UNKNOWN;
 		}
 	}
@@ -538,6 +539,11 @@ void processHTTP()
 				PROGMEMprint(XML_DATE_CLOSE);
 				break;
 			}  // REQ_DATE
+			case RES_HTTP:
+			{
+				Serial.flush();
+				break;
+			}
 			default:
 			case REQ_UNKNOWN:
 			{
