@@ -82,6 +82,7 @@ const prog_char XML_ERR[] PROGMEM = "ERR";
 #define REQ_VERSION		7  		// Library version
 #define REQ_DATE		8  		// Date and time
 #define REQ_UNKNOWN		128	 	// Unknown request
+#define RES_HTTP		127  	// Response from request originated from RA
 
 #define P(name)   static const prog_char name[] PROGMEM
 const prog_char SERVER_RA[] PROGMEM = "<script language='javascript' src='http://www.reefangel.com/wifi/ra1.js'></script>";
