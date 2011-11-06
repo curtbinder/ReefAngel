@@ -19,32 +19,32 @@
   * Updates Released under Apache License, Version 2.0
   */
 
-#ifndef	ReefAngel_h
-#define ReefAngel_h
+#ifndef	__REEFANGEL_H__
+#define __REEFANGEL_H__
 
-#define ReefAngel_Version "0.8.5.19"
+#define ReefAngel_Version "0.9.0"
 
-#include <ReefAngel_Globals.h>
-#include <ReefAngel_EEPROM.h>  // NOTE read/write internal memory
+#include <Globals.h>
+#include <EEPROM.h>  // NOTE read/write internal memory
 #include <Time.h>
-#include <ReefAngel_NokiaLCD.h>
-#include <ReefAngel_ATO.h>
-#include <ReefAngel_Joystick.h>
-#include <ReefAngel_LED.h>
-#include <ReefAngel_TempSensor.h>
-#include <ReefAngel_Relay.h>
-#include <ReefAngel_PWM.h>
-#include <ReefAngel_Timer.h>
-#include <ReefAngel_Memory.h>
+#include <RA_NokiaLCD.h>
+#include <RA_ATO.h>
+#include <RA_Joystick.h>
+#include <LED.h>
+#include <RA_TempSensor.h>
+#include <Relay.h>
+#include <RA_PWM.h>
+#include <Timer.h>
+#include <Memory.h>
 
 #if defined SALINITYEXPANSION
-	#include <ReefAngel_Salinity.h>
+	#include <Salinity.h>
 #endif  // defined SALINITYEXPANSION
 #if defined RFEXPANSION
-	#include <ReefAngel_RF.h>
+	#include <RF.h>
 #endif  // defined RFEXPANSION
 #if defined AI_LED
-	#include <ReefAngel_AI.h>
+	#include <AI.h>
 #endif  // defined AI_LED
 
 #include <avr/pgmspace.h>
@@ -73,25 +73,25 @@ public:
 	int PHMin,PHMax,SalMax;
 	ParamsStruct Params;
 	ReefAngelClass();
-	ReefAngel_NokiaLCD LCD;
-	ReefAngel_JoystickClass Joystick;
-	ReefAngel_LEDClass LED;
+	RA_NokiaLCD LCD;
+	RA_JoystickClass Joystick;
+	LEDClass LED;
 	DS1307RTC RTC;
-	ReefAngel_ATOHighClass HighATO;
-	ReefAngel_ATOLowClass LowATO;
-	ReefAngel_TempSensorClass TempSensor;
-	ReefAngel_RelayClass Relay;
+	RA_ATOHighClass HighATO;
+	RA_ATOLowClass LowATO;
+	RA_TempSensorClass TempSensor;
+	RelayClass Relay;
 #if defined DisplayLEDPWM && ! defined RemoveAllLights
-	ReefAngel_PWMClass PWM;
+	RA_PWMClass PWM;
 #endif  // defined DisplayLEDPWM && ! defined RemoveAllLights
 #if defined SALINITYEXPANSION
-	ReefAngel_SalinityClass Salinity;
+	SalinityClass Salinity;
 #endif  // defined SALINITYEXPANSION
 #if defined RFEXPANSION
-	ReefAngel_RFClass RF;
+	RFClass RF;
 #endif  // defined RFEXPANSION
 #if defined AI_LED
-	ReefAngel_AIClass AI;
+	AIClass AI;
 #endif  // defined AI_LED
 	/*
 	Timers:
@@ -102,7 +102,7 @@ public:
 	4 - Not used
 	5 - Store params to eeprom
 	*/
-	ReefAngel_TimerClass Timer[6];
+	TimerClass Timer[6];
 	byte SelectedMenuItem;
 
 	// Ports to toggle during different modes
@@ -288,5 +288,5 @@ void MenuEntry9();
 
 extern ReefAngelClass ReefAngel;  // make an instance for the user
 
-#endif
+#endif  // __REEFANGEL_H__
 

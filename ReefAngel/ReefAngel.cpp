@@ -19,11 +19,11 @@
   * Updates Released under Apache License, Version 2.0
   */
 
-#include <ReefAngel_Globals.h>
+#include <Globals.h>
 #include <Wire.h>
 #include <DS1307RTC.h>
 #include "ReefAngel.h"
-#include <ReefAngel_Wifi.h>
+#include <RA_Wifi.h>
 
 byte ButtonPress = 0;
 
@@ -816,7 +816,7 @@ void ReefAngelClass::SingleATO(bool bLow, byte ATORelay, byte byteTimeout, byte 
             bCanRun = false;
         }
     }
-    ReefAngel_ATOClass *ato;
+    RA_ATOClass *ato;
     if ( bLow )
     {
         ato = &LowATO;
