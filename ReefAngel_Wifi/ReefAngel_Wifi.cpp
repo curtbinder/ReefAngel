@@ -317,8 +317,6 @@ void processHTTP()
 #ifdef AI_LED
 				s += 35;
 				//<AIW></AIW><AIB></AIB><AIRB></AIRB>
-				//s += intlength(ReefAngel.PWM.GetDaylightValue());
-				//s += intlength(ReefAngel.PWM.GetActinicValue());
 				s += intlength(ReefAngel.AI.GetIntensity(0));
 				s += intlength(ReefAngel.AI.GetIntensity(1));
 				s += intlength(ReefAngel.AI.GetIntensity(2));
