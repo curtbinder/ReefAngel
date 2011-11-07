@@ -49,6 +49,12 @@ byte ReefAngel_AIClass::GetChannel(byte channel)
 	return AIChannels[channel];
 }
 
+byte ReefAngel_AIClass::GetIntensity(byte channel)
+{
+	intensity = AIChannels[channel];
+	return intensity;
+}
+
 void ReefAngel_AIClass::SetStreamDelay(int delay)
 {
 	StreamDelay=delay;
