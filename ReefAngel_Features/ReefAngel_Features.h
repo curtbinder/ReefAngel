@@ -100,7 +100,7 @@ Comment the next line to remove this ability.
 
 Approximately 1984 bytes to have this feature
 */
-//#define DateTimeSetup
+#define DateTimeSetup
 
 /*
 If you do not want to have a Version menu entry to see what version of the software is on the controller,
@@ -108,7 +108,7 @@ then you will want to comment out the next line
 
 Approximately 144 bytes to have this feature
 */
-//#define VersionMenu
+#define VersionMenu
 
 /*
 If you do not use any of the ATO features in your setup, you can comment out this next line to remove
@@ -192,7 +192,7 @@ the next line and all that stuff will be removed.
 
 Approximately 720 bytes to have this feature
 */
-//#define DisplayLEDPWM
+#define DisplayLEDPWM
 
 /*
 PWM Expansion Device
@@ -224,19 +224,12 @@ Approximately 454 bytes to have this feature
 */
 //#define SingleATOSetup
 
-
 /*
-
 If this next line is uncommented, you must include the following lines in
-
 the PDE file at the top above all other include statements:
-
 #include <ReefAngel_Colors.h>
-
 #include <ReefAngel_CustomColors.h>
-
 */
-
 //#define COLORS_PDE
 
 /*
@@ -574,6 +567,6 @@ You will have to add in this line above the ReefAngel.h include:
 
 Approximately 382 bytes to enable this feature
 */
-#define AI_LED
+//#define AI_LED
 
 #endif  // __REEFANGEL_FEATURES_H__
