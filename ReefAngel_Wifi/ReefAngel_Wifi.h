@@ -51,10 +51,8 @@ const prog_char XML_SAL_END[] PROGMEM = "</SAL>";
 #endif  // SALINITYEXPANSION
 #ifdef AI_LED
 const prog_char XML_AIW[] PROGMEM = "<AIW>";
-const prog_char XML_AIW_END[] PROGMEM = "</AIW>";
-const prog_char XML_AIB[] PROGMEM = "<AIB>";
-const prog_char XML_AIB_END[] PROGMEM = "</AIB>";
-const prog_char XML_AIRB[] PROGMEM = "<AIRB>";
+const prog_char XML_AIW_END[] PROGMEM = "</AIW><AIB>";
+const prog_char XML_AIB_END[] PROGMEM = "</AIB><AIRB>";
 const prog_char XML_AIRB_END[] PROGMEM = "</AIRB>";
 #endif  // AI_LED
 #ifdef ENABLE_ATO_LOGGING

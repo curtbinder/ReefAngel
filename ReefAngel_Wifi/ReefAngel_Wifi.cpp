@@ -777,10 +777,8 @@ void SendXMLData(bool fAtoLog /*= false*/)
 	PROGMEMprint(XML_AIW);
 	WIFI_SERIAL.print(ReefAngel.AI.GetIntensity(0), DEC);
 	PROGMEMprint(XML_AIW_END);
-	PROGMEMprint(XML_AIB);
 	WIFI_SERIAL.print(ReefAngel.AI.GetIntensity(1), DEC);
 	PROGMEMprint(XML_AIB_END);
-	PROGMEMprint(XML_AIRB);
 	WIFI_SERIAL.print(ReefAngel.AI.GetIntensity(2), DEC);
 	PROGMEMprint(XML_AIRB_END);
 #endif  // AI_LED
