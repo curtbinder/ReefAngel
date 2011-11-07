@@ -49,6 +49,14 @@ const prog_char XML_PWMD_END[] PROGMEM = "</PWMD>";
 const prog_char XML_SAL[] PROGMEM = "<SAL>";
 const prog_char XML_SAL_END[] PROGMEM = "</SAL>";
 #endif  // SALINITYEXPANSION
+#ifdef AI_LED
+const prog_char XML_AIW[] PROGMEM = "<AIW>";
+const prog_char XML_AIW_END[] PROGMEM = "</AIW>";
+const prog_char XML_AIB[] PROGMEM = "<AIB>";
+const prog_char XML_AIB_END[] PROGMEM = "</AIB>";
+const prog_char XML_AIRB[] PROGMEM = "<AIRB>";
+const prog_char XML_AIRB_END[] PROGMEM = "</AIRB>";
+#endif  // AI_LED
 #ifdef ENABLE_ATO_LOGGING
 const prog_char XML_ATOLOW_LOG_OPEN[] PROGMEM = "<AL";
 const prog_char XML_ATOLOW_LOG_CLOSE[] PROGMEM = "</AL";
