@@ -31,11 +31,13 @@ public:
 	void SetPort(byte portnum);
 	void SetChannel(byte channel, byte intensity);
 	byte GetChannel(byte channel);
+	byte GetIntensity(byte channel);
 	void SetStreamDelay(int delay);
 	int StreamDelay;
 	unsigned long AImillis;
 	void Send();
 private:
+	byte intensity;
 	byte port;
 	byte AIChannels[2];
 	void SWprint(byte data);
