@@ -552,6 +552,16 @@ Used by the RF Expansion Module
 #define Slave_Start   97
 #define Slave_Stop    98
 #define None          99
+#define Radion        100
+
+// Radion Channels
+#define Radion_White      0
+#define Radion_RoyalBlue  1
+#define Radion_Red        2
+#define Radion_Green      3
+#define Radion_Blue       4
+#define Radion_Intensity  5
+#define Radion_Ready      9
 
 /*
 AI Channels
