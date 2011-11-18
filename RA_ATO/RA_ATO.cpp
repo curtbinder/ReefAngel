@@ -20,7 +20,7 @@
   */
 
 #include "RA_ATO.h"
-#include "EEPROM.h"
+#include "InternalEEPROM.h"
 
 RA_ATOClass::RA_ATOClass()
 {
