@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-#ifndef __InternalEEPROM_H__
-#define __InternalEEPROM_H__
+#ifndef __INTERNAL_EEPROM_H__
+#define __INTERNAL_EEPROM_H__
 
 #include <inttypes.h>
 #include <avr/eeprom.h>
@@ -131,4 +131,4 @@ class InternalEEPROMClass {
 
 extern InternalEEPROMClass InternalMemory;
 
-#endif  // __InternalEEPROM_H__
+#endif  // __INTERNAL_EEPROM_H__
