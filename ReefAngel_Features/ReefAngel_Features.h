@@ -36,7 +36,7 @@
 #define WDT
 #define CUSTOM_MENU
 //#define CUSTOM_MENU_ENTRIES 6
-#define CUSTOM_MENU_ENTRIES 8
+#define CUSTOM_MENU_ENTRIES 1
 #define CUSTOM_MAIN
 //#define FONT_8x8
 //#define FONT_8x16

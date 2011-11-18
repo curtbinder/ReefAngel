@@ -31,6 +31,7 @@ public:
 	void SetActinic(byte value);
 	void SetDaylight(byte value);
 #ifdef PWMEXPANSION
+	byte ExpansionChannel[6];
 	void Expansion(byte cmd, byte data);
 	void ExpansionSetPercent(byte p);
 #endif  // PWMEXPANSION

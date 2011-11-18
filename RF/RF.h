@@ -29,8 +29,14 @@ class RFClass
 public:
 	RFClass();
 	boolean UseMemory;
+	byte Mode;
+	byte Speed;
+	byte Duration;
 	void SetMode(byte mode, byte speed, byte duration);
 	byte RFCheck();
+	inline byte GetChannel(byte channel) {return RadionChannels[channel];}
+private:
+	byte RadionChannels[6];
 };
 
 #endif  // __RF_H__

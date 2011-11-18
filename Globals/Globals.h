@@ -42,6 +42,10 @@
 
 // Relay Box Modules
 #define MAX_RELAY_EXPANSION_MODULES     8
+#define PWM_EXPANSION_CHANNELS     		6
+#define AI_CHANNELS     				3
+#define RF_CHANNELS						6
+
 #ifdef RelayExp
 // Relay Expansion is defined in Features file
 // Check if the user specified how many expansion modules they have
@@ -552,6 +556,16 @@ Used by the RF Expansion Module
 #define Slave_Start   97
 #define Slave_Stop    98
 #define None          99
+#define Radion        100
+
+// Radion Channels
+#define Radion_White      0
+#define Radion_RoyalBlue  1
+#define Radion_Red        2
+#define Radion_Green      3
+#define Radion_Blue       4
+#define Radion_Intensity  5
+#define Radion_Ready      9
 
 /*
 AI Channels

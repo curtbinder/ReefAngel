@@ -49,12 +49,32 @@ const prog_char XML_PWMD_END[] PROGMEM = "</PWMD>";
 const prog_char XML_SAL[] PROGMEM = "<SAL>";
 const prog_char XML_SAL_END[] PROGMEM = "</SAL>";
 #endif  // SALINITYEXPANSION
+#ifdef ORPEXPANSION
+const prog_char XML_ORP[] PROGMEM = "<ORP>";
+const prog_char XML_ORP_END[] PROGMEM = "</ORP>";
+#endif  // ORPEXPANSION
+#ifdef PWMEXPANSION
+const prog_char XML_PWME[] PROGMEM = "<PWME";
+const prog_char XML_PWME_END[] PROGMEM = "</PWME";
+#endif  // PWMEXPANSION
 #ifdef AI_LED
 const prog_char XML_AIW[] PROGMEM = "<AIW>";
 const prog_char XML_AIW_END[] PROGMEM = "</AIW><AIB>";
 const prog_char XML_AIB_END[] PROGMEM = "</AIB><AIRB>";
 const prog_char XML_AIRB_END[] PROGMEM = "</AIRB>";
 #endif  // AI_LED
+#ifdef RFEXPANSION
+const prog_char XML_RFM[] PROGMEM = "<RFM>";
+const prog_char XML_RFM_END[] PROGMEM = "</RFM><RFS>";
+const prog_char XML_RFS_END[] PROGMEM = "</RFS><RFD>";
+const prog_char XML_RFD_END[] PROGMEM = "</RFD><RFW>";
+const prog_char XML_RFW_END[] PROGMEM = "</RFW><RFRB>";
+const prog_char XML_RFRB_END[] PROGMEM = "</RFRB><RFR>";
+const prog_char XML_RFR_END[] PROGMEM = "</RFR><RFG>";
+const prog_char XML_RFG_END[] PROGMEM = "</RFG><RFB>";
+const prog_char XML_RFB_END[] PROGMEM = "</RFB><RFI>";
+const prog_char XML_RFI_END[] PROGMEM = "</RFI>";
+#endif  // RFEXPANSION
 #ifdef ENABLE_ATO_LOGGING
 const prog_char XML_ATOLOW_LOG_OPEN[] PROGMEM = "<AL";
 const prog_char XML_ATOLOW_LOG_CLOSE[] PROGMEM = "</AL";
@@ -104,142 +124,175 @@ const prog_char XML_ERR[] PROGMEM = "ERR";
 #define REQ_FEEDING		11		// Start feeding mode
 #define REQ_WATER		12		// Start water change mode
 #define REQ_BTN_PRESS	13		// Simulate a button press, to end feeding & water change modes
+#define REQ_CAL_RELOAD	14		// Reload calibration values from memory
 #define REQ_HTTP		127		// HTTP get request from  external server
 #define REQ_UNKNOWN		128	 	// Unknown request
 
 #define P(name)   static const prog_char name[] PROGMEM
 const prog_char SERVER_RA[] PROGMEM = "<script language='javascript' src='http://www.reefangel.com/wifi/ra1.js'></script>";
 const prog_char EncodingChars[] PROGMEM = {"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"};
-const prog_char BannerGET[] PROGMEM = "GET /status/submit.asp?t1=";
+const prog_char BannerGET[] PROGMEM = "GET /status/submitp.asp?t1=";
 const prog_char BannerT2[] PROGMEM = "&t2=";
 const prog_char BannerT3[] PROGMEM = "&t3=";
 const prog_char BannerPH[] PROGMEM = "&ph=";
-const prog_char BannerRelayData[] PROGMEM = "&relaydata";
+const prog_char BannerRelayData[] PROGMEM = "&r";
+const prog_char BannerRelayMaskOn[] PROGMEM = "&ron";
+const prog_char BannerRelayMaskOff[] PROGMEM = "&roff";
+const prog_char id_tag[] PROGMEM = "&id=";
+#ifdef SALINITYEXPANSION
+const prog_char BannerSal[] PROGMEM = "&sal=";
+#endif  // SALINITYEXPANSION
+#ifdef ORPEXPANSION
+const prog_char BannerORP[] PROGMEM = "&orp=";
+#endif  // ORPEXPANSION
+#if defined DisplayLEDPWM && ! defined RemoveAllLights
+const prog_char BannerPWMA[] PROGMEM = "&pwma=";
+const prog_char BannerPWMD[] PROGMEM = "&pwmd=";
+#endif  // DisplayLEDPWM && ! defined RemoveAllLights
+#ifdef PWMEXPANSION
+const prog_char BannerPWME[] PROGMEM = "&pwme";
+#endif  // PWMEXPANSION
+#ifdef RFEXPANSION
+const prog_char BannerRFM[] PROGMEM = "&rfm=";
+const prog_char BannerRFS[] PROGMEM = "&rfs=";
+const prog_char BannerRFD[] PROGMEM = "&rfd=";
+const prog_char BannerRFW[] PROGMEM = "&rfw=";
+const prog_char BannerRFRB[] PROGMEM = "&rfrb=";
+const prog_char BannerRFR[] PROGMEM = "&rfr=";
+const prog_char BannerRFG[] PROGMEM = "&rfg=";
+const prog_char BannerRFB[] PROGMEM = "&rfb=";
+const prog_char BannerRFI[] PROGMEM = "&rfi=";
+#endif  // RFEXPANSION
+#ifdef AI_LED
+const prog_char BannerAIW[] PROGMEM = "&aiw=";
+const prog_char BannerAIB[] PROGMEM = "&aib=";
+const prog_char BannerAIRB[] PROGMEM = "&airb=";
+#endif  // AI_LED
 
-const prog_char id_tag[] PROGMEM = "id";
-const prog_char probe1_tag[] PROGMEM = "t1n";
-const prog_char probe2_tag[] PROGMEM = "t2n";
-const prog_char probe3_tag[] PROGMEM = "t3n";
-const prog_char relay1_tag[] PROGMEM = "r1n";
-const prog_char relay2_tag[] PROGMEM = "r2n";
-const prog_char relay3_tag[] PROGMEM = "r3n";
-const prog_char relay4_tag[] PROGMEM = "r4n";
-const prog_char relay5_tag[] PROGMEM = "r5n";
-const prog_char relay6_tag[] PROGMEM = "r6n";
-const prog_char relay7_tag[] PROGMEM = "r7n";
-const prog_char relay8_tag[] PROGMEM = "r8n";
-#ifdef RelayExp
-#if InstalledRelayExpansionModules >= 1
-const prog_char relay11_tag[] PROGMEM = "r11n";
-const prog_char relay12_tag[] PROGMEM = "r12n";
-const prog_char relay13_tag[] PROGMEM = "r13n";
-const prog_char relay14_tag[] PROGMEM = "r14n";
-const prog_char relay15_tag[] PROGMEM = "r15n";
-const prog_char relay16_tag[] PROGMEM = "r16n";
-const prog_char relay17_tag[] PROGMEM = "r17n";
-const prog_char relay18_tag[] PROGMEM = "r18n";
-#endif  // InstalledRelayExpansionModules >= 1
-#if InstalledRelayExpansionModules >= 2
-const prog_char relay21_tag[] PROGMEM = "r21n";
-const prog_char relay22_tag[] PROGMEM = "r22n";
-const prog_char relay23_tag[] PROGMEM = "r23n";
-const prog_char relay24_tag[] PROGMEM = "r24n";
-const prog_char relay25_tag[] PROGMEM = "r25n";
-const prog_char relay26_tag[] PROGMEM = "r26n";
-const prog_char relay27_tag[] PROGMEM = "r27n";
-const prog_char relay28_tag[] PROGMEM = "r28n";
-#endif  // InstalledRelayExpansionModules >= 2
-#if InstalledRelayExpansionModules >= 3
-const prog_char relay31_tag[] PROGMEM = "r31n";
-const prog_char relay32_tag[] PROGMEM = "r32n";
-const prog_char relay33_tag[] PROGMEM = "r33n";
-const prog_char relay34_tag[] PROGMEM = "r34n";
-const prog_char relay35_tag[] PROGMEM = "r35n";
-const prog_char relay36_tag[] PROGMEM = "r36n";
-const prog_char relay37_tag[] PROGMEM = "r37n";
-const prog_char relay38_tag[] PROGMEM = "r38n";
-#endif  // InstalledRelayExpansionModules >= 3
-#if InstalledRelayExpansionModules >= 4
-const prog_char relay41_tag[] PROGMEM = "r41n";
-const prog_char relay42_tag[] PROGMEM = "r42n";
-const prog_char relay43_tag[] PROGMEM = "r43n";
-const prog_char relay44_tag[] PROGMEM = "r44n";
-const prog_char relay45_tag[] PROGMEM = "r45n";
-const prog_char relay46_tag[] PROGMEM = "r46n";
-const prog_char relay47_tag[] PROGMEM = "r47n";
-const prog_char relay48_tag[] PROGMEM = "r48n";
-#endif  // InstalledRelayExpansionModules >= 4
-#if InstalledRelayExpansionModules >= 5
-const prog_char relay51_tag[] PROGMEM = "r51n";
-const prog_char relay52_tag[] PROGMEM = "r52n";
-const prog_char relay53_tag[] PROGMEM = "r53n";
-const prog_char relay54_tag[] PROGMEM = "r54n";
-const prog_char relay55_tag[] PROGMEM = "r55n";
-const prog_char relay56_tag[] PROGMEM = "r56n";
-const prog_char relay57_tag[] PROGMEM = "r57n";
-const prog_char relay58_tag[] PROGMEM = "r58n";
-#endif  // InstalledRelayExpansionModules >= 5
-#if InstalledRelayExpansionModules >= 6
-const prog_char relay61_tag[] PROGMEM = "r61n";
-const prog_char relay62_tag[] PROGMEM = "r62n";
-const prog_char relay63_tag[] PROGMEM = "r63n";
-const prog_char relay64_tag[] PROGMEM = "r64n";
-const prog_char relay65_tag[] PROGMEM = "r65n";
-const prog_char relay66_tag[] PROGMEM = "r66n";
-const prog_char relay67_tag[] PROGMEM = "r67n";
-const prog_char relay68_tag[] PROGMEM = "r68n";
-#endif  // InstalledRelayExpansionModules >= 6
-#if InstalledRelayExpansionModules >= 7
-const prog_char relay71_tag[] PROGMEM = "r71n";
-const prog_char relay72_tag[] PROGMEM = "r72n";
-const prog_char relay73_tag[] PROGMEM = "r73n";
-const prog_char relay74_tag[] PROGMEM = "r74n";
-const prog_char relay75_tag[] PROGMEM = "r75n";
-const prog_char relay76_tag[] PROGMEM = "r76n";
-const prog_char relay77_tag[] PROGMEM = "r77n";
-const prog_char relay78_tag[] PROGMEM = "r78n";
-#endif  // InstalledRelayExpansionModules >= 7
-#if InstalledRelayExpansionModules >= 8
-const prog_char relay81_tag[] PROGMEM = "r81n";
-const prog_char relay82_tag[] PROGMEM = "r82n";
-const prog_char relay83_tag[] PROGMEM = "r83n";
-const prog_char relay84_tag[] PROGMEM = "r84n";
-const prog_char relay85_tag[] PROGMEM = "r85n";
-const prog_char relay86_tag[] PROGMEM = "r86n";
-const prog_char relay87_tag[] PROGMEM = "r87n";
-const prog_char relay88_tag[] PROGMEM = "r88n";
-#endif  // InstalledRelayExpansionModules >= 8
-#endif  // RelayExp
-static PROGMEM const char *webbanner_tags[] = {
-	id_tag, probe1_tag, probe2_tag, probe3_tag,
-	relay1_tag, relay2_tag, relay3_tag, relay4_tag, relay5_tag, relay6_tag, relay7_tag, relay8_tag,
-#ifdef RelayExp
-#if InstalledRelayExpansionModules >= 1
-	relay11_tag, relay12_tag, relay13_tag, relay14_tag, relay15_tag, relay16_tag, relay17_tag, relay18_tag,
-#endif  // InstalledRelayExpansionModules >= 1
-#if InstalledRelayExpansionModules >= 2
-	relay21_tag, relay22_tag, relay23_tag, relay24_tag, relay25_tag, relay26_tag, relay27_tag, relay28_tag,
-#endif  // InstalledRelayExpansionModules >= 2
-#if InstalledRelayExpansionModules >= 3
-	relay31_tag, relay32_tag, relay33_tag, relay34_tag, relay35_tag, relay36_tag, relay37_tag, relay38_tag,
-#endif  // InstalledRelayExpansionModules >= 3
-#if InstalledRelayExpansionModules >= 4
-	relay41_tag, relay42_tag, relay43_tag, relay44_tag, relay45_tag, relay46_tag, relay47_tag, relay48_tag,
-#endif  // InstalledRelayExpansionModules >= 4
-#if InstalledRelayExpansionModules >= 5
-	relay51_tag, relay52_tag, relay53_tag, relay54_tag, relay55_tag, relay56_tag, relay57_tag, relay58_tag,
-#endif  // InstalledRelayExpansionModules >= 5
-#if InstalledRelayExpansionModules >= 6
-	relay61_tag, relay62_tag, relay63_tag, relay64_tag, relay65_tag, relay66_tag, relay67_tag, relay68_tag,
-#endif  // InstalledRelayExpansionModules >= 6
-#if InstalledRelayExpansionModules >= 7
-	relay71_tag, relay72_tag, relay73_tag, relay74_tag, relay75_tag, relay76_tag, relay77_tag, relay78_tag,
-#endif  // InstalledRelayExpansionModules >= 7
-#if InstalledRelayExpansionModules >= 8
-	relay81_tag, relay82_tag, relay83_tag, relay84_tag, relay85_tag, relay86_tag, relay87_tag, relay88_tag,
-#endif  // InstalledRelayExpansionModules >= 8
-#endif  // RelayExp
-};
+
+//const prog_char probe1_tag[] PROGMEM = "t1n";
+//const prog_char probe2_tag[] PROGMEM = "t2n";
+//const prog_char probe3_tag[] PROGMEM = "t3n";
+//const prog_char relay1_tag[] PROGMEM = "r1n";
+//const prog_char relay2_tag[] PROGMEM = "r2n";
+//const prog_char relay3_tag[] PROGMEM = "r3n";
+//const prog_char relay4_tag[] PROGMEM = "r4n";
+//const prog_char relay5_tag[] PROGMEM = "r5n";
+//const prog_char relay6_tag[] PROGMEM = "r6n";
+//const prog_char relay7_tag[] PROGMEM = "r7n";
+//const prog_char relay8_tag[] PROGMEM = "r8n";
+//#ifdef RelayExp
+//#if InstalledRelayExpansionModules >= 1
+//const prog_char relay11_tag[] PROGMEM = "r11n";
+//const prog_char relay12_tag[] PROGMEM = "r12n";
+//const prog_char relay13_tag[] PROGMEM = "r13n";
+//const prog_char relay14_tag[] PROGMEM = "r14n";
+//const prog_char relay15_tag[] PROGMEM = "r15n";
+//const prog_char relay16_tag[] PROGMEM = "r16n";
+//const prog_char relay17_tag[] PROGMEM = "r17n";
+//const prog_char relay18_tag[] PROGMEM = "r18n";
+//#endif  // InstalledRelayExpansionModules >= 1
+//#if InstalledRelayExpansionModules >= 2
+//const prog_char relay21_tag[] PROGMEM = "r21n";
+//const prog_char relay22_tag[] PROGMEM = "r22n";
+//const prog_char relay23_tag[] PROGMEM = "r23n";
+//const prog_char relay24_tag[] PROGMEM = "r24n";
+//const prog_char relay25_tag[] PROGMEM = "r25n";
+//const prog_char relay26_tag[] PROGMEM = "r26n";
+//const prog_char relay27_tag[] PROGMEM = "r27n";
+//const prog_char relay28_tag[] PROGMEM = "r28n";
+//#endif  // InstalledRelayExpansionModules >= 2
+//#if InstalledRelayExpansionModules >= 3
+//const prog_char relay31_tag[] PROGMEM = "r31n";
+//const prog_char relay32_tag[] PROGMEM = "r32n";
+//const prog_char relay33_tag[] PROGMEM = "r33n";
+//const prog_char relay34_tag[] PROGMEM = "r34n";
+//const prog_char relay35_tag[] PROGMEM = "r35n";
+//const prog_char relay36_tag[] PROGMEM = "r36n";
+//const prog_char relay37_tag[] PROGMEM = "r37n";
+//const prog_char relay38_tag[] PROGMEM = "r38n";
+//#endif  // InstalledRelayExpansionModules >= 3
+//#if InstalledRelayExpansionModules >= 4
+//const prog_char relay41_tag[] PROGMEM = "r41n";
+//const prog_char relay42_tag[] PROGMEM = "r42n";
+//const prog_char relay43_tag[] PROGMEM = "r43n";
+//const prog_char relay44_tag[] PROGMEM = "r44n";
+//const prog_char relay45_tag[] PROGMEM = "r45n";
+//const prog_char relay46_tag[] PROGMEM = "r46n";
+//const prog_char relay47_tag[] PROGMEM = "r47n";
+//const prog_char relay48_tag[] PROGMEM = "r48n";
+//#endif  // InstalledRelayExpansionModules >= 4
+//#if InstalledRelayExpansionModules >= 5
+//const prog_char relay51_tag[] PROGMEM = "r51n";
+//const prog_char relay52_tag[] PROGMEM = "r52n";
+//const prog_char relay53_tag[] PROGMEM = "r53n";
+//const prog_char relay54_tag[] PROGMEM = "r54n";
+//const prog_char relay55_tag[] PROGMEM = "r55n";
+//const prog_char relay56_tag[] PROGMEM = "r56n";
+//const prog_char relay57_tag[] PROGMEM = "r57n";
+//const prog_char relay58_tag[] PROGMEM = "r58n";
+//#endif  // InstalledRelayExpansionModules >= 5
+//#if InstalledRelayExpansionModules >= 6
+//const prog_char relay61_tag[] PROGMEM = "r61n";
+//const prog_char relay62_tag[] PROGMEM = "r62n";
+//const prog_char relay63_tag[] PROGMEM = "r63n";
+//const prog_char relay64_tag[] PROGMEM = "r64n";
+//const prog_char relay65_tag[] PROGMEM = "r65n";
+//const prog_char relay66_tag[] PROGMEM = "r66n";
+//const prog_char relay67_tag[] PROGMEM = "r67n";
+//const prog_char relay68_tag[] PROGMEM = "r68n";
+//#endif  // InstalledRelayExpansionModules >= 6
+//#if InstalledRelayExpansionModules >= 7
+//const prog_char relay71_tag[] PROGMEM = "r71n";
+//const prog_char relay72_tag[] PROGMEM = "r72n";
+//const prog_char relay73_tag[] PROGMEM = "r73n";
+//const prog_char relay74_tag[] PROGMEM = "r74n";
+//const prog_char relay75_tag[] PROGMEM = "r75n";
+//const prog_char relay76_tag[] PROGMEM = "r76n";
+//const prog_char relay77_tag[] PROGMEM = "r77n";
+//const prog_char relay78_tag[] PROGMEM = "r78n";
+//#endif  // InstalledRelayExpansionModules >= 7
+//#if InstalledRelayExpansionModules >= 8
+//const prog_char relay81_tag[] PROGMEM = "r81n";
+//const prog_char relay82_tag[] PROGMEM = "r82n";
+//const prog_char relay83_tag[] PROGMEM = "r83n";
+//const prog_char relay84_tag[] PROGMEM = "r84n";
+//const prog_char relay85_tag[] PROGMEM = "r85n";
+//const prog_char relay86_tag[] PROGMEM = "r86n";
+//const prog_char relay87_tag[] PROGMEM = "r87n";
+//const prog_char relay88_tag[] PROGMEM = "r88n";
+//#endif  // InstalledRelayExpansionModules >= 8
+//#endif  // RelayExp
+//static PROGMEM const char *webbanner_tags[] = {
+//	id_tag, probe1_tag, probe2_tag, probe3_tag,
+//	relay1_tag, relay2_tag, relay3_tag, relay4_tag, relay5_tag, relay6_tag, relay7_tag, relay8_tag,
+//#ifdef RelayExp
+//#if InstalledRelayExpansionModules >= 1
+//	relay11_tag, relay12_tag, relay13_tag, relay14_tag, relay15_tag, relay16_tag, relay17_tag, relay18_tag,
+//#endif  // InstalledRelayExpansionModules >= 1
+//#if InstalledRelayExpansionModules >= 2
+//	relay21_tag, relay22_tag, relay23_tag, relay24_tag, relay25_tag, relay26_tag, relay27_tag, relay28_tag,
+//#endif  // InstalledRelayExpansionModules >= 2
+//#if InstalledRelayExpansionModules >= 3
+//	relay31_tag, relay32_tag, relay33_tag, relay34_tag, relay35_tag, relay36_tag, relay37_tag, relay38_tag,
+//#endif  // InstalledRelayExpansionModules >= 3
+//#if InstalledRelayExpansionModules >= 4
+//	relay41_tag, relay42_tag, relay43_tag, relay44_tag, relay45_tag, relay46_tag, relay47_tag, relay48_tag,
+//#endif  // InstalledRelayExpansionModules >= 4
+//#if InstalledRelayExpansionModules >= 5
+//	relay51_tag, relay52_tag, relay53_tag, relay54_tag, relay55_tag, relay56_tag, relay57_tag, relay58_tag,
+//#endif  // InstalledRelayExpansionModules >= 5
+//#if InstalledRelayExpansionModules >= 6
+//	relay61_tag, relay62_tag, relay63_tag, relay64_tag, relay65_tag, relay66_tag, relay67_tag, relay68_tag,
+//#endif  // InstalledRelayExpansionModules >= 6
+//#if InstalledRelayExpansionModules >= 7
+//	relay71_tag, relay72_tag, relay73_tag, relay74_tag, relay75_tag, relay76_tag, relay77_tag, relay78_tag,
+//#endif  // InstalledRelayExpansionModules >= 7
+//#if InstalledRelayExpansionModules >= 8
+//	relay81_tag, relay82_tag, relay83_tag, relay84_tag, relay85_tag, relay86_tag, relay87_tag, relay88_tag,
+//#endif  // InstalledRelayExpansionModules >= 8
+//#endif  // RelayExp
+//};
 
 static char m_pushback[32];
 static byte m_pushbackindex=0;

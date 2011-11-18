@@ -31,12 +31,12 @@ public:
 	void SetActinic(byte value);
 	void SetDaylight(byte value);
 #ifdef PWMEXPANSION
+	byte ExpansionChannel[6];
 	void Expansion(byte cmd, byte data);
 	void ExpansionSetPercent(byte p);
 #endif  // PWMEXPANSION
 	inline byte GetActinicValue() { return ActinicPWMValue; }
 	inline byte GetDaylightValue() { return DaylightPWMValue; }
-	byte ExpansionChannel[6];
 
 private:
 	byte ActinicPWMValue;

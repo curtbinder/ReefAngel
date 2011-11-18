@@ -465,7 +465,9 @@ void ReefAngelClass::Init()
 
     PHMin = InternalMemory.PHMin_read();
     PHMax = InternalMemory.PHMax_read();
+#ifdef SALINITYEXPANSION
     SalMax = InternalMemory.SalMax_read();
+#endif  // SALINITYEXPANSION
 	taddr = InternalMemory.T1Pointer_read();
 	Params.Salinity=0;
 
@@ -1120,18 +1122,14 @@ void ReefAngelClass::MoonlightPWM(byte RelayID, bool ShowPWM)
 #endif  // DisplayLEDPWM && ! defined RemoveAllLights
 
 #ifdef wifi
-void ReefAngelClass::LoadWebBanner(int pointer, byte qty)
-{
-	webbannerpointer = pointer;
-	webbannerqty = qty;
-}
+//void ReefAngelClass::LoadWebBanner(int pointer, byte qty)
+//{
+//	webbannerpointer = pointer;
+//	webbannerqty = qty;
+//}
 
-void ReefAngelClass::WebBanner()
+void ReefAngelClass::WebBanner(char *text)
 {
-	char buffer[22];
-	int ptr = webbannerpointer;
-	int tagptr = pgm_read_word(&(webbanner_tags[0]));
-
 	PROGMEMprint(BannerGET);
 	Serial.print(Params.Temp1, DEC);
 	PROGMEMprint(BannerT2);
@@ -1142,54 +1140,83 @@ void ReefAngelClass::WebBanner()
 	Serial.print(Params.PH, DEC);
 	PROGMEMprint(BannerRelayData);
 	Serial.print("=");
-	// compute the correct relay data, when we force a port on or off, it does not get reflected in the relaydata
-	// so we must compute it based on the mask and send the data to the banner (compute just like when sending the
-	// relay data on the wire)
-    byte TempRelay = Relay.RelayData;
-    TempRelay &= Relay.RelayMaskOff;
-    TempRelay |= Relay.RelayMaskOn;
-	Serial.print(TempRelay, DEC);
+	Serial.print(Relay.RelayData, DEC);
+	PROGMEMprint(BannerRelayMaskOn);
+	Serial.print("=");
+	Serial.print(Relay.RelayMaskOn, DEC);
+	PROGMEMprint(BannerRelayMaskOff);
+	Serial.print("=");
+	Serial.print(Relay.RelayMaskOff, DEC);
 #ifdef RelayExp
 	for ( byte x = 0; x < InstalledRelayExpansionModules && x < MAX_RELAY_EXPANSION_MODULES; x++ )
 	{
 		PROGMEMprint(BannerRelayData);
 		Serial.print(x+1, DEC);
 		Serial.print("=");
-		TempRelay = Relay.RelayDataE[x];
-		TempRelay &= Relay.RelayMaskOffE[x];
-		TempRelay |= Relay.RelayMaskOnE[x];
-		Serial.print(TempRelay, DEC);
+		Serial.print(Relay.RelayDataE[x], DEC);
+		PROGMEMprint(BannerRelayMaskOn);
+		Serial.print(x+1, DEC);
+		Serial.print("=");
+		Serial.print(Relay.RelayMaskOnE[x], DEC);
+		PROGMEMprint(BannerRelayMaskOff);
+		Serial.print(x+1, DEC);
+		Serial.print("=");
+		Serial.print(Relay.RelayMaskOffE[x], DEC);
 	}  // for x
 #endif  // RelayExp
-
-	if ( webbannerqty == WEB_BANNER_QTY )
+#ifdef SALINITYEXPANSION
+	PROGMEMprint(BannerSal);
+	Serial.print(Params.Salinity, DEC);
+#endif  // SALINITYEXPANSION
+#ifdef ORPEXPANSION
+	PROGMEMprint(BannerORP);
+	Serial.print(Params.ORP, DEC);
+#endif  // ORPEXPANSION
+#if defined DisplayLEDPWM && ! defined RemoveAllLights
+	PROGMEMprint(BannerPWMA);
+	Serial.print(PWM.GetActinicValue(), DEC);
+	PROGMEMprint(BannerPWMD);
+	Serial.print(PWM.GetDaylightValue(), DEC);
+#endif  // DisplayLEDPWM && ! defined RemoveAllLights
+#ifdef PWMEXPANSION
+	for ( byte EID = 0; EID < PWM_EXPANSION_CHANNELS; EID++ )
 	{
-		for ( byte i = 0; i < WEB_BANNER_QTY; i++ )
-		{
-			strcpy_P(buffer, (char *)tagptr++);
-			tagptr += strlen(buffer);
-			Serial.print("&");
-			Serial.print(buffer);
-			Serial.print("=");
-			strcpy_P(buffer, (char *)ptr++);
-			ptr += strlen(buffer);
-			Serial.print(buffer);
-		}  // for i
-	}
-	else
-	{
-		strcpy_P(buffer, (char *)tagptr++);
-		tagptr += strlen(buffer);
-		Serial.print("&");
-		Serial.print(buffer);
+		PROGMEMprint(BannerPWME);
+		Serial.print(EID, DEC);
 		Serial.print("=");
-		strcpy_P(buffer, (char *)ptr++);
-		ptr += strlen(buffer);
-		Serial.print(buffer);
-		Serial.print("&");
-		P(badmsg)=BAD;
-		printP(badmsg);
-	}
+		Serial.print(PWM.ExpansionChannel[EID], DEC);
+	}	
+#endif  // PWMEXPANSION
+#ifdef RFEXPANSION
+	PROGMEMprint(BannerRFM);
+	Serial.print(RF.Mode, DEC);
+	PROGMEMprint(BannerRFS);
+	Serial.print(RF.Speed, DEC);
+	PROGMEMprint(BannerRFD);
+	Serial.print(RF.Duration, DEC);
+	PROGMEMprint(BannerRFW);
+	Serial.print(RF.GetChannel(0), DEC);
+	PROGMEMprint(BannerRFRB);
+	Serial.print(RF.GetChannel(1), DEC);
+	PROGMEMprint(BannerRFR);
+	Serial.print(RF.GetChannel(2), DEC);
+	PROGMEMprint(BannerRFG);
+	Serial.print(RF.GetChannel(3), DEC);
+	PROGMEMprint(BannerRFB);
+	Serial.print(RF.GetChannel(4), DEC);
+	PROGMEMprint(BannerRFI);
+	Serial.print(RF.GetChannel(5), DEC);
+#endif  // RFEXPANSION
+#ifdef AI_LED
+	PROGMEMprint(BannerAIW);
+	Serial.print(AI.GetChannel(0), DEC);
+	PROGMEMprint(BannerAIB);
+	Serial.print(AI.GetChannel(1), DEC);
+	PROGMEMprint(BannerAIRB);
+	Serial.print(AI.GetChannel(2), DEC);
+#endif  // AI_LED
+	PROGMEMprint(id_tag);
+	Serial.print(text);
 	Serial.println("\n\n");
 }
 #endif  // wifi

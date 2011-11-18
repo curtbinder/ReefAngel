@@ -167,8 +167,8 @@ public:
 
 	// WebBanner
 #ifdef wifi
-	void LoadWebBanner(int pointer, byte qty);
-	void WebBanner();
+	//void LoadWebBanner(int pointer, byte qty);
+	void WebBanner(char *text);
 #endif  // wifi
 
 	void FeedingModeStart();
@@ -241,11 +241,11 @@ private:
 	byte PreviousMenu;
 	bool redrawmenu;
 
-#ifdef wifi
-	// WebBanner variables
-	int webbannerpointer;
-	byte webbannerqty;
-#endif  // wifi
+//#ifdef wifi
+//	// WebBanner variables
+//	int webbannerpointer;
+//	byte webbannerqty;
+//#endif  // wifi
 
 #ifdef SaveRelayState
 	byte CurrentRelayState;

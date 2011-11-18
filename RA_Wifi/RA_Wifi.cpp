@@ -197,6 +197,7 @@ void pushbuffer(byte inStr)
             else if (strncmp("GET /bp", m_pushback, 7)==0) reqtype = -REQ_BTN_PRESS;
             else if (strncmp("GET /mf", m_pushback, 7)==0) reqtype = -REQ_FEEDING;
             else if (strncmp("GET /mw", m_pushback, 7)==0) reqtype = -REQ_WATER;
+            else if (strncmp("GET /cr", m_pushback, 7)==0) reqtype = -REQ_CAL_RELOAD;
             //else reqtype = -REQ_UNKNOWN;
 		}
 	}
@@ -314,13 +315,11 @@ void processHTTP()
 				//<SAL></SAL>
 				s += intlength(ReefAngel.Params.Salinity);
 #endif  // SALINITYEXPANSION
-#ifdef AI_LED
-				s += 35;
-				//<AIW></AIW><AIB></AIB><AIRB></AIRB>
-				s += intlength(ReefAngel.AI.GetChannel(0));
-				s += intlength(ReefAngel.AI.GetChannel(1));
-				s += intlength(ReefAngel.AI.GetChannel(2));
-#endif  // AI_LED
+#ifdef ORPEXPANSION
+				s += 11;
+				//<ORP></ORP>
+				s += intlength(ReefAngel.Params.ORP);
+#endif  // ORPEXPANSION
 #ifdef RelayExp
 				s += 296;
 				//<R0></R0><RON0></RON0><ROFF0></ROFF0><R1></R1><RON1></RON1><ROFF1></ROFF1><R2></R2><RON2></RON2><ROFF2></ROFF2><R3></R3><RON3></RON3><ROFF3></ROFF3><R4></R4><RON4></RON4><ROFF4></ROFF4><R5></R5><RON5></RON5><ROFF5></ROFF5><R6></R6><RON6></RON6><ROFF6></ROFF6><R7></R7><RON7></RON7><ROFF7></ROFF7>
@@ -331,6 +330,24 @@ void processHTTP()
 					s += intlength(ReefAngel.Relay.RelayMaskOffE[EID]);
 				}
 #endif  // RelayExp
+#ifdef PWMEXPANSION
+				s += 90;
+				//<PWME0></PWME0><PWME1></PWME1><PWME2></PWME2><PWME3></PWME3><PWME4></PWME4><PWME5></PWME5>
+				for ( byte EID = 0; EID < PWM_EXPANSION_CHANNELS; EID++ ) s += intlength(ReefAngel.PWM.ExpansionChannel[EID]);
+#endif  // PWMEXPANSION
+#ifdef RFEXPANSION
+				s += 101;
+				//<RFM></RFM><RFS></RFS><RFD></RFD><RFW></RFW><RFRB></RFRB><RFR></RFR><RFG></RFG><RFB></RFB><RFI></RFI>
+				for ( byte EID = 0; EID < RF_CHANNELS; EID++ ) s += intlength(ReefAngel.RF.GetChannel(EID));
+				s += intlength(ReefAngel.RF.Mode);
+				s += intlength(ReefAngel.RF.Speed);
+				s += intlength(ReefAngel.RF.Duration);
+#endif  // RFEXPANSION
+#ifdef AI_LED
+				s += 35;
+				//<AIW></AIW><AIB></AIB><AIRB></AIRB>
+				for ( byte EID = 0; EID < AI_CHANNELS; EID++ ) s += intlength(ReefAngel.AI.GetChannel(EID));
+#endif  // AI_LED
 				s += 2;  // one digit for each ATO
 #ifdef ENABLE_ATO_LOGGING
 				if ( reqtype == REQ_RA_STATUS )
@@ -646,6 +663,17 @@ void processHTTP()
 				ModeResponse(true);
 				break;
 			}
+			case REQ_CAL_RELOAD:
+			{
+				// Reload calibration values from memory
+				ReefAngel.PHMin = InternalMemory.PHMin_read();
+				ReefAngel.PHMax = InternalMemory.PHMax_read();
+#ifdef SALINITYEXPANSION
+				ReefAngel.SalMax = InternalMemory.SalMax_read();
+#endif  // SALINITYEXPANSION
+			    PROGMEMprint(XML_OK);
+			    break;
+			}
 			default:
 			case REQ_UNKNOWN:
 			{
@@ -728,31 +756,31 @@ void SendXMLData(bool fAtoLog /*= false*/)
 	{
 		// relay data
 		PROGMEMprint(XML_RE_OPEN);
-		WIFI_SERIAL.print(EID, DEC);
+		WIFI_SERIAL.print(EID+1, DEC);
 		PROGMEMprint(XML_CLOSE_TAG);
 		WIFI_SERIAL.print(ReefAngel.Relay.RelayDataE[EID],DEC);
 		PROGMEMprint(XML_RE_CLOSE);
-		WIFI_SERIAL.print(EID, DEC);
+		WIFI_SERIAL.print(EID+1, DEC);
 		PROGMEMprint(XML_CLOSE_TAG);
 		// relay on mask
 		PROGMEMprint(XML_RE_OPEN);
 		PROGMEMprint(XML_RE_ON);
-		WIFI_SERIAL.print(EID, DEC);
+		WIFI_SERIAL.print(EID+1, DEC);
 		PROGMEMprint(XML_CLOSE_TAG);
 		WIFI_SERIAL.print(ReefAngel.Relay.RelayMaskOnE[EID],DEC);
 		PROGMEMprint(XML_RE_CLOSE);
 		PROGMEMprint(XML_RE_ON);
-		WIFI_SERIAL.print(EID, DEC);
+		WIFI_SERIAL.print(EID+1, DEC);
 		PROGMEMprint(XML_CLOSE_TAG);
 		// relay off mask
 		PROGMEMprint(XML_RE_OPEN);
 		PROGMEMprint(XML_RE_OFF);
-		WIFI_SERIAL.print(EID, DEC);
+		WIFI_SERIAL.print(EID+1, DEC);
 		PROGMEMprint(XML_CLOSE_TAG);
 		WIFI_SERIAL.print(ReefAngel.Relay.RelayMaskOffE[EID],DEC);
 		PROGMEMprint(XML_RE_CLOSE);
 		PROGMEMprint(XML_RE_OFF);
-		WIFI_SERIAL.print(EID, DEC);
+		WIFI_SERIAL.print(EID+1, DEC);
 		PROGMEMprint(XML_CLOSE_TAG);
 	}
 #endif  // RelayExp
@@ -773,6 +801,23 @@ void SendXMLData(bool fAtoLog /*= false*/)
 	WIFI_SERIAL.print(ReefAngel.Params.Salinity, DEC);
 	PROGMEMprint(XML_SAL_END);
 #endif  // SALINITYEXPANSION
+#ifdef ORPEXPANSION
+	PROGMEMprint(XML_ORP);
+	WIFI_SERIAL.print(ReefAngel.Params.ORP, DEC);
+	PROGMEMprint(XML_ORP_END);
+#endif  // ORPEXPANSION
+#ifdef PWMEXPANSION
+	for ( byte EID = 0; EID < PWM_EXPANSION_CHANNELS; EID++ )
+	{
+		PROGMEMprint(XML_PWME);
+		WIFI_SERIAL.print(EID, DEC);
+		PROGMEMprint(XML_CLOSE_TAG);
+		WIFI_SERIAL.print(ReefAngel.PWM.ExpansionChannel[EID], DEC);
+		PROGMEMprint(XML_PWME_END);
+		WIFI_SERIAL.print(EID, DEC);
+		PROGMEMprint(XML_CLOSE_TAG);
+	}
+#endif  // PWMEXPANSION
 #ifdef AI_LED
 	PROGMEMprint(XML_AIW);
 	WIFI_SERIAL.print(ReefAngel.AI.GetChannel(0), DEC);
@@ -782,6 +827,27 @@ void SendXMLData(bool fAtoLog /*= false*/)
 	WIFI_SERIAL.print(ReefAngel.AI.GetChannel(2), DEC);
 	PROGMEMprint(XML_AIRB_END);
 #endif  // AI_LED
+#ifdef RFEXPANSION
+	PROGMEMprint(XML_RFM);
+	WIFI_SERIAL.print(ReefAngel.RF.Mode, DEC);
+	PROGMEMprint(XML_RFM_END);
+	WIFI_SERIAL.print(ReefAngel.RF.Speed, DEC);
+	PROGMEMprint(XML_RFS_END);
+	WIFI_SERIAL.print(ReefAngel.RF.Duration, DEC);
+	PROGMEMprint(XML_RFD_END);
+	WIFI_SERIAL.print(ReefAngel.RF.GetChannel(0), DEC);
+	PROGMEMprint(XML_RFW_END);
+	WIFI_SERIAL.print(ReefAngel.RF.GetChannel(1), DEC);
+	PROGMEMprint(XML_RFRB_END);
+	WIFI_SERIAL.print(ReefAngel.RF.GetChannel(2), DEC);
+	PROGMEMprint(XML_RFR_END);
+	WIFI_SERIAL.print(ReefAngel.RF.GetChannel(3), DEC);
+	PROGMEMprint(XML_RFG_END);
+	WIFI_SERIAL.print(ReefAngel.RF.GetChannel(4), DEC);
+	PROGMEMprint(XML_RFB_END);
+	WIFI_SERIAL.print(ReefAngel.RF.GetChannel(5), DEC);
+	PROGMEMprint(XML_RFI_END);
+#endif  // RFEXPANSION
 #ifdef ENABLE_ATO_LOGGING
 	if ( fAtoLog )
 	{
