@@ -563,8 +563,177 @@ Used by the AI Functions
 #define RoyalBlue		2
 const byte RawChannel[]={67,65,66};
 
+//ReefTouch Block
+
+typedef struct Calibration 
+{
+	int XMin;
+	int XMax;
+	int YMin;
+	int YMax;
+} CALIBRATION ;
+
+typedef struct Compensation 
+{
+	int XOff;
+	int YOff;
+} COMPENSATION ;
+
+typedef struct {
+    byte sig[4];
+    long hdrSize;
+    long width;
+    long height;
+    byte format;
+    byte reserved0;
+    byte colors;
+    byte restartInterval;
+    long reserved1;
+} Img2;
+
+// Reef Touch Colors
+#define BLACK                       RGB565(0x00, 0x00, 0x00)
+#define WHITE                       RGB565(0xFF, 0xFF, 0xFF)
+#define RED                         RGB565(0xFF, 0x00, 0x00)
+#define GREEN                       RGB565(0x00, 0xFF, 0x00)
+#define BLUE                        RGB565(0x00, 0x00, 0xFF)
+#define YELLOW                      RGB565(0xFF, 0xFF, 0x00)
+#define MAGENTA                     RGB565(0xFF, 0x00, 0xFF)
+#define CYAN                        RGB565(0x00, 0xFF, 0xFF)
+#define GRAY                        RGB565(0x80, 0x80, 0x40)
+#define SILVER                      RGB565(0xA0, 0xA0, 0x80)
+#define GOLD                        RGB565(0xA0, 0xA0, 0x40)
+#define ORANGE						RGB565(0xFF, 0x80, 0x00)
+#define TOPBAR_BC					RGB565(0x3A, 0x8C, 0x98)
+#define TOPBAR_FC					WHITE
+#define BKCOLOR						BLACK
+#define DIVISION					RGB565(0x40, 0x40, 0x40)
+#define RELAYBOXLABELBAR			RGB565(0xDC, 0xAC, 0xDE)
+#define PWMLABELBAR					RGB565(0xF7, 0xBC, 0x54)
+#define RFLABELBAR					RGB565(0xF6, 0x03, 0xFF)
+#define AILABELBAR					RGB565(0xFF, 0x8A, 0x00)
+#define RELAYGREEN                  RGB565(0x00, 0xAA, 0x00)
+
+//Internal EEPROM
+#define TS_CALIBRATION_ADDRESS 		0x0
+#define TT_COMPENSATION_ADDRESS 	0x10
+#define	Probe1Name					0x20
+#define	Probe2Name					0x30
+#define	Probe3Name					0x40
+
+#define	PWMChannel1					0x50
+#define	PWMChannel2					0x60
+#define	PWMChannel3					0x70
+#define	PWMChannel4					0x80
+#define	PWMChannel5					0x90
+#define	PWMChannel6					0xa0
+
+#define	R1Name						0x500
+#define	R2Name						0x510
+#define	R3Name						0x520
+#define	R4Name						0x530
+#define	R5Name						0x540
+#define	R6Name						0x550
+#define	R7Name						0x560
+#define	R8Name						0x570
+#define	R11Name						0x580
+#define	R12Name						0x590
+#define	R13Name						0x5a0
+#define	R14Name						0x5b0
+#define	R15Name						0x5c0
+#define	R16Name						0x5d0
+#define	R17Name						0x5e0
+#define	R18Name						0x5f0
+#define	R21Name						0x600
+#define	R22Name						0x610
+#define	R23Name						0x620
+#define	R24Name						0x630
+#define	R25Name						0x640
+#define	R26Name						0x650
+#define	R27Name						0x660
+#define	R28Name						0x670
+#define	R31Name						0x680
+#define	R32Name						0x690
+#define	R33Name						0x6a0
+#define	R34Name						0x6b0
+#define	R35Name						0x6c0
+#define	R36Name						0x6d0
+#define	R37Name						0x6e0
+#define	R38Name						0x6f0
+#define	R41Name						0x700
+#define	R42Name						0x710
+#define	R43Name						0x720
+#define	R44Name						0x730
+#define	R45Name						0x740
+#define	R46Name						0x750
+#define	R47Name						0x760
+#define	R48Name						0x770
+#define	R51Name						0x780
+#define	R52Name						0x790
+#define	R53Name						0x7a0
+#define	R54Name						0x7b0
+#define	R55Name						0x7c0
+#define	R56Name						0x7d0
+#define	R57Name						0x7e0
+#define	R58Name						0x7f0
+#define	R61Name						0x800
+#define	R62Name						0x810
+#define	R63Name						0x820
+#define	R64Name						0x830
+#define	R65Name						0x840
+#define	R66Name						0x850
+#define	R67Name						0x860
+#define	R68Name						0x870
+#define	R71Name						0x880
+#define	R72Name						0x890
+#define	R73Name						0x8a0
+#define	R74Name						0x8b0
+#define	R75Name						0x8c0
+#define	R76Name						0x8d0
+#define	R77Name						0x8e0
+#define	R78Name						0x8f0
+#define	R81Name						0x900
+#define	R82Name						0x910
+#define	R83Name						0x920
+#define	R84Name						0x930
+#define	R85Name						0x940
+#define	R86Name						0x950
+#define	R87Name						0x960
+#define	R88Name						0x970
+
+//Main Screens
+#define MAIN_SCREEN			0
+#define RELAY_BOX			1
+#define EXP_BOX_1			2
+#define EXP_BOX_2			3
+#define EXP_BOX_3			4
+#define EXP_BOX_4			5
+#define EXP_BOX_5			6
+#define EXP_BOX_6			7
+#define EXP_BOX_7			8
+#define EXP_BOX_8			9
+#define PWM_SCREEN			10
+#define RF_SCREEN			11
+#define AI_SCREEN			12
+
+#define TT_SENSITIVITY					30
+#define MAX_APP_BUFFER 					768
+#define SplashDuration					10
+#define TouchSample						5
+#define TouchSlideDelta					20
+#define MAX_RELAY_EXPANSION_MODULES		8
+#define FONT_HEADER 					7
+#define TS_CALIBRATION_XMIN				365
+#define TS_CALIBRATION_XMAX				3825
+#define TS_CALIBRATION_YMIN				218
+#define TS_CALIBRATION_YMAX				3571
+#define TS_CALIBRATION_DELTA			250
+#define MAX_SCREENS						12 // Highest ID for main screens
+
 // Global macros
 #define SIZE(array) (sizeof(array) / sizeof(*array))
+// color definition
+#define RGB565(r, g, b) ((uint16_t)(((r >> 3) << 11)| ((g >> 2) << 5)| (b >> 3)))
 
 // external globally defined variables
 extern byte ButtonPress;  // Defined in ReefAngel.cpp, used for joystick button presses
@@ -586,6 +755,10 @@ bool IsLeapYear(int year);
 byte PWMSlope(byte startHour, byte startMinute, byte endHour, byte endMinute, byte startPWM, byte endPWM, byte Duration, byte oldValue);
 byte MoonPhase();
 void ConvertNumToString(char* string, int num, byte decimal);
+
+// 16bit color alpha blend
+int alphaBlend(int fgcolor, byte a);
+int alphaBlend(int fgcolor, int bgcolor, byte a);
 
 // for virtual functions
 extern "C" void __cxa_pure_virtual(void);

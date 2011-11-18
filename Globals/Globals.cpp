@@ -115,6 +115,45 @@ void ConvertNumToString(char* string, int num, byte decimal)
 	}
 }
 
+int alphaBlend(int fgcolor, byte a)
+{
+	int r=((fgcolor>>11)&0x1f)<<3;
+	int g=((fgcolor>>5)&0x3f)<<2;
+	int b=(fgcolor&0x1F)<<3;
+	r*=a;
+	r/=100;
+	g*=a;
+	g/=100;
+	b*=a;
+	b/=100;
+	return RGB565(r,g,b);
+}
+
+int alphaBlend(int fgcolor, int bgcolor, byte a)
+{
+	int r=((fgcolor>>11)&0x1f)<<3;
+	int g=((fgcolor>>5)&0x3f)<<2;
+	int b=(fgcolor&0x1F)<<3;
+	r*=a;
+	g*=a;
+	b*=a;
+	int r1=((bgcolor>>11)&0x1f)<<3;
+	int g1=((bgcolor>>5)&0x3f)<<2;
+	int b1=(bgcolor&0x1F)<<3;
+	r1*=(100-a);
+	g1*=(100-a);
+	b1*=(100-a);
+	r+=r1;
+	g+=g1;
+	b+=b1;
+	r/=100;
+	g/=100;
+	b/=100;
+	
+	return RGB565(r,g,b);
+}
+
+
 // for pure virtual functions
 void __cxa_pure_virtual(void){};
 // other fixes

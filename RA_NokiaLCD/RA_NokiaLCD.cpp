@@ -23,7 +23,7 @@
 #include <Time.h>
 #include "RA_NokiaLCD.h"
 #include <Wire.h>
-#include <EEPROM.h>
+#include <InternalEEPROM.h>
 #include <Memory.h>
 #include <avr/pgmspace.h>
 

@@ -25,7 +25,7 @@
 #define ReefAngel_Version "0.9.0"
 
 #include <Globals.h>
-#include <EEPROM.h>  // NOTE read/write internal memory
+#include <InternalEEPROM.h>  // NOTE read/write internal memory
 #include <Time.h>
 #include <RA_NokiaLCD.h>
 #include <RA_ATO.h>
