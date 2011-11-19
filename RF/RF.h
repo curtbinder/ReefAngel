@@ -32,7 +32,7 @@ public:
 	byte Mode;
 	byte Speed;
 	byte Duration;
-	byte RadionChannels[6];
+	byte RadionChannels[RF_CHANNELS];
 	void SetMode(byte mode, byte speed, byte duration);
 	byte RFCheck();
 	inline byte GetChannel(byte channel) {return RadionChannels[channel];}

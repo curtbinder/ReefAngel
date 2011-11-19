@@ -579,7 +579,7 @@ const byte RawChannel[]={67,65,66};
 
 //ReefTouch Block
 
-typedef struct Calibration 
+typedef struct Calibration
 {
 	int XMin;
 	int XMax;
@@ -587,7 +587,7 @@ typedef struct Calibration
 	int YMax;
 } CALIBRATION ;
 
-typedef struct Compensation 
+typedef struct Compensation
 {
 	int XOff;
 	int YOff;
@@ -782,4 +782,4 @@ extern "C" int __cxa_guard_acquire(__guard *);
 extern "C" void __cxa_guard_release (__guard *);
 extern "C" void __cxa_guard_abort (__guard *);
 
-#endif  // __RA_GLOBALS_H__
+#endif  // __GLOBALS_H__

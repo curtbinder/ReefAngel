@@ -539,9 +539,9 @@ void ReefAngelClass::Init()
 #endif  // defined WDT || defined WDT_FORCE
 
 	EM = PWMEbit + RFEbit + AIbit + Salbit + ORPbit;
-	for (int a=0;a<InstalledRelayExpansionModules;a++)
+	for (byte a=0;a<InstalledRelayExpansionModules;a++)
 	{
-		REM+=1<<a; 
+		REM+=1<<a;
 	}
 }
 
@@ -1191,7 +1191,7 @@ void ReefAngelClass::WebBanner(char *text)
 		Serial.print(EID, DEC);
 		Serial.print("=");
 		Serial.print(PWM.ExpansionChannel[EID], DEC);
-	}	
+	}
 #endif  // PWMEXPANSION
 #ifdef RFEXPANSION
 	PROGMEMprint(BannerRFM);

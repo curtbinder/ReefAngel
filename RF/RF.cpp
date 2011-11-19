@@ -57,7 +57,7 @@ byte RFClass::RFCheck()
 
 void RFClass::RadionWrite()
 {
-	for (int a=0;a<RF_CHANNELS;a++)
+	for (byte a=0;a<RF_CHANNELS;a++)
 	{
 		SetMode(Radion, RadionChannels[a], a);
 	}

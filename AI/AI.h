@@ -37,7 +37,7 @@ public:
 	void Send();
 private:
 	byte port;
-	byte AIChannels[3];
+	byte AIChannels[AI_CHANNELS];
 	void SWprint(byte data);
 };
 

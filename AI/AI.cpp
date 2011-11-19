@@ -56,7 +56,7 @@ void AIClass::SetStreamDelay(int delay)
 
 void AIClass::Send()
 {
-	for (int a=0;a<3;a++)
+	for (byte a=0;a<AI_CHANNELS;a++)
 	{
 		SWprint(164);
 		SWprint(161);
