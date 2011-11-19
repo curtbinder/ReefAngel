@@ -1137,97 +1137,97 @@ void ReefAngelClass::MoonlightPWM(byte RelayID, bool ShowPWM)
 void ReefAngelClass::WebBanner(char *text)
 {
 	PROGMEMprint(BannerGET);
-	Serial.print(Params.Temp1, DEC);
+	WIFI_SERIAL.print(Params.Temp1, DEC);
 	PROGMEMprint(BannerT2);
-	Serial.print(Params.Temp2, DEC);
+	WIFI_SERIAL.print(Params.Temp2, DEC);
 	PROGMEMprint(BannerT3);
-	Serial.print(Params.Temp3, DEC);
+	WIFI_SERIAL.print(Params.Temp3, DEC);
 	PROGMEMprint(BannerPH);
-	Serial.print(Params.PH, DEC);
+	WIFI_SERIAL.print(Params.PH, DEC);
 	PROGMEMprint(BannerRelayData);
-	Serial.print("=");
-	Serial.print(Relay.RelayData, DEC);
+	WIFI_SERIAL.print("=");
+	WIFI_SERIAL.print(Relay.RelayData, DEC);
 	PROGMEMprint(BannerRelayMaskOn);
-	Serial.print("=");
-	Serial.print(Relay.RelayMaskOn, DEC);
+	WIFI_SERIAL.print("=");
+	WIFI_SERIAL.print(Relay.RelayMaskOn, DEC);
 	PROGMEMprint(BannerRelayMaskOff);
-	Serial.print("=");
-	Serial.print(Relay.RelayMaskOff, DEC);
+	WIFI_SERIAL.print("=");
+	WIFI_SERIAL.print(Relay.RelayMaskOff, DEC);
 #ifdef RelayExp
 	for ( byte x = 0; x < InstalledRelayExpansionModules && x < MAX_RELAY_EXPANSION_MODULES; x++ )
 	{
 		PROGMEMprint(BannerRelayData);
-		Serial.print(x+1, DEC);
-		Serial.print("=");
-		Serial.print(Relay.RelayDataE[x], DEC);
+		WIFI_SERIAL.print(x+1, DEC);
+		WIFI_SERIAL.print("=");
+		WIFI_SERIAL.print(Relay.RelayDataE[x], DEC);
 		PROGMEMprint(BannerRelayMaskOn);
-		Serial.print(x+1, DEC);
-		Serial.print("=");
-		Serial.print(Relay.RelayMaskOnE[x], DEC);
+		WIFI_SERIAL.print(x+1, DEC);
+		WIFI_SERIAL.print("=");
+		WIFI_SERIAL.print(Relay.RelayMaskOnE[x], DEC);
 		PROGMEMprint(BannerRelayMaskOff);
-		Serial.print(x+1, DEC);
-		Serial.print("=");
-		Serial.print(Relay.RelayMaskOffE[x], DEC);
+		WIFI_SERIAL.print(x+1, DEC);
+		WIFI_SERIAL.print("=");
+		WIFI_SERIAL.print(Relay.RelayMaskOffE[x], DEC);
 	}  // for x
 #endif  // RelayExp
 #ifdef SALINITYEXPANSION
 	PROGMEMprint(BannerSal);
-	Serial.print(Params.Salinity, DEC);
+	WIFI_SERIAL.print(Params.Salinity, DEC);
 #endif  // SALINITYEXPANSION
 #ifdef ORPEXPANSION
 	PROGMEMprint(BannerORP);
-	Serial.print(Params.ORP, DEC);
+	WIFI_SERIAL.print(Params.ORP, DEC);
 #endif  // ORPEXPANSION
 #if defined DisplayLEDPWM && ! defined RemoveAllLights
 	PROGMEMprint(BannerPWMA);
-	Serial.print(PWM.GetActinicValue(), DEC);
+	WIFI_SERIAL.print(PWM.GetActinicValue(), DEC);
 	PROGMEMprint(BannerPWMD);
-	Serial.print(PWM.GetDaylightValue(), DEC);
+	WIFI_SERIAL.print(PWM.GetDaylightValue(), DEC);
 #endif  // DisplayLEDPWM && ! defined RemoveAllLights
 #ifdef PWMEXPANSION
 	for ( byte EID = 0; EID < PWM_EXPANSION_CHANNELS; EID++ )
 	{
 		PROGMEMprint(BannerPWME);
-		Serial.print(EID, DEC);
-		Serial.print("=");
-		Serial.print(PWM.ExpansionChannel[EID], DEC);
+		WIFI_SERIAL.print(EID, DEC);
+		WIFI_SERIAL.print("=");
+		WIFI_SERIAL.print(PWM.ExpansionChannel[EID], DEC);
 	}
 #endif  // PWMEXPANSION
 #ifdef RFEXPANSION
 	PROGMEMprint(BannerRFM);
-	Serial.print(RF.Mode, DEC);
+	WIFI_SERIAL.print(RF.Mode, DEC);
 	PROGMEMprint(BannerRFS);
-	Serial.print(RF.Speed, DEC);
+	WIFI_SERIAL.print(RF.Speed, DEC);
 	PROGMEMprint(BannerRFD);
-	Serial.print(RF.Duration, DEC);
+	WIFI_SERIAL.print(RF.Duration, DEC);
 	PROGMEMprint(BannerRFW);
-	Serial.print(RF.GetChannel(0), DEC);
+	WIFI_SERIAL.print(RF.GetChannel(0), DEC);
 	PROGMEMprint(BannerRFRB);
-	Serial.print(RF.GetChannel(1), DEC);
+	WIFI_SERIAL.print(RF.GetChannel(1), DEC);
 	PROGMEMprint(BannerRFR);
-	Serial.print(RF.GetChannel(2), DEC);
+	WIFI_SERIAL.print(RF.GetChannel(2), DEC);
 	PROGMEMprint(BannerRFG);
-	Serial.print(RF.GetChannel(3), DEC);
+	WIFI_SERIAL.print(RF.GetChannel(3), DEC);
 	PROGMEMprint(BannerRFB);
-	Serial.print(RF.GetChannel(4), DEC);
+	WIFI_SERIAL.print(RF.GetChannel(4), DEC);
 	PROGMEMprint(BannerRFI);
-	Serial.print(RF.GetChannel(5), DEC);
+	WIFI_SERIAL.print(RF.GetChannel(5), DEC);
 #endif  // RFEXPANSION
 #ifdef AI_LED
 	PROGMEMprint(BannerAIW);
-	Serial.print(AI.GetChannel(0), DEC);
+	WIFI_SERIAL.print(AI.GetChannel(0), DEC);
 	PROGMEMprint(BannerAIB);
-	Serial.print(AI.GetChannel(1), DEC);
+	WIFI_SERIAL.print(AI.GetChannel(1), DEC);
 	PROGMEMprint(BannerAIRB);
-	Serial.print(AI.GetChannel(2), DEC);
+	WIFI_SERIAL.print(AI.GetChannel(2), DEC);
 #endif  // AI_LED
 	PROGMEMprint(BannerEM);
-	Serial.print(ReefAngel.EM, DEC);
+	WIFI_SERIAL.print(ReefAngel.EM, DEC);
 	PROGMEMprint(BannerREM);
-	Serial.print(ReefAngel.REM, DEC);
+	WIFI_SERIAL.print(ReefAngel.REM, DEC);
 	PROGMEMprint(BannerID);
-	Serial.print(text);
-	Serial.println("\n\n");
+	WIFI_SERIAL.print(text);
+	WIFI_SERIAL.println("\n\n");
 }
 #endif  // wifi
 

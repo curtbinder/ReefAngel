@@ -23,12 +23,6 @@
 #include <Globals.h>
 
 
-#ifdef __PLUS_SPECIAL_WIFI__
-#define WIFI_SERIAL Serial1
-#else
-#define WIFI_SERIAL Serial
-#endif // __PLUS_SPECIAL_WIFI__
-
 #ifdef wifi
 
 #include <DS1307RTC.h>

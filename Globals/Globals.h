@@ -30,6 +30,13 @@
 #include <Time.h>
 #include <OneWire.h>
 
+#ifdef __PLUS_SPECIAL_WIFI__
+#define WIFI_SERIAL Serial1
+#else
+#define WIFI_SERIAL Serial
+#endif // __PLUS_SPECIAL_WIFI__
+
+
 // Outlets on Relay box
 #define Port8   8
 #define Port7   7
