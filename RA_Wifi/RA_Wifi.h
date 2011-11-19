@@ -39,7 +39,10 @@ const prog_char XML_RE_ON[] PROGMEM = "ON";
 const prog_char XML_RE_OFF[] PROGMEM = "OFF";
 const prog_char XML_ATOLOW[] PROGMEM = "<ATOLOW>";
 const prog_char XML_ATOHIGH[] PROGMEM = "</ATOLOW><ATOHIGH>";
-const prog_char XML_ATOHIGH_END[] PROGMEM = "</ATOHIGH>";
+const prog_char XML_EM[] PROGMEM = "</ATOHIGH><EM>";
+const prog_char XML_REM[] PROGMEM = "</EM><REM>";
+const prog_char XML_REM_END[] PROGMEM = "</REM>";
+
 #ifdef DisplayLEDPWM
 const prog_char XML_PWMA[] PROGMEM = "<PWMA>";
 const prog_char XML_PWMD[] PROGMEM = "</PWMA><PWMD>";
@@ -138,35 +141,58 @@ const prog_char BannerPH[] PROGMEM = "&ph=";
 const prog_char BannerRelayData[] PROGMEM = "&r";
 const prog_char BannerRelayMaskOn[] PROGMEM = "&ron";
 const prog_char BannerRelayMaskOff[] PROGMEM = "&roff";
-const prog_char id_tag[] PROGMEM = "&id=";
+const prog_char BannerID[] PROGMEM = "&id=";
+const prog_char BannerEM[] PROGMEM = "&em=";
+const prog_char BannerREM[] PROGMEM = "&rem=";
+
 #ifdef SALINITYEXPANSION
-const prog_char BannerSal[] PROGMEM = "&sal=";
+	const prog_char BannerSal[] PROGMEM = "&sal=";
+	#define Salbit		8	
+#else
+	#define Salbit		0	
 #endif  // SALINITYEXPANSION
+
 #ifdef ORPEXPANSION
-const prog_char BannerORP[] PROGMEM = "&orp=";
+	const prog_char BannerORP[] PROGMEM = "&orp=";
+	#define ORPbit		16	
+#else
+	#define ORPbit		0	
 #endif  // ORPEXPANSION
+
 #if defined DisplayLEDPWM && ! defined RemoveAllLights
-const prog_char BannerPWMA[] PROGMEM = "&pwma=";
-const prog_char BannerPWMD[] PROGMEM = "&pwmd=";
+	const prog_char BannerPWMA[] PROGMEM = "&pwma=";
+	const prog_char BannerPWMD[] PROGMEM = "&pwmd=";
 #endif  // DisplayLEDPWM && ! defined RemoveAllLights
+
 #ifdef PWMEXPANSION
-const prog_char BannerPWME[] PROGMEM = "&pwme";
+	const prog_char BannerPWME[] PROGMEM = "&pwme";
+	#define PWMEbit		1
+#else
+	#define PWMEbit		0	
 #endif  // PWMEXPANSION
+
 #ifdef RFEXPANSION
-const prog_char BannerRFM[] PROGMEM = "&rfm=";
-const prog_char BannerRFS[] PROGMEM = "&rfs=";
-const prog_char BannerRFD[] PROGMEM = "&rfd=";
-const prog_char BannerRFW[] PROGMEM = "&rfw=";
-const prog_char BannerRFRB[] PROGMEM = "&rfrb=";
-const prog_char BannerRFR[] PROGMEM = "&rfr=";
-const prog_char BannerRFG[] PROGMEM = "&rfg=";
-const prog_char BannerRFB[] PROGMEM = "&rfb=";
-const prog_char BannerRFI[] PROGMEM = "&rfi=";
+	const prog_char BannerRFM[] PROGMEM = "&rfm=";
+	const prog_char BannerRFS[] PROGMEM = "&rfs=";
+	const prog_char BannerRFD[] PROGMEM = "&rfd=";
+	const prog_char BannerRFW[] PROGMEM = "&rfw=";
+	const prog_char BannerRFRB[] PROGMEM = "&rfrb=";
+	const prog_char BannerRFR[] PROGMEM = "&rfr=";
+	const prog_char BannerRFG[] PROGMEM = "&rfg=";
+	const prog_char BannerRFB[] PROGMEM = "&rfb=";
+	const prog_char BannerRFI[] PROGMEM = "&rfi=";
+	#define RFEbit		2
+#else
+	#define RFEbit		0	
 #endif  // RFEXPANSION
+
 #ifdef AI_LED
-const prog_char BannerAIW[] PROGMEM = "&aiw=";
-const prog_char BannerAIB[] PROGMEM = "&aib=";
-const prog_char BannerAIRB[] PROGMEM = "&airb=";
+	const prog_char BannerAIW[] PROGMEM = "&aiw=";
+	const prog_char BannerAIB[] PROGMEM = "&aib=";
+	const prog_char BannerAIRB[] PROGMEM = "&airb=";
+	#define AIbit		4
+#else
+	#define AIbit		0	
 #endif  // AI_LED
 
 

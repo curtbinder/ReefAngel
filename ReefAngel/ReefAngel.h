@@ -169,6 +169,8 @@ public:
 #ifdef wifi
 	//void LoadWebBanner(int pointer, byte qty);
 	void WebBanner(char *text);
+	byte EM;
+	byte REM;
 #endif  // wifi
 
 	void FeedingModeStart();

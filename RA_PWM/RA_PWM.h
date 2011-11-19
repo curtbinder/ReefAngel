@@ -31,9 +31,11 @@ public:
 	void SetActinic(byte value);
 	void SetDaylight(byte value);
 #ifdef PWMEXPANSION
-	byte ExpansionChannel[6];
+	byte ExpansionChannel[PWM_EXPANSION_CHANNELS];
 	void Expansion(byte cmd, byte data);
+	void ExpansionPercentage(byte cmd, byte data);
 	void ExpansionSetPercent(byte p);
+	void ExpansionWrite();
 #endif  // PWMEXPANSION
 	inline byte GetActinicValue() { return ActinicPWMValue; }
 	inline byte GetDaylightValue() { return DaylightPWMValue; }

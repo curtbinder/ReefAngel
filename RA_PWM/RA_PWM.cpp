@@ -46,21 +46,43 @@ void RA_PWMClass::SetDaylight(byte value)
 #ifdef PWMEXPANSION
 void RA_PWMClass::Expansion(byte cmd, byte data)
 {
-	Wire.beginTransmission(8);  // transmit to device #2, consider having this user defined possibly
+	Wire.beginTransmission(8);  // transmit to device #8, consider having this user defined possibly
 	Wire.send('$');				// send the $$$
 	Wire.send('$');
 	Wire.send('$');
 	Wire.send(cmd);				// send the command
 	Wire.send(data);			// send the data
 	Wire.endTransmission();		// stop transmitting
+	if (cmd<PWM_EXPANSION_CHANNELS) ExpansionChannel[cmd]=data;
+}
+
+void RA_PWMClass::ExpansionPercentage(byte cmd, byte data)
+{
+	Wire.beginTransmission(8);  // transmit to device #8, consider having this user defined possibly
+	Wire.send('$');				// send the $$$
+	Wire.send('$');
+	Wire.send('$');
+	Wire.send(cmd);				// send the command
+	Wire.send(int(2.55*data));	// send the data
+	Wire.endTransmission();		// stop transmitting
+	if (cmd<PWM_EXPANSION_CHANNELS) ExpansionChannel[cmd]=data;
 }
 
 void RA_PWMClass::ExpansionSetPercent(byte p)
 {
 	// loop through all 6 channels and send the value
-	for ( byte a = 0; a < 6; a++ )
+	for ( byte a = 0; a < PWM_EXPANSION_CHANNELS; a++ )
 	{
 		Expansion(a, int(2.55*p));
 	}
 }
+
+void RA_PWMClass::ExpansionWrite()
+{
+	for ( byte a = 0; a < PWM_EXPANSION_CHANNELS; a++ )
+	{
+		ExpansionPercentage(a,ExpansionChannel[a]);
+	}	
+}
+
 #endif  // PWMEXPANSION

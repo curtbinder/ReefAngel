@@ -295,8 +295,8 @@ void processHTTP()
 			case REQ_R_STATUS:
 			{
 				char temp[6];
-				int s=112;
-				//<RA><T1></T1><T2></T2><T3></T3><PH></PH><R></R><RON></RON><ROFF></ROFF><ATOLOW></ATOLOW><ATOHIGH></ATOHIGH></RA>
+				int s=132;
+				//<RA><T1></T1><T2></T2><T3></T3><PH></PH><R></R><RON></RON><ROFF></ROFF><ATOLOW></ATOLOW><ATOHIGH></ATOHIGH><EM></EM><REM></REM></RA>
 				s += intlength(ReefAngel.Params.Temp1);
 				s += intlength(ReefAngel.Params.Temp2);
 				s += intlength(ReefAngel.Params.Temp3);
@@ -304,6 +304,8 @@ void processHTTP()
 				s += intlength(ReefAngel.Relay.RelayData);
 				s += intlength(ReefAngel.Relay.RelayMaskOn);
 				s += intlength(ReefAngel.Relay.RelayMaskOff);
+				s += intlength(ReefAngel.EM);
+				s += intlength(ReefAngel.REM);
 #ifdef DisplayLEDPWM
 				s += 26;
 				//<PWMA></PWMA><PWMD></PWMD>
@@ -788,7 +790,11 @@ void SendXMLData(bool fAtoLog /*= false*/)
 	WIFI_SERIAL.print(ReefAngel.LowATO.IsActive());
 	PROGMEMprint(XML_ATOHIGH);
 	WIFI_SERIAL.print(ReefAngel.HighATO.IsActive());
-	PROGMEMprint(XML_ATOHIGH_END);
+	PROGMEMprint(XML_EM);
+	WIFI_SERIAL.print(ReefAngel.EM, DEC);
+	PROGMEMprint(XML_REM);
+	WIFI_SERIAL.print(ReefAngel.REM, DEC);
+	PROGMEMprint(XML_REM_END);
 #ifdef DisplayLEDPWM
 	PROGMEMprint(XML_PWMA);
 	WIFI_SERIAL.print(ReefAngel.PWM.GetActinicValue(), DEC);
@@ -931,4 +937,5 @@ void PROGMEMprint(const prog_char str[])
     while((c = pgm_read_byte(str++)))
         WIFI_SERIAL.print(c,BYTE);
 }
+
 

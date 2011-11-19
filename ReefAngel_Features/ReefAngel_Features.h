@@ -45,7 +45,7 @@
 //#define NUMBERS_8x16
 //#define NUMBERS_12x16
 //#define NUMBERS_16x16
-//#define SALINITYEXPANSION
+#define SALINITYEXPANSION
 #define RFEXPANSION
 //#define AI_LED
 //

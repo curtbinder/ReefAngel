@@ -537,6 +537,12 @@ void ReefAngelClass::Init()
 	// enable watchdog timer for 1 second.  consider allowing this option to be configured.
 	if ( wdtenabled ) wdt_enable(WDTO_1S);
 #endif  // defined WDT || defined WDT_FORCE
+
+	EM = PWMEbit + RFEbit + AIbit + Salbit + ORPbit;
+	for (int a=0;a<InstalledRelayExpansionModules;a++)
+	{
+		REM+=1<<a; 
+	}
 }
 
 void ReefAngelClass::Refresh()
@@ -1215,7 +1221,11 @@ void ReefAngelClass::WebBanner(char *text)
 	PROGMEMprint(BannerAIRB);
 	Serial.print(AI.GetChannel(2), DEC);
 #endif  // AI_LED
-	PROGMEMprint(id_tag);
+	PROGMEMprint(BannerEM);
+	Serial.print(ReefAngel.EM, DEC);
+	PROGMEMprint(BannerREM);
+	Serial.print(ReefAngel.REM, DEC);
+	PROGMEMprint(BannerID);
 	Serial.print(text);
 	Serial.println("\n\n");
 }
