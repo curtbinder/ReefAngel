@@ -32,11 +32,12 @@ public:
 	byte Mode;
 	byte Speed;
 	byte Duration;
+	byte RadionChannels[6];
 	void SetMode(byte mode, byte speed, byte duration);
 	byte RFCheck();
 	inline byte GetChannel(byte channel) {return RadionChannels[channel];}
+	void RadionWrite();
 private:
-	byte RadionChannels[6];
 };
 
 #endif  // __RF_H__
