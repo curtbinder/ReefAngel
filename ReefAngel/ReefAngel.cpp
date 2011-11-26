@@ -539,10 +539,15 @@ void ReefAngelClass::Init()
 #endif  // defined WDT || defined WDT_FORCE
 
 	EM = PWMEbit + RFEbit + AIbit + Salbit + ORPbit;
+#ifdef RelayExp
 	for (byte a=0;a<InstalledRelayExpansionModules;a++)
 	{
 		REM+=1<<a;
 	}
+#else  // RelayExp
+    REM = 0;
+#endif  // RelayExp
+
 }
 
 void ReefAngelClass::Refresh()
