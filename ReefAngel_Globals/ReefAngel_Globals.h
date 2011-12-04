@@ -40,6 +40,16 @@
 #define Port2   2
 #define Port1   1
 
+// Bitwise values for simpler port values
+#define Port8Bit 0x80
+#define Port7Bit 0x40
+#define Port6Bit 0x20
+#define Port5Bit 0x10
+#define Port4Bit 0x08
+#define Port3Bit 0x04
+#define Port2Bit 0x02
+#define Port1Bit 0x01
+
 // Relay Box Modules
 #define MAX_RELAY_EXPANSION_MODULES     8
 #ifdef RelayExp
@@ -255,7 +265,7 @@ When adding more variables, use the previous value plus 1 or 2
 #define PH_Max		        951
 #define T1Pointer			953
 
-#define bit9600Delay 		101  
+#define bit9600Delay 		101
 #define KeyPressRate		250
 #define DEGREE_F            0
 #define DEGREE_C            1
