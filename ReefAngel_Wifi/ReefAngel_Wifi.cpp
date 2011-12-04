@@ -197,6 +197,8 @@ void pushbuffer(byte inStr)
             else if (strncmp("GET /bp", m_pushback, 7)==0) reqtype = -REQ_BTN_PRESS;
             else if (strncmp("GET /mf", m_pushback, 7)==0) reqtype = -REQ_FEEDING;
             else if (strncmp("GET /mw", m_pushback, 7)==0) reqtype = -REQ_WATER;
+            else if (strncmp("GET /mt", m_pushback, 7)==0) reqtype = -REQ_ALARM_ATO;
+            else if (strncmp("GET /mo", m_pushback, 7)==0) reqtype = -REQ_ALARM_OVERHEAT;
             //else reqtype = -REQ_UNKNOWN;
 		}
 	}
@@ -643,6 +645,18 @@ void processHTTP()
 			{
 				// Simulate a button press to stop the modes
 				ButtonPress++;
+				ModeResponse(true);
+				break;
+			}
+			case REQ_ALARM_ATO:
+			{
+				ReefAngel.ATOClear();
+				ModeResponse(true);
+				break;
+			}
+			case REQ_ALARM_OVERHEAT:
+			{
+				ReefAngel.OverheatClear();
 				ModeResponse(true);
 				break;
 			}

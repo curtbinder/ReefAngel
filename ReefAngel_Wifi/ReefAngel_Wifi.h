@@ -104,6 +104,8 @@ const prog_char XML_ERR[] PROGMEM = "ERR";
 #define REQ_FEEDING		11		// Start feeding mode
 #define REQ_WATER		12		// Start water change mode
 #define REQ_BTN_PRESS	13		// Simulate a button press, to end feeding & water change modes
+#define REQ_ALARM_ATO	14		// Clears the ATO alarm
+#define REQ_ALARM_OVERHEAT	15	// Clears the Overheat alarm
 #define REQ_HTTP		127		// HTTP get request from  external server
 #define REQ_UNKNOWN		128	 	// Unknown request
 
