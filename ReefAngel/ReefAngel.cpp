@@ -458,7 +458,7 @@ void ReefAngelClass::Init()
 	LastStart = RAStart;  // Set the time normal mode is started
 	LCD.BacklightOn();
 	Relay.AllOff();
-	OverheatTempProbe = &Params.Temp2;
+	OverheatTempProbe = &Params.Temp[T2_PROBE];
 #ifdef ENABLE_ATO_LOGGING
 	AtoEventCount = 0;
 #endif  // ENABLE_ATO_LOGGING
@@ -569,11 +569,11 @@ void ReefAngelClass::Refresh()
 	now();
 #ifdef DirectTempSensor
 	LCD.Clear(DefaultBGColor,0,0,1,1);
-	Params.Temp1=TempSensor.ReadTemperature(TempSensor.addrT1);
+	Params.Temp[T1_PROBE]=TempSensor.ReadTemperature(TempSensor.addrT1);
 	LCD.Clear(DefaultBGColor,0,0,1,1);
-	Params.Temp2=TempSensor.ReadTemperature(TempSensor.addrT2);
+	Params.Temp[T2_PROBE]=TempSensor.ReadTemperature(TempSensor.addrT2);
 	LCD.Clear(DefaultBGColor,0,0,1,1);
-	Params.Temp3=TempSensor.ReadTemperature(TempSensor.addrT3);
+	Params.Temp[T3_PROBE]=TempSensor.ReadTemperature(TempSensor.addrT3);
 	LCD.Clear(DefaultBGColor,0,0,1,1);
 	Params.PH=analogRead(PHPin);
 	Params.PH=map(Params.PH, PHMin, PHMax, 700, 1000); // apply the calibration to the sensor reading
@@ -589,17 +589,17 @@ void ReefAngelClass::Refresh()
     int x = TempSensor.ReadTemperature(TempSensor.addrT1);
     LCD.Clear(DefaultBGColor,0,0,1,1);
     int y;
-    y = x - Params.Temp1;
+    y = x - Params.Temp[T1_PROBE];
     // check to make sure the temp readings aren't beyond max allowed
-    if ( abs(y) < MAX_TEMP_SWING || Params.Temp1 == 0 || ~x) Params.Temp1 = x;
+    if ( abs(y) < MAX_TEMP_SWING || Params.Temp[T1_PROBE] == 0 || ~x) Params.Temp[T1_PROBE] = x;
     x = TempSensor.ReadTemperature(TempSensor.addrT2);
     LCD.Clear(DefaultBGColor,0,0,1,1);
-    y = x - Params.Temp2;
-    if ( abs(y) < MAX_TEMP_SWING || Params.Temp2 == 0 || ~x) Params.Temp2 = x;
+    y = x - Params.Temp[T2_PROBE];
+    if ( abs(y) < MAX_TEMP_SWING || Params.Temp[T2_PROBE] == 0 || ~x) Params.Temp[T2_PROBE] = x;
     x = TempSensor.ReadTemperature(TempSensor.addrT3);
     LCD.Clear(DefaultBGColor,0,0,1,1);
-    y = x - Params.Temp3;
-    if ( abs(y) < MAX_TEMP_SWING || Params.Temp3 == 0 || ~x) Params.Temp3 = x;
+    y = x - Params.Temp[T3_PROBE];
+    if ( abs(y) < MAX_TEMP_SWING || Params.Temp[T3_PROBE] == 0 || ~x) Params.Temp[T3_PROBE] = x;
     Params.PH=0;
     for (int a=0;a<20;a++)
     {
@@ -735,16 +735,16 @@ void ReefAngelClass::MHLights(byte LightsRelay, byte OnHour, byte OnMinute, byte
 
 void ReefAngelClass::StandardHeater(byte HeaterRelay, int LowTemp, int HighTemp)
 {
-    if (Params.Temp1 == 0) return;  // Don't turn the heater on if the temp is reading 0
-    if (Params.Temp1 <= LowTemp && Params.Temp1 > 0) Relay.On(HeaterRelay);  // If sensor 1 temperature <= LowTemp - turn on heater
-    if (Params.Temp1 >= HighTemp) Relay.Off(HeaterRelay);  // If sensor 1 temperature >= HighTemp - turn off heater
+    if (Params.Temp[T1_PROBE] == 0) return;  // Don't turn the heater on if the temp is reading 0
+    if (Params.Temp[T1_PROBE] <= LowTemp && Params.Temp[T1_PROBE] > 0) Relay.On(HeaterRelay);  // If sensor 1 temperature <= LowTemp - turn on heater
+    if (Params.Temp[T1_PROBE] >= HighTemp) Relay.Off(HeaterRelay);  // If sensor 1 temperature >= HighTemp - turn off heater
 }
 
 void ReefAngelClass::StandardFan(byte FanRelay, int LowTemp, int HighTemp)
 {
-	if (Params.Temp1 == 0) return;  // Don't turn the fan/chiller on if the temp is reading 0
-	if (Params.Temp1 >= HighTemp) Relay.On(FanRelay);  // If sensor 1 temperature >= HighTemp - turn on fan
-	if (Params.Temp1 <= LowTemp) Relay.Off(FanRelay);  // If sensor 1 temperature <= LowTemp - turn off fan
+	if (Params.Temp[T1_PROBE] == 0) return;  // Don't turn the fan/chiller on if the temp is reading 0
+	if (Params.Temp[T1_PROBE] >= HighTemp) Relay.On(FanRelay);  // If sensor 1 temperature >= HighTemp - turn on fan
+	if (Params.Temp[T1_PROBE] <= LowTemp) Relay.Off(FanRelay);  // If sensor 1 temperature <= LowTemp - turn off fan
 }
 
 void ReefAngelClass::StandardATO(byte ATORelay, int ATOTimeout)
@@ -1133,11 +1133,11 @@ void ReefAngelClass::WebBanner()
 	int tagptr = pgm_read_word(&(webbanner_tags[0]));
 
 	PROGMEMprint(BannerGET);
-	Serial.print(Params.Temp1, DEC);
+	Serial.print(Params.Temp[T1_PROBE], DEC);
 	PROGMEMprint(BannerT2);
-	Serial.print(Params.Temp2, DEC);
+	Serial.print(Params.Temp[T2_PROBE], DEC);
 	PROGMEMprint(BannerT3);
-	Serial.print(Params.Temp3, DEC);
+	Serial.print(Params.Temp[T3_PROBE], DEC);
 	PROGMEMprint(BannerPH);
 	Serial.print(Params.PH, DEC);
 	PROGMEMprint(BannerRelayData);
@@ -1421,19 +1421,19 @@ void ReefAngelClass::ShowInterface()
 					taddr++;
 					if ( taddr >= 120 ) taddr = 0;
 					Timer[STORE_PARAMS_TIMER].Start();
-					CurTemp = map(Params.Temp1, T1LOW, T1HIGH, 0, 50); // apply the calibration to the sensor reading
+					CurTemp = map(Params.Temp[T1_PROBE], T1LOW, T1HIGH, 0, 50); // apply the calibration to the sensor reading
 					CurTemp = constrain(CurTemp, 0, 50); // in case the sensor value is outside the range seen during calibration
 					//LCD.Clear(DefaultBGColor,0,0,1,1);
 					Memory.Write(taddr, CurTemp);
 					pingSerial();
 					LCD.Clear(DefaultBGColor,0,0,1,1);
-					CurTemp = map(Params.Temp2, T2LOW, T2HIGH, 0, 50); // apply the calibration to the sensor reading
+					CurTemp = map(Params.Temp[T2_PROBE], T2LOW, T2HIGH, 0, 50); // apply the calibration to the sensor reading
 					CurTemp = constrain(CurTemp, 0, 50); // in case the sensor value is outside the range seen during calibration
 					LCD.Clear(DefaultBGColor,0,0,1,1);
 					Memory.Write(taddr+120, CurTemp);
 					pingSerial();
 					LCD.Clear(DefaultBGColor,0,0,1,1);
-					CurTemp = map(Params.Temp3, T3LOW, T3HIGH, 0, 50); // apply the calibration to the sensor reading
+					CurTemp = map(Params.Temp[T3_PROBE], T3LOW, T3HIGH, 0, 50); // apply the calibration to the sensor reading
 					CurTemp = constrain(CurTemp, 0, 50); // in case the sensor value is outside the range seen during calibration
 					//LCD.Clear(DefaultBGColor,0,0,1,1);
 					Memory.Write(taddr+240, CurTemp);

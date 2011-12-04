@@ -163,6 +163,11 @@
 #define LCD_TIMER				3
 #define STORE_PARAMS_TIMER		5
 
+// Temp Sensor References
+#define T1_PROBE		0
+#define T2_PROBE		1
+#define T3_PROBE		2
+
 /*
 EEPROM locations
 
@@ -255,7 +260,7 @@ When adding more variables, use the previous value plus 1 or 2
 #define PH_Max		        951
 #define T1Pointer			953
 
-#define bit9600Delay 		101  
+#define bit9600Delay 		101
 #define KeyPressRate		250
 #define DEGREE_F            0
 #define DEGREE_C            1

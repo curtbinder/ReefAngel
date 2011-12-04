@@ -1113,11 +1113,11 @@ void ReefAngel_NokiaLCD::DrawMonitor(byte x, byte y, ParamsStruct Params)
 #endif  // defined DisplayLEDPWM && ! defined RemoveAllLights
 {
     DrawText(T1TempColor,DefaultBGColor,x,y,"T1:");
-    DrawSingleMonitor(Params.Temp1, T1TempColor, x+18, y,10);
+    DrawSingleMonitor(Params.Temp[T1_PROBE], T1TempColor, x+18, y,10);
     DrawText(T2TempColor,DefaultBGColor,x,y+10,"T2:");
-    DrawSingleMonitor(Params.Temp2, T2TempColor, x+18, y+10,10);
+    DrawSingleMonitor(Params.Temp[T2_PROBE], T2TempColor, x+18, y+10,10);
     DrawText(T3TempColor,DefaultBGColor,x,y+20,"T3:");
-    DrawSingleMonitor(Params.Temp3, T3TempColor, x+18, y+20,10);
+    DrawSingleMonitor(Params.Temp[T3_PROBE], T3TempColor, x+18, y+20,10);
     DrawText(PHColor,DefaultBGColor,x+60,y,"PH:");
     DrawSingleMonitor(Params.PH, PHColor, x+78, y,100);
 #if defined DisplayLEDPWM && ! defined RemoveAllLights
