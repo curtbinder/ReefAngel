@@ -458,7 +458,8 @@ void ReefAngelClass::Init()
 	LastStart = RAStart;  // Set the time normal mode is started
 	LCD.BacklightOn();
 	Relay.AllOff();
-	OverheatTempProbe = &Params.Temp[T2_PROBE];
+	OverheatProbe = T2_PROBE;
+	TempProbe = T1_PROBE;
 #ifdef ENABLE_ATO_LOGGING
 	AtoEventCount = 0;
 #endif  // ENABLE_ATO_LOGGING
@@ -735,16 +736,16 @@ void ReefAngelClass::MHLights(byte LightsRelay, byte OnHour, byte OnMinute, byte
 
 void ReefAngelClass::StandardHeater(byte HeaterRelay, int LowTemp, int HighTemp)
 {
-    if (Params.Temp[T1_PROBE] == 0) return;  // Don't turn the heater on if the temp is reading 0
-    if (Params.Temp[T1_PROBE] <= LowTemp && Params.Temp[T1_PROBE] > 0) Relay.On(HeaterRelay);  // If sensor 1 temperature <= LowTemp - turn on heater
-    if (Params.Temp[T1_PROBE] >= HighTemp) Relay.Off(HeaterRelay);  // If sensor 1 temperature >= HighTemp - turn off heater
+    if (Params.Temp[TempProbe] == 0) return;  // Don't turn the heater on if the temp is reading 0
+    if (Params.Temp[TempProbe] <= LowTemp && Params.Temp[TempProbe] > 0) Relay.On(HeaterRelay);  // If sensor 1 temperature <= LowTemp - turn on heater
+    if (Params.Temp[TempProbe] >= HighTemp) Relay.Off(HeaterRelay);  // If sensor 1 temperature >= HighTemp - turn off heater
 }
 
 void ReefAngelClass::StandardFan(byte FanRelay, int LowTemp, int HighTemp)
 {
-	if (Params.Temp[T1_PROBE] == 0) return;  // Don't turn the fan/chiller on if the temp is reading 0
-	if (Params.Temp[T1_PROBE] >= HighTemp) Relay.On(FanRelay);  // If sensor 1 temperature >= HighTemp - turn on fan
-	if (Params.Temp[T1_PROBE] <= LowTemp) Relay.Off(FanRelay);  // If sensor 1 temperature <= LowTemp - turn off fan
+	if (Params.Temp[TempProbe] == 0) return;  // Don't turn the fan/chiller on if the temp is reading 0
+	if (Params.Temp[TempProbe] >= HighTemp) Relay.On(FanRelay);  // If sensor 1 temperature >= HighTemp - turn on fan
+	if (Params.Temp[TempProbe] <= LowTemp) Relay.Off(FanRelay);  // If sensor 1 temperature <= LowTemp - turn off fan
 }
 
 void ReefAngelClass::StandardATO(byte ATORelay, int ATOTimeout)
@@ -1454,7 +1455,7 @@ void ReefAngelClass::ShowInterface()
 				}
 
 				// if overheat probe exceeds the temp
-				if ( *OverheatTempProbe >= InternalMemory.OverheatTemp_read() )
+				if ( Params.Temp[OverheatProbe] >= InternalMemory.OverheatTemp_read() )
 				{
 					LED.On();
 #ifdef ENABLE_EXCEED_FLAGS
