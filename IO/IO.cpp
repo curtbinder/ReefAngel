@@ -19,32 +19,28 @@
   * Updates Released under Apache License, Version 2.0
   */
 
-#ifndef __RELAY_H__
-#define __RELAY_H__
-
+#include "IO.h"
 #include <Globals.h>
+#include <Wire.h>
 
-class RelayClass
+
+IOClass::IOClass()
 {
-public:
-	RelayClass();
-	void On(byte ID);
-	void DelayedOn(byte ID, byte MinuteDelay);
-	void Off(byte ID);
-	void AllOn();
-	void AllOff();
-	void Toggle(byte ID);
-	void Set(byte ID, boolean Status);
-	void Write();
+}
 
-	byte RelayData;
-	byte RelayMaskOn;
-	byte RelayMaskOff;
-#ifdef RelayExp
-	byte RelayDataE[MAX_RELAY_EXPANSION_MODULES];
-	byte RelayMaskOnE[MAX_RELAY_EXPANSION_MODULES];
-	byte RelayMaskOffE[MAX_RELAY_EXPANSION_MODULES];
-#endif  // RelayExp
-};
+byte IOClass::GetChannel()
+{
+	IOPorts=63;
+	Wire.requestFrom(I2CIO, 1);
+	if (Wire.available())
+	{
+		IOPorts = Wire.receive();
+	}
+	return IOPorts;
+}
 
-#endif  // __RELAY_H__
+byte IOClass::GetChannel(byte Channel)
+{
+	GetChannel();
+	return bitRead(IOPorts,Channel);
+}

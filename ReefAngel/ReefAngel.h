@@ -46,6 +46,9 @@
 #if defined AI_LED
 	#include <AI.h>
 #endif  // defined AI_LED
+#if defined IOEXPANSION
+	#include <IO.h>
+#endif  // defined IOEXPANSION
 
 #include <avr/pgmspace.h>
 
@@ -93,6 +96,10 @@ public:
 #if defined AI_LED
 	AIClass AI;
 #endif  // defined AI_LED
+#if defined IOEXPANSION
+	IOClass IO;
+#endif  // defined IOEXPANSION
+
 	/*
 	Timers:
 	0 - Feeding Mode timer
@@ -140,7 +147,7 @@ public:
 	void StandardATO(byte ATORelay, int ATOTimeout);
 	void SingleATO(bool bLow, byte ATORelay, byte byteTimeout, byte byteHrInterval);
 	void DosingPump(byte DPRelay, byte DPTimer, byte OnHour, byte OnMinute, byte RunTime);
-	void DosingPumpRepeat(byte DPRelay, byte DPTimer, int RepeatMinute, byte RunTime);
+	void DosingPumpRepeat(byte DPRelay, byte OffsetMinute, int RepeatMinute, byte RunTime);
 	void Wavemaker(byte WMRelay, byte WMTimer);
 
 	// Simplified PDE versions of the calls
@@ -167,8 +174,10 @@ public:
 
 	// WebBanner
 #ifdef wifi
-	//void LoadWebBanner(int pointer, byte qty);
-	void WebBanner(char *text);
+	void LoadWebBanner(int pointer, byte qty);
+	void WebBanner();
+	void Portal(char *text);
+	void SendPortal(char *text);
 	byte EM;
 	byte REM;
 #endif  // wifi

@@ -23,12 +23,6 @@
 #include <Globals.h>
 
 
-#ifdef __PLUS_SPECIAL_WIFI__
-#define WIFI_SERIAL Serial1
-#else
-#define WIFI_SERIAL Serial
-#endif // __PLUS_SPECIAL_WIFI__
-
 #ifdef wifi
 
 #include <DS1307RTC.h>
@@ -301,27 +295,18 @@ void processHTTP()
 				s += intlength(ReefAngel.Params.Temp2);
 				s += intlength(ReefAngel.Params.Temp3);
 				s += intlength(ReefAngel.Params.PH);
+				s += intlength(ReefAngel.EM);
+				s += intlength(ReefAngel.REM);
+				s += 2;  // one digit for each ATO
 				s += intlength(ReefAngel.Relay.RelayData);
 				s += intlength(ReefAngel.Relay.RelayMaskOn);
 				s += intlength(ReefAngel.Relay.RelayMaskOff);
-				s += intlength(ReefAngel.EM);
-				s += intlength(ReefAngel.REM);
 #ifdef DisplayLEDPWM
 				s += 26;
 				//<PWMA></PWMA><PWMD></PWMD>
 				s += intlength(ReefAngel.PWM.GetDaylightValue());
 				s += intlength(ReefAngel.PWM.GetActinicValue());
 #endif  // DisplayLEDPWM
-#ifdef SALINITYEXPANSION
-				s += 11;
-				//<SAL></SAL>
-				s += intlength(ReefAngel.Params.Salinity);
-#endif  // SALINITYEXPANSION
-#ifdef ORPEXPANSION
-				s += 11;
-				//<ORP></ORP>
-				s += intlength(ReefAngel.Params.ORP);
-#endif  // ORPEXPANSION
 #ifdef RelayExp
 				s += 296;
 				//<R0></R0><RON0></RON0><ROFF0></ROFF0><R1></R1><RON1></RON1><ROFF1></ROFF1><R2></R2><RON2></RON2><ROFF2></ROFF2><R3></R3><RON3></RON3><ROFF3></ROFF3><R4></R4><RON4></RON4><ROFF4></ROFF4><R5></R5><RON5></RON5><ROFF5></ROFF5><R6></R6><RON6></RON6><ROFF6></ROFF6><R7></R7><RON7></RON7><ROFF7></ROFF7>
@@ -350,7 +335,21 @@ void processHTTP()
 				//<AIW></AIW><AIB></AIB><AIRB></AIRB>
 				for ( byte EID = 0; EID < AI_CHANNELS; EID++ ) s += intlength(ReefAngel.AI.GetChannel(EID));
 #endif  // AI_LED
-				s += 2;  // one digit for each ATO
+#ifdef SALINITYEXPANSION
+				s += 11;
+				//<SAL></SAL>
+				s += intlength(ReefAngel.Params.Salinity);
+#endif  // SALINITYEXPANSION
+#ifdef ORPEXPANSION
+				s += 11;
+				//<ORP></ORP>
+				s += intlength(ReefAngel.Params.ORP);
+#endif  // ORPEXPANSION
+#ifdef IOEXPANSION
+				s += 9;
+				//<IO></IO>
+				s += intlength(ReefAngel.IO.GetChannel());
+#endif  // IOEXPANSION				
 #ifdef ENABLE_ATO_LOGGING
 				if ( reqtype == REQ_RA_STATUS )
 				{
@@ -812,6 +811,11 @@ void SendXMLData(bool fAtoLog /*= false*/)
 	WIFI_SERIAL.print(ReefAngel.Params.ORP, DEC);
 	PROGMEMprint(XML_ORP_END);
 #endif  // ORPEXPANSION
+#ifdef IOEXPANSION
+	PROGMEMprint(XML_IO);
+	WIFI_SERIAL.print(ReefAngel.IO.GetChannel(), DEC);
+	PROGMEMprint(XML_IO_END);
+#endif  // IOEXPANSION	
 #ifdef PWMEXPANSION
 	for ( byte EID = 0; EID < PWM_EXPANSION_CHANNELS; EID++ )
 	{
