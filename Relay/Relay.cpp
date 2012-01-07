@@ -126,6 +126,12 @@ void RelayClass::Toggle(byte ID)
 #endif  // RelayExp
 }
 
+void RelayClass::Set(byte ID, boolean Status)
+{
+	if (Status) On(ID); else Off(ID);
+}
+
+
 void RelayClass::Write()
 {
     byte TempRelay = RelayData;

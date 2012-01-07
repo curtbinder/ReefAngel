@@ -47,6 +47,16 @@
 #define Port2   2
 #define Port1   1
 
+// Port bits
+#define Port8Bit   7
+#define Port7Bit   6
+#define Port6Bit   5
+#define Port5Bit   4
+#define Port4Bit   3
+#define Port3Bit   2
+#define Port2Bit   1
+#define Port1Bit   0
+
 // Relay Box Modules
 #define MAX_RELAY_EXPANSION_MODULES     8
 #define PWM_EXPANSION_CHANNELS     		6
@@ -162,6 +172,8 @@
 #define I2CExpander2        0x21
 #define I2CExpModule        0x38 // 0x38-3f
 #define I2CSalinity			0X4d
+#define I2CPWM				0x08
+#define I2CIO				0x09
 #define I2CRF				0X10
 
 // I2C Images Addresses
@@ -172,6 +184,7 @@
 // Timer Indices
 #define FEEDING_TIMER			0
 #define LCD_TIMER				3
+#define PORTAL_TIMER			4
 #define STORE_PARAMS_TIMER		5
 
 /*

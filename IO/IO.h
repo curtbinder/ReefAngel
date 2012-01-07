@@ -19,32 +19,19 @@
   * Updates Released under Apache License, Version 2.0
   */
 
-#ifndef __RELAY_H__
-#define __RELAY_H__
+#ifndef __IO_H__
+#define __IO_H__
 
 #include <Globals.h>
 
-class RelayClass
+class IOClass
 {
 public:
-	RelayClass();
-	void On(byte ID);
-	void DelayedOn(byte ID, byte MinuteDelay);
-	void Off(byte ID);
-	void AllOn();
-	void AllOff();
-	void Toggle(byte ID);
-	void Set(byte ID, boolean Status);
-	void Write();
+	IOClass();
+	byte IOPorts;	
+	byte GetChannel();
+	byte GetChannel(byte Channel);
 
-	byte RelayData;
-	byte RelayMaskOn;
-	byte RelayMaskOff;
-#ifdef RelayExp
-	byte RelayDataE[MAX_RELAY_EXPANSION_MODULES];
-	byte RelayMaskOnE[MAX_RELAY_EXPANSION_MODULES];
-	byte RelayMaskOffE[MAX_RELAY_EXPANSION_MODULES];
-#endif  // RelayExp
 };
 
-#endif  // __RELAY_H__
+#endif  // __IO_H__
