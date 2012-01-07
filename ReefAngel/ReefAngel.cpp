@@ -538,11 +538,18 @@ void ReefAngelClass::Init()
 	if ( wdtenabled ) wdt_enable(WDTO_1S);
 #endif  // defined WDT || defined WDT_FORCE
 
+#ifdef wifi
 	EM = PWMEbit + RFEbit + AIbit + Salbit + ORPbit;
+#ifdef RelayExp
 	for (byte a=0;a<InstalledRelayExpansionModules;a++)
 	{
 		REM+=1<<a;
 	}
+#else  // RelayExp
+    REM = 0;
+#endif  // RelayExp
+#endif  // wifi
+
 }
 
 void ReefAngelClass::Refresh()
