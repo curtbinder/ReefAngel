@@ -26,6 +26,7 @@
 #include <avr/pgmspace.h>
 
 #ifdef wifi
+#define testing F("Test")
 const prog_char XML_T1[] PROGMEM = "<RA><T1>";
 const prog_char XML_T2[] PROGMEM = "</T1><T2>";
 const prog_char XML_T3[] PROGMEM = "</T2><T3>";

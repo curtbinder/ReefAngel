@@ -822,7 +822,7 @@ void SendXMLData(bool fAtoLog /*= false*/)
 		PROGMEMprint(XML_PWME);
 		WIFI_SERIAL.print(EID, DEC);
 		PROGMEMprint(XML_CLOSE_TAG);
-		WIFI_SERIAL.print(ReefAngel.PWM.ExpansionChannel[EID], DEC);
+		WIFI_SERIAL.print(ReefAngel.PWM.GetChannelValue(EID), DEC);
 		PROGMEMprint(XML_PWME_END);
 		WIFI_SERIAL.print(EID, DEC);
 		PROGMEMprint(XML_CLOSE_TAG);
@@ -939,7 +939,7 @@ void PROGMEMprint(const prog_char str[])
     char c;
     if(!str) return;
     while((c = pgm_read_byte(str++)))
-        WIFI_SERIAL.print(c,BYTE);
+        WIFI_SERIAL.write(c);
 }
 
 

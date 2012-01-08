@@ -28,6 +28,12 @@ RA_PWMClass::RA_PWMClass()
     // initialize variables
     ActinicPWMValue = 0;
     DaylightPWMValue = 0;
+#ifdef PWMEXPANSION
+	for ( byte a = 0; a < PWM_EXPANSION_CHANNELS; a++ )
+	{
+		ExpansionChannel[a]=0;
+	}
+#endif  // PWMEXPANSION
 }
 
 void RA_PWMClass::SetActinic(byte value)
@@ -43,27 +49,137 @@ void RA_PWMClass::SetDaylight(byte value)
     DaylightPWMValue = value;
 }
 
+byte RA_PWMClass::ActinicPWMSlope(byte MinuteOffset)
+{
+	int onTime=NumMins(InternalMemory.StdLightsOnHour_read(),InternalMemory.StdLightsOnMinute_read())-(MinuteOffset*60);
+	int offTime=NumMins(InternalMemory.StdLightsOffHour_read(),InternalMemory.StdLightsOffMinute_read())+(MinuteOffset*60);
+	SetActinic(PWMSlope(
+			onTime/60,
+			onTime%60,
+			offTime/60,
+			offTime%60,
+			InternalMemory.PWMSlopeStartA_read(),
+			InternalMemory.PWMSlopeEndA_read(),
+			InternalMemory.PWMSlopeDurationA_read(),
+			ActinicPWMValue
+			));
+}
+
+byte RA_PWMClass::DaylightPWMSlope(byte MinuteOffset)
+{
+	int onTime=NumMins(InternalMemory.StdLightsOnHour_read(),InternalMemory.StdLightsOnMinute_read())-(MinuteOffset*60);
+	int offTime=NumMins(InternalMemory.StdLightsOffHour_read(),InternalMemory.StdLightsOffMinute_read())+(MinuteOffset*60);
+	SetDaylight(PWMSlope(
+			onTime/60,
+			onTime%60,
+			offTime/60,
+			offTime%60,
+			InternalMemory.PWMSlopeStartD_read(),
+			InternalMemory.PWMSlopeEndD_read(),
+			InternalMemory.PWMSlopeDurationD_read(),
+			DaylightPWMValue
+			));
+}
+
+byte RA_PWMClass::ActinicPWMSlope()
+{
+	SetActinic(PWMSlope(
+			InternalMemory.StdLightsOnHour_read(),
+			InternalMemory.StdLightsOnMinute_read(),
+			InternalMemory.StdLightsOffHour_read(),
+			InternalMemory.StdLightsOffMinute_read(),
+			InternalMemory.PWMSlopeStartA_read(),
+			InternalMemory.PWMSlopeEndA_read(),
+			InternalMemory.PWMSlopeDurationA_read(),
+			ActinicPWMValue
+			));
+}
+
+byte RA_PWMClass::DaylightPWMSlope()
+{
+	SetDaylight(PWMSlope(
+			InternalMemory.StdLightsOnHour_read(),
+			InternalMemory.StdLightsOnMinute_read(),
+			InternalMemory.StdLightsOffHour_read(),
+			InternalMemory.StdLightsOffMinute_read(),
+			InternalMemory.PWMSlopeStartD_read(),
+			InternalMemory.PWMSlopeEndD_read(),
+			InternalMemory.PWMSlopeDurationD_read(),
+			DaylightPWMValue
+			));
+}
+
+byte RA_PWMClass::ActinicPWMParabola(byte MinuteOffset)
+{
+	int onTime=NumMins(InternalMemory.StdLightsOnHour_read(),InternalMemory.StdLightsOnMinute_read())-(MinuteOffset*60);
+	int offTime=NumMins(InternalMemory.StdLightsOffHour_read(),InternalMemory.StdLightsOffMinute_read())+(MinuteOffset*60);
+	SetActinic(PWMParabola(
+			onTime/60,
+			onTime%60,
+			offTime/60,
+			offTime%60,
+			InternalMemory.PWMSlopeStartA_read(),
+			InternalMemory.PWMSlopeEndA_read(),
+			ActinicPWMValue
+			));
+}
+
+byte RA_PWMClass::DaylightPWMParabola(byte MinuteOffset)
+{
+	int onTime=NumMins(InternalMemory.StdLightsOnHour_read(),InternalMemory.StdLightsOnMinute_read())-(MinuteOffset*60);
+	int offTime=NumMins(InternalMemory.StdLightsOffHour_read(),InternalMemory.StdLightsOffMinute_read())+(MinuteOffset*60);
+	SetDaylight(PWMParabola(
+			onTime/60,
+			onTime%60,
+			offTime/60,
+			offTime%60,
+			InternalMemory.PWMSlopeStartD_read(),
+			InternalMemory.PWMSlopeEndD_read(),
+			DaylightPWMValue
+			));
+}
+
+byte RA_PWMClass::ActinicPWMParabola()
+{
+	SetActinic(PWMParabola(
+			InternalMemory.StdLightsOnHour_read(),
+			InternalMemory.StdLightsOnMinute_read(),
+			InternalMemory.StdLightsOffHour_read(),
+			InternalMemory.StdLightsOffMinute_read(),
+			InternalMemory.PWMSlopeStartA_read(),
+			InternalMemory.PWMSlopeEndA_read(),
+			ActinicPWMValue
+			));
+}
+
+byte RA_PWMClass::DaylightPWMParabola()
+{
+	SetDaylight(PWMParabola(
+			InternalMemory.StdLightsOnHour_read(),
+			InternalMemory.StdLightsOnMinute_read(),
+			InternalMemory.StdLightsOffHour_read(),
+			InternalMemory.StdLightsOffMinute_read(),
+			InternalMemory.PWMSlopeStartD_read(),
+			InternalMemory.PWMSlopeEndD_read(),
+			DaylightPWMValue
+			));
+}
+
 #ifdef PWMEXPANSION
+
+void RA_PWMClass::SetChannel(byte Channel, byte Value)
+{
+	if (Channel<PWM_EXPANSION_CHANNELS) ExpansionChannel[Channel]=Value;
+}
+
 void RA_PWMClass::Expansion(byte cmd, byte data)
 {
 	Wire.beginTransmission(I2CPWM);  // transmit to device #8, consider having this user defined possibly
-	Wire.send('$');				// send the $$$
-	Wire.send('$');
-	Wire.send('$');
-	Wire.send(cmd);				// send the command
-	Wire.send(data);			// send the data
-	Wire.endTransmission();		// stop transmitting
-	if (cmd<PWM_EXPANSION_CHANNELS) ExpansionChannel[cmd]=data;
-}
-
-void RA_PWMClass::ExpansionPercentage(byte cmd, byte data)
-{
-	Wire.beginTransmission(I2CPWM);  // transmit to device #8, consider having this user defined possibly
-	Wire.send('$');				// send the $$$
-	Wire.send('$');
-	Wire.send('$');
-	Wire.send(cmd);				// send the command
-	Wire.send(int(2.55*data));	// send the data
+	Wire.write('$');				// send the $$$
+	Wire.write('$');
+	Wire.write('$');
+	Wire.write(cmd);				// send the command
+	Wire.write(data);			// send the data
 	Wire.endTransmission();		// stop transmitting
 	if (cmd<PWM_EXPANSION_CHANNELS) ExpansionChannel[cmd]=data;
 }
@@ -81,7 +197,7 @@ void RA_PWMClass::ExpansionWrite()
 {
 	for ( byte a = 0; a < PWM_EXPANSION_CHANNELS; a++ )
 	{
-		ExpansionPercentage(a,ExpansionChannel[a]);
+		Expansion(a,int(ExpansionChannel[a]*2.55));
 	}	
 }
 

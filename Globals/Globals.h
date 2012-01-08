@@ -26,7 +26,7 @@
 #ifdef COLORS_PDE
 #include <RA_CustomColors.h>
 #endif  // COLORS_PDE
-#include <WProgram.h>
+#include <Arduino.h>
 #include <Time.h>
 #include <OneWire.h>
 
@@ -787,6 +787,7 @@ byte intlength(int intin);
 int NumMins(uint8_t ScheduleHour, uint8_t ScheduleMinute);
 bool IsLeapYear(int year);
 byte PWMSlope(byte startHour, byte startMinute, byte endHour, byte endMinute, byte startPWM, byte endPWM, byte Duration, byte oldValue);
+byte PWMParabola(byte startHour, byte startMinute, byte endHour, byte endMinute, byte startPWM, byte endPWM, byte oldValue);
 byte MoonPhase();
 void ConvertNumToString(char* string, int num, byte decimal);
 

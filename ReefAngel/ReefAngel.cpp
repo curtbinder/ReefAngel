@@ -1171,10 +1171,10 @@ void ReefAngelClass::Portal(char *text)
 		TempRelay = Relay.RelayDataE[EID];
 		TempRelay &= Relay.RelayMaskOffE[EID];
 		TempRelay |= Relay.RelayMaskOnE[EID];
-	    if (TempRelay!=LastRelayData[EID])
+	    if (TempRelay!=LastRelayDataE[EID])
 	    {
 	    	Timer[PORTAL_TIMER].ForceTrigger();
-	    	LastRelayData[EID]=TempRelay;
+	    	LastRelayDataE[EID]=TempRelay;
 	    }
 	}
     
@@ -1241,7 +1241,7 @@ void ReefAngelClass::SendPortal(char *text)
 		PROGMEMprint(BannerPWME);
 		WIFI_SERIAL.print(EID, DEC);
 		WIFI_SERIAL.print("=");
-		WIFI_SERIAL.print(PWM.ExpansionChannel[EID], DEC);
+		WIFI_SERIAL.print(PWM.GetChannelValue(EID), DEC);
 	}
 #endif  // PWMEXPANSION
 #ifdef RFEXPANSION
@@ -1611,6 +1611,9 @@ void ReefAngelClass::ShowInterface()
 #ifdef RFEXPANSION
 					RF.SetMode(Feeding_Stop,0,0);
 #endif  // RFEXPANSION
+#ifdef PWMEXPANSION
+					PWM.ExpansionWrite();
+#endif  // PWMEXPANSION
 					ExitMenu();
 				}
 				break;

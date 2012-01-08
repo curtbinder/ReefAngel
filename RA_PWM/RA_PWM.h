@@ -23,6 +23,7 @@
 #define __RA_PWM_H__
 
 #include <Globals.h>
+#include <InternalEEPROM.h>
 
 class RA_PWMClass
 {
@@ -30,12 +31,22 @@ public:
 	RA_PWMClass();
 	void SetActinic(byte value);
 	void SetDaylight(byte value);
+	byte ActinicPWMSlope(byte MinuteOffset);
+	byte DaylightPWMSlope(byte MinuteOffset);
+	byte ActinicPWMSlope();
+	byte DaylightPWMSlope();
+	byte ActinicPWMParabola(byte MinuteOffset);
+	byte DaylightPWMParabola(byte MinuteOffset);
+	byte ActinicPWMParabola();
+	byte DaylightPWMParabola();
+
 #ifdef PWMEXPANSION
 	byte ExpansionChannel[PWM_EXPANSION_CHANNELS];
+	void SetChannel(byte Channel, byte Value);
 	void Expansion(byte cmd, byte data);
-	void ExpansionPercentage(byte cmd, byte data);
 	void ExpansionSetPercent(byte p);
 	void ExpansionWrite();
+	inline byte GetChannelValue(byte Channel) { return ExpansionChannel[Channel]; }
 #endif  // PWMEXPANSION
 	inline byte GetActinicValue() { return ActinicPWMValue; }
 	inline byte GetDaylightValue() { return DaylightPWMValue; }

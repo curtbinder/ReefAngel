@@ -34,7 +34,7 @@ byte IOClass::GetChannel()
 	Wire.requestFrom(I2CIO, 1);
 	if (Wire.available())
 	{
-		IOPorts = Wire.receive();
+		IOPorts = Wire.read();
 	}
 	return IOPorts;
 }
