@@ -78,6 +78,10 @@ const prog_char XML_RFG_END[] PROGMEM = "</RFG><RFB>";
 const prog_char XML_RFB_END[] PROGMEM = "</RFB><RFI>";
 const prog_char XML_RFI_END[] PROGMEM = "</RFI>";
 #endif  // RFEXPANSION
+#ifdef IOEXPANSION
+const prog_char XML_IO[] PROGMEM = "<IO>";
+const prog_char XML_IO_END[] PROGMEM = "</IO>";
+#endif  // IOEXPANSION
 #ifdef ENABLE_ATO_LOGGING
 const prog_char XML_ATOLOW_LOG_OPEN[] PROGMEM = "<AL";
 const prog_char XML_ATOLOW_LOG_CLOSE[] PROGMEM = "</AL";
@@ -138,26 +142,15 @@ const prog_char BannerGET[] PROGMEM = "GET /status/submitp.asp?t1=";
 const prog_char BannerT2[] PROGMEM = "&t2=";
 const prog_char BannerT3[] PROGMEM = "&t3=";
 const prog_char BannerPH[] PROGMEM = "&ph=";
+const prog_char BannerATOHIGH[] PROGMEM = "&atohigh=";
+const prog_char BannerATOLOW[] PROGMEM = "&atolow=";
 const prog_char BannerRelayData[] PROGMEM = "&r";
 const prog_char BannerRelayMaskOn[] PROGMEM = "&ron";
 const prog_char BannerRelayMaskOff[] PROGMEM = "&roff";
 const prog_char BannerID[] PROGMEM = "&id=";
 const prog_char BannerEM[] PROGMEM = "&em=";
 const prog_char BannerREM[] PROGMEM = "&rem=";
-
-#ifdef SALINITYEXPANSION
-	const prog_char BannerSal[] PROGMEM = "&sal=";
-	#define Salbit		8	
-#else
-	#define Salbit		0	
-#endif  // SALINITYEXPANSION
-
-#ifdef ORPEXPANSION
-	const prog_char BannerORP[] PROGMEM = "&orp=";
-	#define ORPbit		16	
-#else
-	#define ORPbit		0	
-#endif  // ORPEXPANSION
+const prog_char BannerCustom[] PROGMEM = "&c";
 
 #if defined DisplayLEDPWM && ! defined RemoveAllLights
 	const prog_char BannerPWMA[] PROGMEM = "&pwma=";
@@ -166,7 +159,7 @@ const prog_char BannerREM[] PROGMEM = "&rem=";
 
 #ifdef PWMEXPANSION
 	const prog_char BannerPWME[] PROGMEM = "&pwme";
-	#define PWMEbit		1
+	#define PWMEbit		1<<0
 #else
 	#define PWMEbit		0	
 #endif  // PWMEXPANSION
@@ -181,7 +174,7 @@ const prog_char BannerREM[] PROGMEM = "&rem=";
 	const prog_char BannerRFG[] PROGMEM = "&rfg=";
 	const prog_char BannerRFB[] PROGMEM = "&rfb=";
 	const prog_char BannerRFI[] PROGMEM = "&rfi=";
-	#define RFEbit		2
+	#define RFEbit		1<<1
 #else
 	#define RFEbit		0	
 #endif  // RFEXPANSION
@@ -190,10 +183,32 @@ const prog_char BannerREM[] PROGMEM = "&rem=";
 	const prog_char BannerAIW[] PROGMEM = "&aiw=";
 	const prog_char BannerAIB[] PROGMEM = "&aib=";
 	const prog_char BannerAIRB[] PROGMEM = "&airb=";
-	#define AIbit		4
+	#define AIbit		1<<2
 #else
 	#define AIbit		0	
 #endif  // AI_LED
+
+#ifdef SALINITYEXPANSION
+	const prog_char BannerSal[] PROGMEM = "&sal=";
+	#define Salbit		1<<3
+#else
+	#define Salbit		0	
+#endif  // SALINITYEXPANSION
+
+#ifdef ORPEXPANSION
+	const prog_char BannerORP[] PROGMEM = "&orp=";
+	#define ORPbit		1<<4
+#else
+	#define ORPbit		0	
+#endif  // ORPEXPANSION
+	
+#ifdef IOEXPANSION
+	const prog_char BannerIO[] PROGMEM = "&io=";
+	#define IObit		1<<5
+#else
+	#define IObit		0
+#endif  // IOEXPANSION
+	
 
 
 //const prog_char probe1_tag[] PROGMEM = "t1n";

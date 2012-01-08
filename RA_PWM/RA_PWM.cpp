@@ -46,7 +46,7 @@ void RA_PWMClass::SetDaylight(byte value)
 #ifdef PWMEXPANSION
 void RA_PWMClass::Expansion(byte cmd, byte data)
 {
-	Wire.beginTransmission(8);  // transmit to device #8, consider having this user defined possibly
+	Wire.beginTransmission(I2CPWM);  // transmit to device #8, consider having this user defined possibly
 	Wire.send('$');				// send the $$$
 	Wire.send('$');
 	Wire.send('$');
@@ -58,7 +58,7 @@ void RA_PWMClass::Expansion(byte cmd, byte data)
 
 void RA_PWMClass::ExpansionPercentage(byte cmd, byte data)
 {
-	Wire.beginTransmission(8);  // transmit to device #8, consider having this user defined possibly
+	Wire.beginTransmission(I2CPWM);  // transmit to device #8, consider having this user defined possibly
 	Wire.send('$');				// send the $$$
 	Wire.send('$');
 	Wire.send('$');
