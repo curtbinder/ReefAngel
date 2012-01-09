@@ -160,7 +160,7 @@ const prog_char BannerCustom[] PROGMEM = "&c";
 
 #ifdef PWMEXPANSION
 	const prog_char BannerPWME[] PROGMEM = "&pwme";
-	#define PWMEbit		1<<0
+	#define PWMEbit		1
 #else
 	#define PWMEbit		0	
 #endif  // PWMEXPANSION
@@ -175,7 +175,7 @@ const prog_char BannerCustom[] PROGMEM = "&c";
 	const prog_char BannerRFG[] PROGMEM = "&rfg=";
 	const prog_char BannerRFB[] PROGMEM = "&rfb=";
 	const prog_char BannerRFI[] PROGMEM = "&rfi=";
-	#define RFEbit		1<<1
+	#define RFEbit		2
 #else
 	#define RFEbit		0	
 #endif  // RFEXPANSION
@@ -184,28 +184,28 @@ const prog_char BannerCustom[] PROGMEM = "&c";
 	const prog_char BannerAIW[] PROGMEM = "&aiw=";
 	const prog_char BannerAIB[] PROGMEM = "&aib=";
 	const prog_char BannerAIRB[] PROGMEM = "&airb=";
-	#define AIbit		1<<2
+	#define AIbit		4
 #else
 	#define AIbit		0	
 #endif  // AI_LED
 
 #ifdef SALINITYEXPANSION
 	const prog_char BannerSal[] PROGMEM = "&sal=";
-	#define Salbit		1<<3
+	#define Salbit		8
 #else
 	#define Salbit		0	
 #endif  // SALINITYEXPANSION
 
 #ifdef ORPEXPANSION
 	const prog_char BannerORP[] PROGMEM = "&orp=";
-	#define ORPbit		1<<4
+	#define ORPbit		16
 #else
 	#define ORPbit		0	
 #endif  // ORPEXPANSION
 	
 #ifdef IOEXPANSION
 	const prog_char BannerIO[] PROGMEM = "&io=";
-	#define IObit		1<<5
+	#define IObit		32
 #else
 	#define IObit		0
 #endif  // IOEXPANSION

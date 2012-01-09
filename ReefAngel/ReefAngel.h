@@ -40,6 +40,9 @@
 #if defined SALINITYEXPANSION
 	#include <Salinity.h>
 #endif  // defined SALINITYEXPANSION
+#if defined ORPEXPANSION
+	#include <ORP.h>
+#endif  // defined ORPEXPANSION
 #if defined RFEXPANSION
 	#include <RF.h>
 #endif  // defined RFEXPANSION
@@ -90,6 +93,9 @@ public:
 #if defined SALINITYEXPANSION
 	SalinityClass Salinity;
 #endif  // defined SALINITYEXPANSION
+#if defined ORPEXPANSION
+	ORPClass ORP;
+#endif  // ORPEXPANSION IOEXPANSION
 #if defined RFEXPANSION
 	RFClass RF;
 #endif  // defined RFEXPANSION
