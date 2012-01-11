@@ -1136,11 +1136,11 @@ void ReefAngel_NokiaLCD::DrawSingleGraph(byte color, byte x, byte y, int EEaddr)
 		start=EEaddr+a;
 		if (start > (int(EEaddr/120)+1)*120) start=start-120;
 //		Wire.beginTransmission(I2CAddr);
-//		Wire.send((int)(start >> 8));   // MSB
-//		Wire.send((int)(start & 0xFF)); // LSB
+//		Wire.write((int)(start >> 8));   // MSB
+//		Wire.write((int)(start & 0xFF)); // LSB
 //		Wire.endTransmission();
 //		Wire.requestFrom(I2CAddr,1);
-//		if (Wire.available()) PutPixel(color,x+a,y+50-Wire.receive());
+//		if (Wire.available()) PutPixel(color,x+a,y+50-Wire.read());
         PutPixel(color, x+a, y+50-Memory.Read(start));
 	}
 
@@ -1155,14 +1155,14 @@ void ReefAngel_NokiaLCD::DrawEEPromImage(int swidth, int sheight, byte x, byte y
     do
     {
         Wire.beginTransmission(I2CAddr);
-        Wire.send((int)(EEaddr+count >> 8));   // MSB
-        Wire.send((int)(EEaddr+count & 0xFF)); // LSB
+        Wire.write((int)(EEaddr+count >> 8));   // MSB
+        Wire.write((int)(EEaddr+count & 0xFF)); // LSB
         Wire.endTransmission();
         Wire.requestFrom(I2CAddr,30);
         for (byte j = 0; j < 30; j++)
         {
             count+=1;
-            if ((count<=swidth*sheight) && Wire.available()) SendData(~Wire.receive());
+            if ((count<=swidth*sheight) && Wire.available()) SendData(~Wire.read());
         }
     }
     while (count < swidth*sheight);

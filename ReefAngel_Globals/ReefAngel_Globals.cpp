@@ -76,6 +76,24 @@ byte PWMSlope(byte startHour, byte startMinute, byte endHour, byte endMinute, by
     return oldValue;
 }
 
+/*
+byte PWMParabola(byte startHour, byte startMinute, byte endHour, byte endMinute, byte startPWM, byte endPWM, byte oldValue)
+{
+	int Now = NumMins(hour(), minute());
+	int Start = NumMins(startHour, startMinute);
+	int End = NumMins(endHour, endMinute);
+	byte PWMDelta = endPWM - startPWM;
+
+	if ( (Now <= Start) || (Now >= End) )
+	{
+		return oldValue;
+	} else
+	{
+		return startPWM + byte(((PWMDelta/2.55) * sin(radians(ParabolaPhase))));
+	}
+}
+*/
+
 byte MoonPhase()
 {
 	int m,d,y;

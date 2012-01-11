@@ -34,9 +34,9 @@ int ReefAngel_SalinityClass::Read()
 	Wire.requestFrom(I2CSalinity, 2);
 	if (Wire.available())
 	{
-		iSal = Wire.receive();
+		iSal = Wire.read();
 		iSal = iSal<<8;
-		iSal += Wire.receive();		
+		iSal += Wire.read();
 	}
 	return iSal;
 }

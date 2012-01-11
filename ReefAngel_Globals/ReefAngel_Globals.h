@@ -26,7 +26,7 @@
 #ifdef COLORS_PDE
 #include <ReefAngel_CustomColors.h>
 #endif  // COLORS_PDE
-#include <WProgram.h>
+#include <Arduino.h>
 #include <Time.h>
 #include <OneWire.h>
 
@@ -52,6 +52,10 @@
 
 // Relay Box Modules
 #define MAX_RELAY_EXPANSION_MODULES     8
+#define PWM_EXPANSION_CHANNELS			6
+#define AI_CHANNELS						3
+#define RF_CHANNELS						6
+
 #ifdef RelayExp
 // Relay Expansion is defined in Features file
 // Check if the user specified how many expansion modules they have
@@ -161,6 +165,8 @@
 #define I2CExpander2        0x21
 #define I2CExpModule        0x38 // 0x38-3f
 #define I2CSalinity			0X4d
+#define I2CPWM				0x08
+#define I2CIO				0x09
 #define I2CRF				0X10
 
 // I2C Images Addresses
@@ -604,6 +610,7 @@ byte intlength(int intin);
 int NumMins(uint8_t ScheduleHour, uint8_t ScheduleMinute);
 bool IsLeapYear(int year);
 byte PWMSlope(byte startHour, byte startMinute, byte endHour, byte endMinute, byte startPWM, byte endPWM, byte Duration, byte oldValue);
+byte PWMParabola(byte startHour, byte startMinute, byte endHour, byte endMinute, byte startPWM, byte endPWM, byte Duration, byte oldValue);
 byte MoonPhase();
 void ConvertNumToString(char* string, int num, byte decimal);
 

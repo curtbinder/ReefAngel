@@ -133,7 +133,7 @@ void ReefAngel_RelayClass::Write()
     TempRelay |= RelayMaskOn;
 
     Wire.beginTransmission(I2CExpander1);
-    Wire.send(~TempRelay);   // MSB
+    Wire.write(~TempRelay);   // MSB
     Wire.endTransmission();
 #ifdef RelayExp
 	for ( byte EID = 0; EID < MAX_RELAY_EXPANSION_MODULES; EID++ )
@@ -142,7 +142,7 @@ void ReefAngel_RelayClass::Write()
 		TempRelay &= RelayMaskOffE[EID];
 		TempRelay |= RelayMaskOnE[EID];
 		Wire.beginTransmission(I2CExpModule+EID);
-		Wire.send(~TempRelay);  // MSB
+		Wire.write(~TempRelay);  // MSB
 		Wire.endTransmission();
 	}
 #endif  // RelayExp

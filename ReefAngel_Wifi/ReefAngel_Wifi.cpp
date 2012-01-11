@@ -877,6 +877,6 @@ void PROGMEMprint(const prog_char str[])
     char c;
     if(!str) return;
     while((c = pgm_read_byte(str++)))
-        WIFI_SERIAL.print(c,BYTE);
+        WIFI_SERIAL.print((char)c);
 }
 

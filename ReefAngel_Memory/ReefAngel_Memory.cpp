@@ -31,21 +31,21 @@ byte ReefAngel_MemoryClass::Read(unsigned int address)
 {
 	byte rdata = 0xFF;
 	Wire.beginTransmission(I2CEEPROM1);
-	Wire.send((int)(address >> 8));   // MSB
-	Wire.send((int)(address & 0xFF)); // LSB
+	Wire.write((int)(address >> 8));   // MSB
+	Wire.write((int)(address & 0xFF)); // LSB
 	Wire.endTransmission();
 	Wire.requestFrom(I2CEEPROM1,1);
 	if (Wire.available())
-        rdata = Wire.receive();
+        rdata = Wire.read();
 	return rdata;
 }
 
 void ReefAngel_MemoryClass::Write(unsigned int address, byte data)
 {
 	Wire.beginTransmission(I2CEEPROM1);
-	Wire.send((int)(address >> 8));   // MSB
-	Wire.send((int)(address & 0xFF)); // LSB
-	Wire.send(data);
+	Wire.write((int)(address >> 8));   // MSB
+	Wire.write((int)(address & 0xFF)); // LSB
+	Wire.write(data);
 	Wire.endTransmission();
 	delay(10);
 }
