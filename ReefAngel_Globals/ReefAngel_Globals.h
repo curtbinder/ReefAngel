@@ -179,6 +179,11 @@
 #define LCD_TIMER				3
 #define STORE_PARAMS_TIMER		5
 
+// Temp Sensor References
+#define T1_PROBE		0
+#define T2_PROBE		1
+#define T3_PROBE		2
+
 /*
 EEPROM locations
 
