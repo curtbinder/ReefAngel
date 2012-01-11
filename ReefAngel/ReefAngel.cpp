@@ -1565,6 +1565,9 @@ void ReefAngelClass::ShowInterface()
 				}
 				// commit relay changes
 				Relay.Write();
+#ifdef PWMEXPANSION
+					PWM.ExpansionWrite();
+#endif  // PWMEXPANSION
 				break;
 			}  // DEFAULT_MENU
 			case FEEDING_MODE:
@@ -1611,9 +1614,6 @@ void ReefAngelClass::ShowInterface()
 #ifdef RFEXPANSION
 					RF.SetMode(Feeding_Stop,0,0);
 #endif  // RFEXPANSION
-#ifdef PWMEXPANSION
-					PWM.ExpansionWrite();
-#endif  // PWMEXPANSION
 					ExitMenu();
 				}
 				break;

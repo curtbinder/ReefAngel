@@ -197,7 +197,7 @@ void RA_PWMClass::ExpansionWrite()
 {
 	for ( byte a = 0; a < PWM_EXPANSION_CHANNELS; a++ )
 	{
-		Expansion(a,int(ExpansionChannel[a]*2.55));
+		Expansion(a,ExpansionChannel[a]*2.55);
 	}	
 }
 
