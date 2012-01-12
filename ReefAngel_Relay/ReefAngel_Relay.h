@@ -34,6 +34,7 @@ public:
 	void AllOn();
 	void AllOff();
 	void Toggle(byte ID);
+	void Set(byte ID, boolean Status);
 	void Write();
 
 	byte RelayData;

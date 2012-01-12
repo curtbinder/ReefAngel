@@ -401,6 +401,7 @@ void processHTTP()
 						ReefAngel.PWM.SetDaylight(weboption);
 					}
 #endif  // DisplayLEDPWM
+/*
 #ifdef WavemakerSetup
 					else if ( (weboption2 == Mem_I_WM1Timer) || (weboption2 == Mem_I_WM2Timer) )
 					{
@@ -418,6 +419,7 @@ void processHTTP()
 						ReefAngel.Relay.On(p);
 					}
 #endif  // WavemakerSetup
+*/
 
 					PROGMEMprint(XML_M_OPEN);
 					WIFI_SERIAL.print(weboption2, DEC);
