@@ -458,6 +458,17 @@ void ReefAngelClass::Init()
 	LastStart = RAStart;  // Set the time normal mode is started
 	LCD.BacklightOn();
 	Relay.AllOff();
+	if (InternalMemory.IMCheck_read()!=0x5241494D) //0x5241494D
+	{
+		char temptext[25];
+		while(1)
+		{
+			strcpy_P(temptext, NoIMCheck);
+			LCD.DrawText(ModeScreenColor,DefaultBGColor,13,50,temptext);
+			strcpy_P(temptext, NoIMCheck1);
+			LCD.DrawText(ModeScreenColor,DefaultBGColor,50,75,temptext);
+		}
+	}
 	OverheatTempProbe = &Params.Temp2;
 #ifdef ENABLE_ATO_LOGGING
 	AtoEventCount = 0;

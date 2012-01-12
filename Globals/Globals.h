@@ -30,6 +30,12 @@
 #include <Time.h>
 #include <OneWire.h>
 
+#include <avr/pgmspace.h>
+
+const prog_char NoIMCheck[] PROGMEM = "No Internal Memory";
+const prog_char NoIMCheck1[] PROGMEM = "Found";
+
+
 #ifdef __PLUS_SPECIAL_WIFI__
 #define WIFI_SERIAL Serial1
 #else
@@ -273,6 +279,9 @@ When adding more variables, use the previous value plus 1 or 2
 #define Mem_B_RFSpeed			  VarsStart+56
 #define Mem_B_RFDuration		  VarsStart+57
 // Next value starts VarsStart+58
+
+// Internal Memory Check Pointer
+#define IMPointer			600
 
 // EEProm Pointers
 #define PH_Min		        949
@@ -782,7 +791,7 @@ extern byte DelayedOnPortsE[MAX_RELAY_EXPANSION_MODULES];
 extern byte AtoEventCount;  // Defined in RA_ATO.cpp
 #endif  // ENABLE_ATO_LOGGING
 
-// globally useable functions
+// globally usable functions
 byte intlength(int intin);
 int NumMins(uint8_t ScheduleHour, uint8_t ScheduleMinute);
 bool IsLeapYear(int year);
