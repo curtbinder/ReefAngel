@@ -14,7 +14,7 @@
 ** SOFTWARE.  
 */
 
-#include <WProgram.h>
+#include <Arduino.h>
 
 #ifndef __MMC_H__
 #define __MMC_H__

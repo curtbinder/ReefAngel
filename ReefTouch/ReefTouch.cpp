@@ -447,14 +447,14 @@ void ReefTouchClass::CalibrateTouchScreen()
 	{
 		LCD.FullClear(WHITE);
 		LargeFont.SetColor(GOLD,WHITE,true);
-		LargeFont.DrawCenterTextP(120,45,CAL1);
-		LargeFont.DrawCenterTextP(120,75,CAL2);
-		LargeFont.DrawCenterTextP(120,105,CAL3);
-		LargeFont.DrawCenterTextP(120,135,CAL4);
+		LargeFont.DrawCenterTextP(120,45,CALI1);
+		LargeFont.DrawCenterTextP(120,75,CALI2);
+		LargeFont.DrawCenterTextP(120,105,CALI3);
+		LargeFont.DrawCenterTextP(120,135,CALI4);
 		Font.SetColor(BLACK,WHITE,true);
-		Font.DrawCenterTextP(120,190,CAL5);
-		Font.DrawCenterTextP(120,205,CAL6);
-		Font.DrawCenterTextP(120,220,CAL7);
+		Font.DrawCenterTextP(120,190,CALI5);
+		Font.DrawCenterTextP(120,205,CALI6);
+		Font.DrawCenterTextP(120,220,CALI7);
 		for(byte a = 0; a<2; a++)
 		{
 			LCD.DrawCircle(RED,CalibrationPoints[a*2], CalibrationPoints[(a*2)+1], 5, false);

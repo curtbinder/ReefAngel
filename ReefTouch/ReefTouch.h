@@ -17,7 +17,7 @@
 #ifndef ReefTouch_h
 #define ReefTouch_h
 
-#include <WProgram.h>
+#include <Arduino.h>
 #include <avr/io.h>
 #include <avr/pgmspace.h>
 #include <avr/eeprom.h>
@@ -40,13 +40,13 @@
 
 // ReefTouch PROGMEM Strings
 // Calibration
-const prog_char CAL1[] PROGMEM = "Touch Screen";
-const prog_char CAL2[] PROGMEM = "Calibration";
-const prog_char CAL3[] PROGMEM = "and Tilt";
-const prog_char CAL4[] PROGMEM = "Compensation";
-const prog_char CAL5[] PROGMEM = "Please place the screen on";
-const prog_char CAL6[] PROGMEM = "top of a flat surface and";
-const prog_char CAL7[] PROGMEM = "touch the red circle";
+const prog_char CALI1[] PROGMEM = "Touch Screen";
+const prog_char CALI2[] PROGMEM = "Calibration";
+const prog_char CALI3[] PROGMEM = "and Tilt";
+const prog_char CALI4[] PROGMEM = "Compensation";
+const prog_char CALI5[] PROGMEM = "Please place the screen on";
+const prog_char CALI6[] PROGMEM = "top of a flat surface and";
+const prog_char CALI7[] PROGMEM = "touch the red circle";
 
 // Labels
 const prog_char TEMP[] PROGMEM = "Temp ";
