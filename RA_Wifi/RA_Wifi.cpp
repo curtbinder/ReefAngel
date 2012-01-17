@@ -351,8 +351,8 @@ void processHTTP()
 				s += intlength(ReefAngel.IO.GetChannel());
 #endif  // IOEXPANSION
 #ifdef CUSTOM_VARIABLES
-				s += 54;
-				//<C0></C0><C1></C1><C2></C2><C3></C3><C4></C4><C5></C5>
+				s += 72;
+				//<C0></C0><C1></C1><C2></C2><C3></C3><C4></C4><C5></C5><C6></C6><C7></C7>
 				for ( byte EID = 0; EID < 8; EID++ ) s += intlength(ReefAngel.CustomVar[EID]);
 #endif  // CUSTOM_VARIABLES
 #ifdef ENABLE_ATO_LOGGING

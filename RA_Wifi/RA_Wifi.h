@@ -155,6 +155,7 @@ const prog_char BannerID[] PROGMEM = "&id=";
 const prog_char BannerEM[] PROGMEM = "&em=";
 const prog_char BannerREM[] PROGMEM = "&rem=";
 const prog_char BannerCustom[] PROGMEM = "&c";
+const prog_char BannerKey[] PROGMEM = "&key=";
 
 #if defined DisplayLEDPWM && ! defined RemoveAllLights
 	const prog_char BannerPWMA[] PROGMEM = "&pwma=";

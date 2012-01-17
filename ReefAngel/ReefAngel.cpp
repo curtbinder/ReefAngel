@@ -1228,6 +1228,7 @@ void ReefAngelClass::LoadWebBanner(int pointer, byte qty)
 
 void ReefAngelClass::Portal(char *text)
 {
+	/*
 	static byte LastRelayData;
     byte TempRelay = Relay.RelayData;
     TempRelay &= Relay.RelayMaskOff;
@@ -1252,11 +1253,17 @@ void ReefAngelClass::Portal(char *text)
 	    }
 	}
     
-#endif  // RelayExp    
-	if (Timer[PORTAL_TIMER].IsTriggered()) SendPortal(text);
+#endif  // RelayExp
+	 */
+	if (Timer[PORTAL_TIMER].IsTriggered()) SendPortal(text,"");
+}
+
+void ReefAngelClass::Portal(char *text, char *key)
+{
+	if (Timer[PORTAL_TIMER].IsTriggered()) SendPortal(text,key);
 }
 	
-void ReefAngelClass::SendPortal(char *text)
+void ReefAngelClass::SendPortal(char *text, char*key)
 {
 	Timer[PORTAL_TIMER].Start();
 	PROGMEMprint(BannerGET);
@@ -1273,6 +1280,8 @@ void ReefAngelClass::SendPortal(char *text)
 	WIFI_SERIAL.print(EM, DEC);
 	PROGMEMprint(BannerREM);
 	WIFI_SERIAL.print(REM, DEC);
+	PROGMEMprint(BannerKey);
+	WIFI_SERIAL.print(key);
 	PROGMEMprint(BannerATOHIGH);
 	WIFI_SERIAL.print(HighATO.IsActive(), DEC);
 	PROGMEMprint(BannerATOLOW);
@@ -1286,6 +1295,7 @@ void ReefAngelClass::SendPortal(char *text)
 	PROGMEMprint(BannerRelayMaskOff);
 	WIFI_SERIAL.print("=");
 	WIFI_SERIAL.print(Relay.RelayMaskOff, DEC);
+
 #ifdef RelayExp
 	for ( byte x = 0; x < InstalledRelayExpansionModules && x < MAX_RELAY_EXPANSION_MODULES; x++ )
 	{

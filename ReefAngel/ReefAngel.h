@@ -188,7 +188,8 @@ public:
 	void LoadWebBanner(int pointer, byte qty);
 	void WebBanner();
 	void Portal(char *text);
-	void SendPortal(char *text);
+	void Portal(char *text, char*key);
+	void SendPortal(char *text, char*key);
 	byte EM;
 	byte REM;
 #endif  // wifi
