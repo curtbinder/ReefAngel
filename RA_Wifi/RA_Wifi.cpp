@@ -349,7 +349,12 @@ void processHTTP()
 				s += 9;
 				//<IO></IO>
 				s += intlength(ReefAngel.IO.GetChannel());
-#endif  // IOEXPANSION				
+#endif  // IOEXPANSION
+#ifdef CUSTOM_VARIABLES
+				s += 54;
+				//<C0></C0><C1></C1><C2></C2><C3></C3><C4></C4><C5></C5>
+				for ( byte EID = 0; EID < 8; EID++ ) s += intlength(ReefAngel.CustomVar[EID]);
+#endif  // CUSTOM_VARIABLES
 #ifdef ENABLE_ATO_LOGGING
 				if ( reqtype == REQ_RA_STATUS )
 				{
@@ -816,6 +821,18 @@ void SendXMLData(bool fAtoLog /*= false*/)
 	WIFI_SERIAL.print(ReefAngel.IO.GetChannel(), DEC);
 	PROGMEMprint(XML_IO_END);
 #endif  // IOEXPANSION	
+#ifdef CUSTOM_VARIABLES
+	for ( byte EID = 0; EID < 8; EID++ )
+	{
+		PROGMEMprint(XML_C);
+		WIFI_SERIAL.print(EID, DEC);
+		PROGMEMprint(XML_CLOSE_TAG);
+		WIFI_SERIAL.print(ReefAngel.CustomVar[EID], DEC);
+		PROGMEMprint(XML_C_END);
+		WIFI_SERIAL.print(EID, DEC);
+		PROGMEMprint(XML_CLOSE_TAG);
+	}
+#endif  // CUSTOM_VARIABLES
 #ifdef PWMEXPANSION
 	for ( byte EID = 0; EID < PWM_EXPANSION_CHANNELS; EID++ )
 	{

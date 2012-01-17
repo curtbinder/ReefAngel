@@ -54,14 +54,14 @@ const prog_char NoIMCheck1[] PROGMEM = "Found";
 #define Port1   1
 
 // Port bits
-#define Port8Bit   7
-#define Port7Bit   6
-#define Port6Bit   5
-#define Port5Bit   4
-#define Port4Bit   3
-#define Port3Bit   2
-#define Port2Bit   1
-#define Port1Bit   0
+#define Port8Bit   1<<7
+#define Port7Bit   1<<6
+#define Port6Bit   1<<5
+#define Port5Bit   1<<4
+#define Port4Bit   1<<3
+#define Port3Bit   1<<2
+#define Port2Bit   1<<1
+#define Port1Bit   1<<0
 
 // Relay Box Modules
 #define MAX_RELAY_EXPANSION_MODULES     8

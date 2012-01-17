@@ -49,10 +49,10 @@ void RA_PWMClass::SetDaylight(byte value)
     DaylightPWMValue = value;
 }
 
-byte RA_PWMClass::ActinicPWMSlope(byte MinuteOffset)
+void RA_PWMClass::ActinicPWMSlope(byte MinuteOffset)
 {
-	int onTime=NumMins(InternalMemory.StdLightsOnHour_read(),InternalMemory.StdLightsOnMinute_read())-(MinuteOffset*60);
-	int offTime=NumMins(InternalMemory.StdLightsOffHour_read(),InternalMemory.StdLightsOffMinute_read())+(MinuteOffset*60);
+	int onTime=NumMins(InternalMemory.StdLightsOnHour_read(),InternalMemory.StdLightsOnMinute_read())-MinuteOffset;
+	int offTime=NumMins(InternalMemory.StdLightsOffHour_read(),InternalMemory.StdLightsOffMinute_read())+MinuteOffset;
 	SetActinic(PWMSlope(
 			onTime/60,
 			onTime%60,
@@ -65,10 +65,10 @@ byte RA_PWMClass::ActinicPWMSlope(byte MinuteOffset)
 			));
 }
 
-byte RA_PWMClass::DaylightPWMSlope(byte MinuteOffset)
+void RA_PWMClass::DaylightPWMSlope(byte MinuteOffset)
 {
-	int onTime=NumMins(InternalMemory.StdLightsOnHour_read(),InternalMemory.StdLightsOnMinute_read())-(MinuteOffset*60);
-	int offTime=NumMins(InternalMemory.StdLightsOffHour_read(),InternalMemory.StdLightsOffMinute_read())+(MinuteOffset*60);
+	int onTime=NumMins(InternalMemory.StdLightsOnHour_read(),InternalMemory.StdLightsOnMinute_read())-MinuteOffset;
+	int offTime=NumMins(InternalMemory.StdLightsOffHour_read(),InternalMemory.StdLightsOffMinute_read())+MinuteOffset;
 	SetDaylight(PWMSlope(
 			onTime/60,
 			onTime%60,
@@ -81,7 +81,7 @@ byte RA_PWMClass::DaylightPWMSlope(byte MinuteOffset)
 			));
 }
 
-byte RA_PWMClass::ActinicPWMSlope()
+void RA_PWMClass::ActinicPWMSlope()
 {
 	SetActinic(PWMSlope(
 			InternalMemory.StdLightsOnHour_read(),
@@ -95,7 +95,7 @@ byte RA_PWMClass::ActinicPWMSlope()
 			));
 }
 
-byte RA_PWMClass::DaylightPWMSlope()
+void RA_PWMClass::DaylightPWMSlope()
 {
 	SetDaylight(PWMSlope(
 			InternalMemory.StdLightsOnHour_read(),
@@ -109,10 +109,10 @@ byte RA_PWMClass::DaylightPWMSlope()
 			));
 }
 
-byte RA_PWMClass::ActinicPWMParabola(byte MinuteOffset)
+void RA_PWMClass::ActinicPWMParabola(byte MinuteOffset)
 {
-	int onTime=NumMins(InternalMemory.StdLightsOnHour_read(),InternalMemory.StdLightsOnMinute_read())-(MinuteOffset*60);
-	int offTime=NumMins(InternalMemory.StdLightsOffHour_read(),InternalMemory.StdLightsOffMinute_read())+(MinuteOffset*60);
+	int onTime=NumMins(InternalMemory.StdLightsOnHour_read(),InternalMemory.StdLightsOnMinute_read())-MinuteOffset;
+	int offTime=NumMins(InternalMemory.StdLightsOffHour_read(),InternalMemory.StdLightsOffMinute_read())+MinuteOffset;
 	SetActinic(PWMParabola(
 			onTime/60,
 			onTime%60,
@@ -124,10 +124,10 @@ byte RA_PWMClass::ActinicPWMParabola(byte MinuteOffset)
 			));
 }
 
-byte RA_PWMClass::DaylightPWMParabola(byte MinuteOffset)
+void RA_PWMClass::DaylightPWMParabola(byte MinuteOffset)
 {
-	int onTime=NumMins(InternalMemory.StdLightsOnHour_read(),InternalMemory.StdLightsOnMinute_read())-(MinuteOffset*60);
-	int offTime=NumMins(InternalMemory.StdLightsOffHour_read(),InternalMemory.StdLightsOffMinute_read())+(MinuteOffset*60);
+	int onTime=NumMins(InternalMemory.StdLightsOnHour_read(),InternalMemory.StdLightsOnMinute_read())-MinuteOffset;
+	int offTime=NumMins(InternalMemory.StdLightsOffHour_read(),InternalMemory.StdLightsOffMinute_read())+MinuteOffset;
 	SetDaylight(PWMParabola(
 			onTime/60,
 			onTime%60,
@@ -139,7 +139,7 @@ byte RA_PWMClass::DaylightPWMParabola(byte MinuteOffset)
 			));
 }
 
-byte RA_PWMClass::ActinicPWMParabola()
+void RA_PWMClass::ActinicPWMParabola()
 {
 	SetActinic(PWMParabola(
 			InternalMemory.StdLightsOnHour_read(),
@@ -152,7 +152,7 @@ byte RA_PWMClass::ActinicPWMParabola()
 			));
 }
 
-byte RA_PWMClass::DaylightPWMParabola()
+void RA_PWMClass::DaylightPWMParabola()
 {
 	SetDaylight(PWMParabola(
 			InternalMemory.StdLightsOnHour_read(),

@@ -36,6 +36,7 @@ public:
 	void Toggle(byte ID);
 	void Set(byte ID, boolean Status);
 	void Write();
+	inline boolean Status(byte Port)  { return bitRead(RelayData,Port-1); }
 
 	byte RelayData;
 	byte RelayMaskOn;

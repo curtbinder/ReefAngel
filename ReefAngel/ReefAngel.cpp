@@ -563,7 +563,12 @@ void ReefAngelClass::Init()
     REM = 0;
 #endif  // RelayExp
 #endif  // wifi
-
+#ifdef CUSTOM_VARIABLES
+	for ( byte EID = 0; EID < 8; EID++ )
+	{
+		CustomVar[EID]=0;
+	}    
+#endif //CUSTOM_VARIABLES
 }
 
 void ReefAngelClass::Refresh()
@@ -980,6 +985,36 @@ void ReefAngelClass::Wavemaker(byte WMRelay, byte WMTimer)
 	Relay.Set(WMRelay,(now()%(WMTimer*2))<WMTimer);
 }
 
+void ReefAngelClass::WavemakerRandom(byte WMRelay, byte MinWMTimer, byte MaxWMTimer)
+{
+	static time_t WMRTimer=now()+MinWMTimer;
+	if (now()>WMRTimer)
+	{
+		WMRTimer=now()+random(MinWMTimer, MaxWMTimer);
+		ReefAngel.Relay.Toggle(WMRelay);
+	}
+}
+
+void ReefAngelClass::WavemakerRandom1(byte WMRelay, byte MinWMTimer, byte MaxWMTimer)
+{
+	static time_t WMRTimer1=now()+MinWMTimer;
+	if (now()>WMRTimer1)
+	{
+		WMRTimer1=now()+random(MinWMTimer, MaxWMTimer);
+		ReefAngel.Relay.Toggle(WMRelay);
+	}
+}
+
+void ReefAngelClass::WavemakerRandom2(byte WMRelay, byte MinWMTimer, byte MaxWMTimer)
+{
+	static time_t WMRTimer2=now()+MinWMTimer;
+	if (now()>WMRTimer2)
+	{
+		WMRTimer2=now()+random(MinWMTimer, MaxWMTimer);
+		ReefAngel.Relay.Toggle(WMRelay);
+	}
+}
+
 // Simplified for PDE file
 void ReefAngelClass::StandardLights(byte Relay)
 {
@@ -989,6 +1024,28 @@ void ReefAngelClass::StandardLights(byte Relay)
                    InternalMemory.StdLightsOffHour_read(),
                    InternalMemory.StdLightsOffMinute_read());
 }
+
+void ReefAngelClass::StandardLights(byte Relay, byte MinuteOffset)
+{
+	int onTime=NumMins(InternalMemory.StdLightsOnHour_read(),InternalMemory.StdLightsOnMinute_read())-MinuteOffset;
+	int offTime=NumMins(InternalMemory.StdLightsOffHour_read(),InternalMemory.StdLightsOffMinute_read())+MinuteOffset;
+	StandardLights(Relay,
+			onTime/60,
+			onTime%60,
+			offTime/60,
+			offTime%60
+			);	
+}
+
+void ReefAngelClass::MoonLights(byte Relay)
+{
+    StandardLights(Relay,
+                   InternalMemory.StdLightsOffHour_read(),
+                   InternalMemory.StdLightsOffMinute_read(),
+                   InternalMemory.StdLightsOnHour_read(),
+                   InternalMemory.StdLightsOnMinute_read());	
+}
+
 
 void ReefAngelClass::MHLights(byte Relay)
 {
@@ -1065,6 +1122,7 @@ void ReefAngelClass::DosingPumpRepeat2(byte Relay)
 
 void ReefAngelClass::Wavemaker1(byte WMRelay)
 {
+	/*
     // TODO Update Timers appropriately
     static bool bSetup = false;
     if ( ! bSetup )
@@ -1080,10 +1138,13 @@ void ReefAngelClass::Wavemaker1(byte WMRelay)
     }
 
     Wavemaker(WMRelay, 1);
+    */
+	Wavemaker(WMRelay,InternalMemory.WM1Timer_read());
 }
 
 void ReefAngelClass::Wavemaker2(byte WMRelay)
 {
+	/*
     // TODO Update Timers appropriately
     static bool bSetup = false;
     if ( ! bSetup )
@@ -1099,6 +1160,8 @@ void ReefAngelClass::Wavemaker2(byte WMRelay)
     }
 
     Wavemaker(WMRelay, 2);
+    */
+	Wavemaker(WMRelay,InternalMemory.WM2Timer_read());
 }
 
 #ifdef VersionMenu
@@ -1295,6 +1358,15 @@ void ReefAngelClass::SendPortal(char *text)
 	PROGMEMprint(BannerIO);
 	WIFI_SERIAL.print(IO.GetChannel(), DEC);
 #endif  // IOEXPANSION	
+#ifdef CUSTOM_VARIABLES
+	for ( byte EID = 0; EID < 8; EID++ )
+	{
+		PROGMEMprint(BannerCustomVar);
+		WIFI_SERIAL.print(EID, DEC);
+		WIFI_SERIAL.print("=");
+		WIFI_SERIAL.print(CustomVar[EID], DEC);
+	}
+#endif  // CUSTOM_VARIABLES	
 	WIFI_SERIAL.println("\n\n");
 }
 #endif  // wifi

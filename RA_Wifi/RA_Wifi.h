@@ -82,6 +82,10 @@ const prog_char XML_RFI_END[] PROGMEM = "</RFI>";
 const prog_char XML_IO[] PROGMEM = "<IO>";
 const prog_char XML_IO_END[] PROGMEM = "</IO>";
 #endif  // IOEXPANSION
+#ifdef CUSTOM_VARIABLES
+const prog_char XML_C[] PROGMEM = "<C";
+const prog_char XML_C_END[] PROGMEM = "</C";
+#endif  // CUSTOM_VARIABLES
 #ifdef ENABLE_ATO_LOGGING
 const prog_char XML_ATOLOW_LOG_OPEN[] PROGMEM = "<AL";
 const prog_char XML_ATOLOW_LOG_CLOSE[] PROGMEM = "</AL";
@@ -208,7 +212,10 @@ const prog_char BannerCustom[] PROGMEM = "&c";
 #else
 	#define IObit		0
 #endif  // IOEXPANSION
-	
+
+#ifdef CUSTOM_VARIABLES
+	const prog_char BannerCustomVar[] PROGMEM = "&c";
+#endif //CUSTOM_VARIABLES
 
 
 //const prog_char probe1_tag[] PROGMEM = "t1n";

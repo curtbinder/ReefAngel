@@ -31,14 +31,14 @@ public:
 	RA_PWMClass();
 	void SetActinic(byte value);
 	void SetDaylight(byte value);
-	byte ActinicPWMSlope(byte MinuteOffset);
-	byte DaylightPWMSlope(byte MinuteOffset);
-	byte ActinicPWMSlope();
-	byte DaylightPWMSlope();
-	byte ActinicPWMParabola(byte MinuteOffset);
-	byte DaylightPWMParabola(byte MinuteOffset);
-	byte ActinicPWMParabola();
-	byte DaylightPWMParabola();
+	void ActinicPWMSlope(byte MinuteOffset);
+	void DaylightPWMSlope(byte MinuteOffset);
+	void ActinicPWMSlope();
+	void DaylightPWMSlope();
+	void ActinicPWMParabola(byte MinuteOffset);
+	void DaylightPWMParabola(byte MinuteOffset);
+	void ActinicPWMParabola();
+	void DaylightPWMParabola();
 
 #ifdef PWMEXPANSION
 	byte ExpansionChannel[PWM_EXPANSION_CHANNELS];
