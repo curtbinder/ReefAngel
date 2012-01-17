@@ -26,9 +26,15 @@
 #ifdef COLORS_PDE
 #include <RA_CustomColors.h>
 #endif  // COLORS_PDE
-#include <WProgram.h>
+#include <Arduino.h>
 #include <Time.h>
 #include <OneWire.h>
+
+#include <avr/pgmspace.h>
+
+const prog_char NoIMCheck[] PROGMEM = "No Internal Memory";
+const prog_char NoIMCheck1[] PROGMEM = "Found";
+
 
 #ifdef __PLUS_SPECIAL_WIFI__
 #define WIFI_SERIAL Serial1
@@ -48,14 +54,14 @@
 #define Port1   1
 
 // Port bits
-#define Port8Bit   7
-#define Port7Bit   6
-#define Port6Bit   5
-#define Port5Bit   4
-#define Port4Bit   3
-#define Port3Bit   2
-#define Port2Bit   1
-#define Port1Bit   0
+#define Port8Bit   1<<7
+#define Port7Bit   1<<6
+#define Port6Bit   1<<5
+#define Port5Bit   1<<4
+#define Port4Bit   1<<3
+#define Port3Bit   1<<2
+#define Port2Bit   1<<1
+#define Port1Bit   1<<0
 
 // Relay Box Modules
 #define MAX_RELAY_EXPANSION_MODULES     8
@@ -273,6 +279,9 @@ When adding more variables, use the previous value plus 1 or 2
 #define Mem_B_RFSpeed			  VarsStart+56
 #define Mem_B_RFDuration		  VarsStart+57
 // Next value starts VarsStart+58
+
+// Internal Memory Check Pointer
+#define IMPointer			600
 
 // EEProm Pointers
 #define PH_Min		        949
@@ -782,11 +791,12 @@ extern byte DelayedOnPortsE[MAX_RELAY_EXPANSION_MODULES];
 extern byte AtoEventCount;  // Defined in RA_ATO.cpp
 #endif  // ENABLE_ATO_LOGGING
 
-// globally useable functions
+// globally usable functions
 byte intlength(int intin);
 int NumMins(uint8_t ScheduleHour, uint8_t ScheduleMinute);
 bool IsLeapYear(int year);
 byte PWMSlope(byte startHour, byte startMinute, byte endHour, byte endMinute, byte startPWM, byte endPWM, byte Duration, byte oldValue);
+byte PWMParabola(byte startHour, byte startMinute, byte endHour, byte endMinute, byte startPWM, byte endPWM, byte oldValue);
 byte MoonPhase();
 void ConvertNumToString(char* string, int num, byte decimal);
 

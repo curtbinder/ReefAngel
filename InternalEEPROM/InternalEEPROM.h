@@ -119,7 +119,8 @@ class InternalEEPROMClass {
         void DP2RepeatInterval_write(const int value);
         int SalMax_read();
         void SalMax_write(const int value);
-
+        unsigned long IMCheck_read();
+        void IMCheck_write(const unsigned long value);
         // Functions that do the reading/writing to memory
         uint8_t read(uint8_t);
         void write(uint8_t, const uint8_t);

@@ -40,6 +40,9 @@
 #if defined SALINITYEXPANSION
 	#include <Salinity.h>
 #endif  // defined SALINITYEXPANSION
+#if defined ORPEXPANSION
+	#include <ORP.h>
+#endif  // defined ORPEXPANSION
 #if defined RFEXPANSION
 	#include <RF.h>
 #endif  // defined RFEXPANSION
@@ -90,6 +93,9 @@ public:
 #if defined SALINITYEXPANSION
 	SalinityClass Salinity;
 #endif  // defined SALINITYEXPANSION
+#if defined ORPEXPANSION
+	ORPClass ORP;
+#endif  // ORPEXPANSION IOEXPANSION
 #if defined RFEXPANSION
 	RFClass RF;
 #endif  // defined RFEXPANSION
@@ -149,9 +155,14 @@ public:
 	void DosingPump(byte DPRelay, byte DPTimer, byte OnHour, byte OnMinute, byte RunTime);
 	void DosingPumpRepeat(byte DPRelay, byte OffsetMinute, int RepeatMinute, byte RunTime);
 	void Wavemaker(byte WMRelay, byte WMTimer);
+	void WavemakerRandom(byte WMRelay, byte MinWMTimer, byte MaxWMTimer);
+	void WavemakerRandom1(byte WMRelay, byte MinWMTimer, byte MaxWMTimer);
+	void WavemakerRandom2(byte WMRelay, byte MinWMTimer, byte MaxWMTimer);
 
 	// Simplified PDE versions of the calls
 	void StandardLights(byte Relay);
+	void StandardLights(byte Relay, byte MinuteOffset);
+	void MoonLights(byte Relay);
 	void MHLights(byte Relay);
 	void StandardHeater(byte Relay);
 	void StandardFan(byte Relay);
@@ -177,7 +188,8 @@ public:
 	void LoadWebBanner(int pointer, byte qty);
 	void WebBanner();
 	void Portal(char *text);
-	void SendPortal(char *text);
+	void Portal(char *text, char*key);
+	void SendPortal(char *text, char*key);
 	byte EM;
 	byte REM;
 #endif  // wifi
@@ -237,6 +249,10 @@ public:
     void SetupDosingPump();
 #endif  // DosingPumpSetup
 #endif  // !defined SIMPLE_MENU && !defined CUSTOM_MENU
+
+#ifdef CUSTOM_VARIABLES
+    byte CustomVar[8];
+#endif //CUSTOM_VARIABLES
 
 private:
 	bool showmenu;

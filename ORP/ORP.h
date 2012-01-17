@@ -19,28 +19,15 @@
   * Updates Released under Apache License, Version 2.0
   */
 
-#include "IO.h"
+#ifndef __ORP_H__
+#define __ORP_H__
+
 #include <Globals.h>
-#include <Wire.h>
 
-
-IOClass::IOClass()
+class ORPClass
 {
-}
+public:
+	ORPClass();
+};
 
-byte IOClass::GetChannel()
-{
-	IOPorts=63;
-	Wire.requestFrom(I2CIO, 1);
-	if (Wire.available())
-	{
-		IOPorts = Wire.read();
-	}
-	return IOPorts;
-}
-
-byte IOClass::GetChannel(byte Channel)
-{
-	GetChannel();
-	return bitRead(IOPorts,Channel);
-}
+#endif  // __ORP_H__

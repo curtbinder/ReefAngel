@@ -469,6 +469,16 @@ void InternalEEPROMClass::SalMax_write(const int value)
     write_int(Mem_I_SalMax, value);
 }
 
+unsigned long InternalEEPROMClass::IMCheck_read()
+{
+    return read_dword(IMPointer);
+}
+
+void InternalEEPROMClass::IMCheck_write(const unsigned long value)
+{
+	write_dword(IMPointer, value);
+}
+
 // Private functions
 uint8_t InternalEEPROMClass::read(uint8_t address)
 {

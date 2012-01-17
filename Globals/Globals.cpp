@@ -21,7 +21,6 @@
 
 #include "Globals.h"
 
-
 byte intlength(int intin)
 {
   if (intin>9999) return 5;
@@ -74,6 +73,23 @@ byte PWMSlope(byte startHour, byte startMinute, byte endHour, byte endMinute, by
 
     // lastly return the existing value
     return oldValue;
+}
+
+byte PWMParabola(byte startHour, byte startMinute, byte endHour, byte endMinute, byte startPWM, byte endPWM, byte oldValue)
+{
+	int Now = NumMins(hour(), minute());
+	int Start = NumMins(startHour, startMinute);
+	int End = NumMins(endHour, endMinute);
+	byte PWMDelta = endPWM-startPWM;
+
+	if ( Now <= Start || Now >= End)
+		return oldValue;
+	else
+	{
+		byte ParabolaPhase=constrain(map(Now,Start,End,0,180),0,180);
+		return startPWM+(PWMDelta*sin(radians(ParabolaPhase)));
+	}
+	
 }
 
 byte MoonPhase()

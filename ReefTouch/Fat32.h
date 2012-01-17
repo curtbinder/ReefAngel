@@ -19,7 +19,7 @@ typedef unsigned char u8;
 typedef unsigned int u16; 
 typedef unsigned long u32; 
 
-#include <WProgram.h>
+#include <Arduino.h>
 #include <inttypes.h>
 #include <avr/pgmspace.h>
 #include <avr/eeprom.h>
