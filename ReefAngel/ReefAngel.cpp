@@ -929,7 +929,7 @@ void ReefAngelClass::DosingPump(byte DPRelay, byte OnHour, byte OnMinute, byte R
 	Relay.Set(DPRelay, (now()%((OnHour*3600)+(OnMinute*60)))<RunTime);
 }
 
-void ReefAngelClass::DosingPumpRepeat(byte DPRelay, byte OffsetMinute, int RepeatMinute, byte RunTime)
+void ReefAngelClass::DosingPumpRepeat(byte DPRelay, int OffsetMinute, int RepeatMinute, byte RunTime)
 {
 	// Old code has been replaced with dedvalson (Don) - 01/06/2012
 	/*

@@ -149,7 +149,7 @@ public:
 	void StandardATO(byte ATORelay, int ATOTimeout);
 	void SingleATO(bool bLow, byte ATORelay, byte byteTimeout, byte byteHrInterval);
 	void DosingPump(byte DPRelay, byte DPTimer, byte OnHour, byte OnMinute, byte RunTime);
-	void DosingPumpRepeat(byte DPRelay, byte OffsetMinute, int RepeatMinute, byte RunTime);
+	void DosingPumpRepeat(byte DPRelay, int OffsetMinute, int RepeatMinute, byte RunTime);
 	void Wavemaker(byte WMRelay, int WMTimer);
 	void WavemakerRandom(byte WMRelay, int MinWMTimer, int MaxWMTimer);
 	void WavemakerRandom1(byte WMRelay, int MinWMTimer, int MaxWMTimer);
