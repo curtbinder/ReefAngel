@@ -136,6 +136,8 @@ const prog_char XML_ERR[] PROGMEM = "ERR";
 #define REQ_WATER		12		// Start water change mode
 #define REQ_BTN_PRESS	13		// Simulate a button press, to end feeding & water change modes
 #define REQ_CAL_RELOAD	14		// Reload calibration values from memory
+#define REQ_ALARM_ATO	15		// Clears the ATO alarm
+#define REQ_ALARM_OVERHEAT	16	// Clears the Overheat alarm
 #define REQ_HTTP		127		// HTTP get request from  external server
 #define REQ_UNKNOWN		128	 	// Unknown request
 
@@ -166,7 +168,7 @@ const prog_char BannerKey[] PROGMEM = "&key=";
 	const prog_char BannerPWME[] PROGMEM = "&pwme";
 	#define PWMEbit		1
 #else
-	#define PWMEbit		0	
+	#define PWMEbit		0
 #endif  // PWMEXPANSION
 
 #ifdef RFEXPANSION
@@ -181,7 +183,7 @@ const prog_char BannerKey[] PROGMEM = "&key=";
 	const prog_char BannerRFI[] PROGMEM = "&rfi=";
 	#define RFEbit		2
 #else
-	#define RFEbit		0	
+	#define RFEbit		0
 #endif  // RFEXPANSION
 
 #ifdef AI_LED
@@ -190,23 +192,23 @@ const prog_char BannerKey[] PROGMEM = "&key=";
 	const prog_char BannerAIRB[] PROGMEM = "&airb=";
 	#define AIbit		4
 #else
-	#define AIbit		0	
+	#define AIbit		0
 #endif  // AI_LED
 
 #ifdef SALINITYEXPANSION
 	const prog_char BannerSal[] PROGMEM = "&sal=";
 	#define Salbit		8
 #else
-	#define Salbit		0	
+	#define Salbit		0
 #endif  // SALINITYEXPANSION
 
 #ifdef ORPEXPANSION
 	const prog_char BannerORP[] PROGMEM = "&orp=";
 	#define ORPbit		16
 #else
-	#define ORPbit		0	
+	#define ORPbit		0
 #endif  // ORPEXPANSION
-	
+
 #ifdef IOEXPANSION
 	const prog_char BannerIO[] PROGMEM = "&io=";
 	#define IObit		32
