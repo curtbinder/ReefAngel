@@ -386,12 +386,9 @@ void processHTTP()
 			case REQ_M_BYTE:
 			case REQ_M_INT:
 			{
-				int s = 118;
+				int s;
 				P(WebBodyMsg) = SERVER_HEADER_XML;
 				printP(WebBodyMsg);
-				WIFI_SERIAL.print(s, DEC);
-				P(WebBodyMsg1) = SERVER_HEADER3;
-				printP(WebBodyMsg1);
 
 				// weboption2 is location
 				// weboption is value
@@ -423,6 +420,13 @@ void processHTTP()
 					}
 #endif  // DisplayLEDPWM
 
+					s = 9;  // <M>OK</M>
+					// add in the location, twice
+					s += (intlength(weboption2)*2);
+					WIFI_SERIAL.print(s, DEC);
+					P(WebBodyMsg1) = SERVER_HEADER3;
+					printP(WebBodyMsg1);
+
 					PROGMEMprint(XML_M_OPEN);
 					WIFI_SERIAL.print(weboption2, DEC);
 					PROGMEMprint(XML_CLOSE_TAG);
@@ -433,6 +437,20 @@ void processHTTP()
 				}
 				else if ( !bHasSecondValue && (weboption2 >= 0) && (bCommaCount==0) )
 				{
+					// get the length first
+					s = 7;  // <M></M>
+					// length of the memory location, twice since it's in the open & close tag
+					s += (intlength(weboption2)*2);
+					// length of the value from memory
+					if ( reqtype == REQ_M_BYTE )
+						s += intlength(InternalMemory.read(weboption2));
+					else
+						s += intlength(InternalMemory.read_int(weboption2));
+
+					WIFI_SERIAL.print(s, DEC);
+					P(WebBodyMsg1) = SERVER_HEADER3;
+					printP(WebBodyMsg1);
+
 					// no second value and no comma, so we read the value from memory
 					PROGMEMprint(XML_M_OPEN);
 					WIFI_SERIAL.print(weboption2, DEC);
@@ -447,6 +465,10 @@ void processHTTP()
 				}
 				else
 				{
+					s = 10;  // <M>ERR</M>
+					WIFI_SERIAL.print(s, DEC);
+					P(WebBodyMsg1) = SERVER_HEADER3;
+					printP(WebBodyMsg1);
 					PROGMEMprint(XML_M_OPEN);
 					PROGMEMprint(XML_CLOSE_TAG);
 					PROGMEMprint(XML_ERR);
@@ -457,7 +479,8 @@ void processHTTP()
 			}  // REQ_M_BYTE || REQ_M_INT
 			case REQ_M_ALL:
 			{
-				int s = 123;  // start with the base size of the headers plus the mem tags
+				//int s = 123;  // start with the base size of the headers plus the mem tags
+				int s = 11;  // start with the base size of the mem tags
 				/*
 				Send all the data to the client requesting it.  The values will be sent as follows:
 					- wrapped in <MEM></MEM> XML tags
@@ -474,7 +497,7 @@ void processHTTP()
 				*/
 				uint8_t offsets[] = {1,1,1,1,1,1,1,1,2,2,1,1,2,2,2,1,1,2,2,2,2,1,2,2,1,1,1,1,1,1,1,1,2,2};
 				uint8_t num = sizeof(offsets)/sizeof(uint8_t);
-				// add in the memory location sizes, 13 bytes if the memory location is 4 digits
+				// add in the memory location sizes, 13 bytes if the memory location is 3 digits <MXXX></MXXX>
 				s += num*13;
 				uint16_t count = VarsStart;
 				uint8_t x;
