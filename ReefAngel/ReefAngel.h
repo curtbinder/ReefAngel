@@ -135,11 +135,6 @@ public:
 #endif  // RelayExp
 #endif  // RemoveAllLights
 
-#ifdef WavemakerSetup
-    // TODO find a better way to save the wavemaker ports for restarting once timers are updated from setup screen
-    byte WM1Port;
-    byte WM2Port;
-#endif  // WavemakerSetup
 	byte OverheatProbe;
 	byte TempProbe;
 
@@ -155,10 +150,10 @@ public:
 	void SingleATO(bool bLow, byte ATORelay, byte byteTimeout, byte byteHrInterval);
 	void DosingPump(byte DPRelay, byte DPTimer, byte OnHour, byte OnMinute, byte RunTime);
 	void DosingPumpRepeat(byte DPRelay, byte OffsetMinute, int RepeatMinute, byte RunTime);
-	void Wavemaker(byte WMRelay, byte WMTimer);
-	void WavemakerRandom(byte WMRelay, byte MinWMTimer, byte MaxWMTimer);
-	void WavemakerRandom1(byte WMRelay, byte MinWMTimer, byte MaxWMTimer);
-	void WavemakerRandom2(byte WMRelay, byte MinWMTimer, byte MaxWMTimer);
+	void Wavemaker(byte WMRelay, int WMTimer);
+	void WavemakerRandom(byte WMRelay, int MinWMTimer, int MaxWMTimer);
+	void WavemakerRandom1(byte WMRelay, int MinWMTimer, int MaxWMTimer);
+	void WavemakerRandom2(byte WMRelay, int MinWMTimer, int MaxWMTimer);
 
 	// Simplified PDE versions of the calls
 	void StandardLights(byte Relay);

@@ -897,7 +897,7 @@ void ReefAngelClass::SingleATO(bool bLow, byte ATORelay, byte byteTimeout, byte 
     }
 }
 
-void ReefAngelClass::DosingPump(byte DPRelay, byte DPTimer, byte OnHour, byte OnMinute, byte RunTime)
+void ReefAngelClass::DosingPump(byte DPRelay, byte OnHour, byte OnMinute, byte RunTime)
 {
     /*
     This function configures and sets up the dosing pump and turns it on at the appropriate time
@@ -908,7 +908,7 @@ void ReefAngelClass::DosingPump(byte DPRelay, byte DPTimer, byte OnHour, byte On
     OnHour & OnMinute - time to turn on the dosing pump (in 24hr based time)
     RunTime - duration to run the pump
     */
-
+/*
     // Let's see if it's supposed to start running the timer now
     if ( (NumMins(hour(), minute()) == NumMins(OnHour, OnMinute)) && (second() == 0) )
     {
@@ -925,6 +925,8 @@ void ReefAngelClass::DosingPump(byte DPRelay, byte DPTimer, byte OnHour, byte On
         Relay.Off(DPRelay);
         //LED.Off();
     }
+*/
+	Relay.Set(DPRelay, (now()%((OnHour*3600)+(OnMinute*60)))<RunTime);
 }
 
 void ReefAngelClass::DosingPumpRepeat(byte DPRelay, byte OffsetMinute, int RepeatMinute, byte RunTime)
@@ -972,21 +974,13 @@ void ReefAngelClass::DosingPumpRepeat(byte DPRelay, byte OffsetMinute, int Repea
 	Relay.Set(DPRelay,((now()-(OffsetMinute*60))%(RepeatMinute*60))<RunTime);
 }
 
-void ReefAngelClass::Wavemaker(byte WMRelay, byte WMTimer)
+void ReefAngelClass::Wavemaker(byte WMRelay, int WMTimer)
 {
 	// Old code has been replaced with dedvalson (Don) - 01/06/2012
-	/*
-    // TODO Update Timers appropriately
-    if ( Timer[WMTimer].IsTriggered() )
-    {
-        Timer[WMTimer].Start();
-        Relay.Toggle(WMRelay);
-    }
-    */
 	Relay.Set(WMRelay,(now()%(WMTimer*2))<WMTimer);
 }
 
-void ReefAngelClass::WavemakerRandom(byte WMRelay, byte MinWMTimer, byte MaxWMTimer)
+void ReefAngelClass::WavemakerRandom(byte WMRelay, int MinWMTimer, int MaxWMTimer)
 {
 	static time_t WMRTimer=now()+MinWMTimer;
 	if (now()>WMRTimer)
@@ -996,7 +990,7 @@ void ReefAngelClass::WavemakerRandom(byte WMRelay, byte MinWMTimer, byte MaxWMTi
 	}
 }
 
-void ReefAngelClass::WavemakerRandom1(byte WMRelay, byte MinWMTimer, byte MaxWMTimer)
+void ReefAngelClass::WavemakerRandom1(byte WMRelay, int MinWMTimer, int MaxWMTimer)
 {
 	static time_t WMRTimer1=now()+MinWMTimer;
 	if (now()>WMRTimer1)
@@ -1006,7 +1000,7 @@ void ReefAngelClass::WavemakerRandom1(byte WMRelay, byte MinWMTimer, byte MaxWMT
 	}
 }
 
-void ReefAngelClass::WavemakerRandom2(byte WMRelay, byte MinWMTimer, byte MaxWMTimer)
+void ReefAngelClass::WavemakerRandom2(byte WMRelay, int MinWMTimer, int MaxWMTimer)
 {
 	static time_t WMRTimer2=now()+MinWMTimer;
 	if (now()>WMRTimer2)
@@ -1089,8 +1083,7 @@ void ReefAngelClass::SingleATOHigh(byte Relay)
 
 void ReefAngelClass::DosingPump1(byte Relay)
 {
-    // TODO Update Timers appropriately
-    DosingPump(Relay, 1,
+    DosingPump(Relay,
                InternalMemory.DP1OnHour_read(),
                InternalMemory.DP1OnMinute_read(),
                InternalMemory.DP1Timer_read());
@@ -1098,8 +1091,7 @@ void ReefAngelClass::DosingPump1(byte Relay)
 
 void ReefAngelClass::DosingPump2(byte Relay)
 {
-    // TODO Update Timers appropriately
-    DosingPump(Relay, 2,
+    DosingPump(Relay,
                InternalMemory.DP2OnHour_read(),
                InternalMemory.DP2OnMinute_read(),
                InternalMemory.DP2Timer_read());
@@ -1107,7 +1099,6 @@ void ReefAngelClass::DosingPump2(byte Relay)
 
 void ReefAngelClass::DosingPumpRepeat1(byte Relay)
 {
-	// TODO Update Timers appropriately
 	DosingPumpRepeat(Relay, 0,
 					InternalMemory.DP1RepeatInterval_read(),
 					InternalMemory.DP1Timer_read());
@@ -1115,7 +1106,6 @@ void ReefAngelClass::DosingPumpRepeat1(byte Relay)
 
 void ReefAngelClass::DosingPumpRepeat2(byte Relay)
 {
-	// TODO Update Timers appropriately
 	DosingPumpRepeat(Relay, 5,
 					InternalMemory.DP2RepeatInterval_read(),
 					InternalMemory.DP2Timer_read());
@@ -1123,45 +1113,11 @@ void ReefAngelClass::DosingPumpRepeat2(byte Relay)
 
 void ReefAngelClass::Wavemaker1(byte WMRelay)
 {
-	/*
-    // TODO Update Timers appropriately
-    static bool bSetup = false;
-    if ( ! bSetup )
-    {
-        Timer[1].SetInterval(InternalMemory.WM1Timer_read());
-        Timer[1].Start();
-        Relay.On(WMRelay);
-#ifdef WavemakerSetup
-        WM1Port = WMRelay;
-#endif  // WavemakerSetup
-        // once setup, don't setup again
-        bSetup = true;
-    }
-
-    Wavemaker(WMRelay, 1);
-    */
 	Wavemaker(WMRelay,InternalMemory.WM1Timer_read());
 }
 
 void ReefAngelClass::Wavemaker2(byte WMRelay)
 {
-	/*
-    // TODO Update Timers appropriately
-    static bool bSetup = false;
-    if ( ! bSetup )
-    {
-        Timer[2].SetInterval(InternalMemory.WM2Timer_read());
-        Timer[2].Start();
-        Relay.On(WMRelay);
-#ifdef WavemakerSetup
-        WM2Port = WMRelay;
-#endif  // Wavemakersetup
-        // once setup, don't setup again
-        bSetup = true;
-    }
-
-    Wavemaker(WMRelay, 2);
-    */
 	Wavemaker(WMRelay,InternalMemory.WM2Timer_read());
 }
 
@@ -2358,15 +2314,7 @@ void ReefAngelClass::ProcessButtonPressSetup()
             {
                 InternalMemory.WM1Timer_write(v);
                 InternalMemory.WM2Timer_write(y);
-                // after we set the values we need to update the timers
-                // TODO Update Timers appropriately
-                Timer[1].Trigger = 0;
-                Timer[1].SetInterval(v);
-                Timer[1].Start();
                 Relay.On(WM1Port);
-                Timer[2].Trigger = 0;
-                Timer[2].SetInterval(y);
-                Timer[2].Start();
                 Relay.On(WM2Port);
                 Relay.Write();
             }
