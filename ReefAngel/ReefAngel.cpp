@@ -458,6 +458,8 @@ void ReefAngelClass::Init()
 	LastStart = RAStart;  // Set the time normal mode is started
 	LCD.BacklightOn();
 	Relay.AllOff();
+	OverheatProbe = T2_PROBE;
+	TempProbe = T1_PROBE;
 	if (InternalMemory.IMCheck_read()!=0x5241494D) //0x5241494D
 	{
 		char temptext[25];
@@ -469,7 +471,6 @@ void ReefAngelClass::Init()
 			LCD.DrawText(ModeScreenColor,DefaultBGColor,50,75,temptext);
 		}
 	}
-	OverheatTempProbe = &Params.Temp2;
 #ifdef ENABLE_ATO_LOGGING
 	AtoEventCount = 0;
 #endif  // ENABLE_ATO_LOGGING
@@ -496,7 +497,7 @@ void ReefAngelClass::Init()
 	Timer[PORTAL_TIMER].Start();  // start timer
 	Timer[STORE_PARAMS_TIMER].SetInterval(720);  // Store Params
 	Timer[STORE_PARAMS_TIMER].ForceTrigger();
-	
+
 
 
 #if defined DisplayLEDPWM && ! defined RemoveAllLights
@@ -567,7 +568,7 @@ void ReefAngelClass::Init()
 	for ( byte EID = 0; EID < 8; EID++ )
 	{
 		CustomVar[EID]=0;
-	}    
+	}
 #endif //CUSTOM_VARIABLES
 }
 
@@ -603,11 +604,11 @@ void ReefAngelClass::Refresh()
 	now();
 #ifdef DirectTempSensor
 	LCD.Clear(DefaultBGColor,0,0,1,1);
-	Params.Temp1=TempSensor.ReadTemperature(TempSensor.addrT1);
+	Params.Temp[T1_PROBE]=TempSensor.ReadTemperature(TempSensor.addrT1);
 	LCD.Clear(DefaultBGColor,0,0,1,1);
-	Params.Temp2=TempSensor.ReadTemperature(TempSensor.addrT2);
+	Params.Temp[T2_PROBE]=TempSensor.ReadTemperature(TempSensor.addrT2);
 	LCD.Clear(DefaultBGColor,0,0,1,1);
-	Params.Temp3=TempSensor.ReadTemperature(TempSensor.addrT3);
+	Params.Temp[T3_PROBE]=TempSensor.ReadTemperature(TempSensor.addrT3);
 	LCD.Clear(DefaultBGColor,0,0,1,1);
 	Params.PH=analogRead(PHPin);
 	Params.PH=map(Params.PH, PHMin, PHMax, 700, 1000); // apply the calibration to the sensor reading
@@ -623,17 +624,17 @@ void ReefAngelClass::Refresh()
     int x = TempSensor.ReadTemperature(TempSensor.addrT1);
     LCD.Clear(DefaultBGColor,0,0,1,1);
     int y;
-    y = x - Params.Temp1;
+    y = x - Params.Temp[T1_PROBE];
     // check to make sure the temp readings aren't beyond max allowed
-    if ( abs(y) < MAX_TEMP_SWING || Params.Temp1 == 0 || ~x) Params.Temp1 = x;
+    if ( abs(y) < MAX_TEMP_SWING || Params.Temp[T1_PROBE] == 0 || ~x) Params.Temp[T1_PROBE] = x;
     x = TempSensor.ReadTemperature(TempSensor.addrT2);
     LCD.Clear(DefaultBGColor,0,0,1,1);
-    y = x - Params.Temp2;
-    if ( abs(y) < MAX_TEMP_SWING || Params.Temp2 == 0 || ~x) Params.Temp2 = x;
+    y = x - Params.Temp[T2_PROBE];
+    if ( abs(y) < MAX_TEMP_SWING || Params.Temp[T2_PROBE] == 0 || ~x) Params.Temp[T2_PROBE] = x;
     x = TempSensor.ReadTemperature(TempSensor.addrT3);
     LCD.Clear(DefaultBGColor,0,0,1,1);
-    y = x - Params.Temp3;
-    if ( abs(y) < MAX_TEMP_SWING || Params.Temp3 == 0 || ~x) Params.Temp3 = x;
+    y = x - Params.Temp[T3_PROBE];
+    if ( abs(y) < MAX_TEMP_SWING || Params.Temp[T3_PROBE] == 0 || ~x) Params.Temp[T3_PROBE] = x;
     Params.PH=0;
     for (int a=0;a<20;a++)
     {
@@ -769,16 +770,16 @@ void ReefAngelClass::MHLights(byte LightsRelay, byte OnHour, byte OnMinute, byte
 
 void ReefAngelClass::StandardHeater(byte HeaterRelay, int LowTemp, int HighTemp)
 {
-    if (Params.Temp1 == 0) return;  // Don't turn the heater on if the temp is reading 0
-    if (Params.Temp1 <= LowTemp && Params.Temp1 > 0) Relay.On(HeaterRelay);  // If sensor 1 temperature <= LowTemp - turn on heater
-    if (Params.Temp1 >= HighTemp) Relay.Off(HeaterRelay);  // If sensor 1 temperature >= HighTemp - turn off heater
+    if (Params.Temp[TempProbe] == 0) return;  // Don't turn the heater on if the temp is reading 0
+    if (Params.Temp[TempProbe] <= LowTemp && Params.Temp[TempProbe] > 0) Relay.On(HeaterRelay);  // If sensor 1 temperature <= LowTemp - turn on heater
+    if (Params.Temp[TempProbe] >= HighTemp) Relay.Off(HeaterRelay);  // If sensor 1 temperature >= HighTemp - turn off heater
 }
 
 void ReefAngelClass::StandardFan(byte FanRelay, int LowTemp, int HighTemp)
 {
-	if (Params.Temp1 == 0) return;  // Don't turn the fan/chiller on if the temp is reading 0
-	if (Params.Temp1 >= HighTemp) Relay.On(FanRelay);  // If sensor 1 temperature >= HighTemp - turn on fan
-	if (Params.Temp1 <= LowTemp) Relay.Off(FanRelay);  // If sensor 1 temperature <= LowTemp - turn off fan
+	if (Params.Temp[TempProbe] == 0) return;  // Don't turn the fan/chiller on if the temp is reading 0
+	if (Params.Temp[TempProbe] >= HighTemp) Relay.On(FanRelay);  // If sensor 1 temperature >= HighTemp - turn on fan
+	if (Params.Temp[TempProbe] <= LowTemp) Relay.Off(FanRelay);  // If sensor 1 temperature <= LowTemp - turn off fan
 }
 
 void ReefAngelClass::StandardATO(byte ATORelay, int ATOTimeout)
@@ -1034,7 +1035,7 @@ void ReefAngelClass::StandardLights(byte Relay, byte MinuteOffset)
 			onTime%60,
 			offTime/60,
 			offTime%60
-			);	
+			);
 }
 
 void ReefAngelClass::MoonLights(byte Relay)
@@ -1043,7 +1044,7 @@ void ReefAngelClass::MoonLights(byte Relay)
                    InternalMemory.StdLightsOffHour_read(),
                    InternalMemory.StdLightsOffMinute_read(),
                    InternalMemory.StdLightsOnHour_read(),
-                   InternalMemory.StdLightsOnMinute_read());	
+                   InternalMemory.StdLightsOnMinute_read());
 }
 
 
@@ -1252,7 +1253,7 @@ void ReefAngelClass::Portal(char *text)
 	    	LastRelayDataE[EID]=TempRelay;
 	    }
 	}
-    
+
 #endif  // RelayExp
 	 */
 	if (Timer[PORTAL_TIMER].IsTriggered()) SendPortal(text,"");
@@ -1262,16 +1263,16 @@ void ReefAngelClass::Portal(char *text, char *key)
 {
 	if (Timer[PORTAL_TIMER].IsTriggered()) SendPortal(text,key);
 }
-	
+
 void ReefAngelClass::SendPortal(char *text, char*key)
 {
 	Timer[PORTAL_TIMER].Start();
 	PROGMEMprint(BannerGET);
-	WIFI_SERIAL.print(Params.Temp1, DEC);
+	WIFI_SERIAL.print(Params.Temp[T1_PROBE], DEC);
 	PROGMEMprint(BannerT2);
-	WIFI_SERIAL.print(Params.Temp2, DEC);
+	WIFI_SERIAL.print(Params.Temp[T2_PROBE], DEC);
 	PROGMEMprint(BannerT3);
-	WIFI_SERIAL.print(Params.Temp3, DEC);
+	WIFI_SERIAL.print(Params.Temp[T3_PROBE], DEC);
 	PROGMEMprint(BannerPH);
 	WIFI_SERIAL.print(Params.PH, DEC);
 	PROGMEMprint(BannerID);
@@ -1367,7 +1368,7 @@ void ReefAngelClass::SendPortal(char *text, char*key)
 #ifdef IOEXPANSION
 	PROGMEMprint(BannerIO);
 	WIFI_SERIAL.print(IO.GetChannel(), DEC);
-#endif  // IOEXPANSION	
+#endif  // IOEXPANSION
 #ifdef CUSTOM_VARIABLES
 	for ( byte EID = 0; EID < 8; EID++ )
 	{
@@ -1376,7 +1377,7 @@ void ReefAngelClass::SendPortal(char *text, char*key)
 		WIFI_SERIAL.print("=");
 		WIFI_SERIAL.print(CustomVar[EID], DEC);
 	}
-#endif  // CUSTOM_VARIABLES	
+#endif  // CUSTOM_VARIABLES
 	WIFI_SERIAL.println("\n\n");
 }
 #endif  // wifi
@@ -1641,7 +1642,7 @@ void ReefAngelClass::ShowInterface()
 				}
 
 				// if overheat probe exceeds the temp
-				if ( *OverheatTempProbe >= InternalMemory.OverheatTemp_read() )
+				if ( Params.Temp[OverheatProbe] >= InternalMemory.OverheatTemp_read() )
 				{
 					LED.On();
 #ifdef ENABLE_EXCEED_FLAGS

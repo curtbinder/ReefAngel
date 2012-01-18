@@ -291,9 +291,9 @@ void processHTTP()
 				char temp[6];
 				int s=132;
 				//<RA><T1></T1><T2></T2><T3></T3><PH></PH><R></R><RON></RON><ROFF></ROFF><ATOLOW></ATOLOW><ATOHIGH></ATOHIGH><EM></EM><REM></REM></RA>
-				s += intlength(ReefAngel.Params.Temp1);
-				s += intlength(ReefAngel.Params.Temp2);
-				s += intlength(ReefAngel.Params.Temp3);
+				s += intlength(ReefAngel.Params.Temp[T1_PROBE]);
+				s += intlength(ReefAngel.Params.Temp[T2_PROBE]);
+				s += intlength(ReefAngel.Params.Temp[T3_PROBE]);
 				s += intlength(ReefAngel.Params.PH);
 				s += intlength(ReefAngel.EM);
 				s += intlength(ReefAngel.REM);
@@ -741,11 +741,11 @@ void SendXMLData(bool fAtoLog /*= false*/)
 	// This function is used for sending the XML data on the wifi interface
 	// It prints the strings from program memory instead of RAM
 	PROGMEMprint(XML_T1);
-	WIFI_SERIAL.print(ReefAngel.Params.Temp1);
+	WIFI_SERIAL.print(ReefAngel.Params.Temp[T1_PROBE]);
 	PROGMEMprint(XML_T2);
-	WIFI_SERIAL.print(ReefAngel.Params.Temp2);
+	WIFI_SERIAL.print(ReefAngel.Params.Temp[T2_PROBE]);
 	PROGMEMprint(XML_T3);
-	WIFI_SERIAL.print(ReefAngel.Params.Temp3);
+	WIFI_SERIAL.print(ReefAngel.Params.Temp[T3_PROBE]);
 	PROGMEMprint(XML_PH);
 	WIFI_SERIAL.print(ReefAngel.Params.PH);
 	PROGMEMprint(XML_R);
@@ -820,7 +820,7 @@ void SendXMLData(bool fAtoLog /*= false*/)
 	PROGMEMprint(XML_IO);
 	WIFI_SERIAL.print(ReefAngel.IO.GetChannel(), DEC);
 	PROGMEMprint(XML_IO_END);
-#endif  // IOEXPANSION	
+#endif  // IOEXPANSION
 #ifdef CUSTOM_VARIABLES
 	for ( byte EID = 0; EID < 8; EID++ )
 	{

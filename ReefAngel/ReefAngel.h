@@ -140,7 +140,8 @@ public:
     byte WM1Port;
     byte WM2Port;
 #endif  // WavemakerSetup
-	int *OverheatTempProbe;
+	byte OverheatProbe;
+	byte TempProbe;
 
 	void Init();
 	void Refresh();
