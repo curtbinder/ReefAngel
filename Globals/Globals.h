@@ -769,6 +769,7 @@ typedef struct {
 #define SplashDuration					10
 #define TouchSample						5
 #define TouchSlideDelta					20
+#define TouchPressure					900
 #define MAX_RELAY_EXPANSION_MODULES		8
 #define FONT_HEADER 					7
 #define TS_CALIBRATION_XMIN				365
