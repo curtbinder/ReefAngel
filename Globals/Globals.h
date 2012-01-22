@@ -177,6 +177,7 @@ const prog_char NoIMCheck1[] PROGMEM = "Found";
 #define I2CExpander1        0x20
 #define I2CExpander2        0x21
 #define I2CExpModule        0x38 // 0x38-3f
+#define I2CORP				0X4c
 #define I2CSalinity			0X4d
 #define I2CPWM				0x08
 #define I2CIO				0x09

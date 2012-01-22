@@ -28,6 +28,8 @@ class ORPClass
 {
 public:
 	ORPClass();
+	int Read();
+	
 };
 
 #endif  // __ORP_H__

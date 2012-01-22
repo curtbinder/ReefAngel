@@ -27,3 +27,16 @@
 ORPClass::ORPClass()
 {
 }
+
+int ORPClass::Read()
+{
+	int iORP=0;
+	Wire.requestFrom(I2CORP, 2);
+	if (Wire.available())
+	{
+		iORP = Wire.read();
+		iORP = iORP<<8;
+		iORP += Wire.read();
+	}
+	return iORP;
+}
