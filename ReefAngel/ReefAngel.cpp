@@ -1188,7 +1188,7 @@ void ReefAngelClass::LoadWebBanner(int pointer, byte qty)
 //	webbannerqty = qty;
 }
 
-void ReefAngelClass::Portal(char *text)
+void ReefAngelClass::Portal(char *username)
 {
 	/*
 	static byte LastRelayData;
@@ -1217,15 +1217,15 @@ void ReefAngelClass::Portal(char *text)
 
 #endif  // RelayExp
 	 */
-	if (Timer[PORTAL_TIMER].IsTriggered()) SendPortal(text,"");
+	if (Timer[PORTAL_TIMER].IsTriggered()) SendPortal(username,"");
 }
 
-void ReefAngelClass::Portal(char *text, char *key)
+void ReefAngelClass::Portal(char *username, char *key)
 {
-	if (Timer[PORTAL_TIMER].IsTriggered()) SendPortal(text,key);
+	if (Timer[PORTAL_TIMER].IsTriggered()) SendPortal(username,key);
 }
 
-void ReefAngelClass::SendPortal(char *text, char*key)
+void ReefAngelClass::SendPortal(char *username, char*key)
 {
 	Timer[PORTAL_TIMER].Start();
 	PROGMEMprint(BannerGET);
@@ -1237,7 +1237,7 @@ void ReefAngelClass::SendPortal(char *text, char*key)
 	PROGMEMprint(BannerPH);
 	WIFI_SERIAL.print(Params.PH, DEC);
 	PROGMEMprint(BannerID);
-	WIFI_SERIAL.print(text);
+	WIFI_SERIAL.print(username);
 	PROGMEMprint(BannerEM);
 	WIFI_SERIAL.print(EM, DEC);
 	PROGMEMprint(BannerREM);

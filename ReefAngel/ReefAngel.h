@@ -184,9 +184,9 @@ public:
 #ifdef wifi
 	void LoadWebBanner(int pointer, byte qty);
 	void WebBanner();
-	void Portal(char *text);
-	void Portal(char *text, char*key);
-	void SendPortal(char *text, char*key);
+	void Portal(char *username);
+	void Portal(char *username, char*key);
+	void SendPortal(char *username, char*key);
 	byte EM;
 	byte REM;
 #endif  // wifi
