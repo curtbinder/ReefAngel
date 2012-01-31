@@ -39,7 +39,7 @@ byte IOClass::GetChannel()
 	return IOPorts;
 }
 
-byte IOClass::GetChannel(byte Channel)
+boolean IOClass::GetChannel(byte Channel)
 {
 	GetChannel();
 	return bitRead(IOPorts,Channel);

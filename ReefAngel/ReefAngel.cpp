@@ -1623,6 +1623,10 @@ void ReefAngelClass::ShowInterface()
 #ifdef PWMEXPANSION
 					PWM.ExpansionWrite();
 #endif  // PWMEXPANSION
+#ifdef IOEXPANSION
+					IO.GetChannel();
+#endif  // IOEXPANSION
+					
 				break;
 			}  // DEFAULT_MENU
 			case FEEDING_MODE:
