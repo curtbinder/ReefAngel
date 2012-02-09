@@ -195,9 +195,9 @@ const prog_char NoIMCheck1[] PROGMEM = "Found";
 #define STORE_PARAMS_TIMER		5
 
 // Temp Sensor References
-#define T1_PROBE		0
-#define T2_PROBE		1
-#define T3_PROBE		2
+#define T1_PROBE		1
+#define T2_PROBE		2
+#define T3_PROBE		3
 
 /*
 EEPROM locations
