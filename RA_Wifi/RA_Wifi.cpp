@@ -962,6 +962,8 @@ void SendXMLData(bool fAtoLog /*= false*/)
 	PROGMEMprint(XML_END);
 }
 
+void CheckWifi(){};
+
 #endif  // wifi
 
 void pingSerial()

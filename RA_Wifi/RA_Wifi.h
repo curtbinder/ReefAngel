@@ -368,6 +368,7 @@ void ConvertC(char* strIn, char* strOut, byte len);
 void WifiAuthentication(char* userpass);
 void SendXMLData(bool fAtoLog = false);
 void processHTTP();
+void CheckWifi();
 #endif  // wifi
 
 void pingSerial();
