@@ -177,6 +177,7 @@ const prog_char NoIMCheck1[] PROGMEM = "Found";
 #define I2CExpander1        0x20
 #define I2CExpander2        0x21
 #define I2CExpModule        0x38 // 0x38-3f
+#define I2CORP				0X4c
 #define I2CSalinity			0X4d
 #define I2CPWM				0x08
 #define I2CIO				0x09
@@ -194,9 +195,9 @@ const prog_char NoIMCheck1[] PROGMEM = "Found";
 #define STORE_PARAMS_TIMER		5
 
 // Temp Sensor References
-#define T1_PROBE		0
-#define T2_PROBE		1
-#define T3_PROBE		2
+#define T1_PROBE		1
+#define T2_PROBE		2
+#define T3_PROBE		3
 
 /*
 EEPROM locations
@@ -769,6 +770,7 @@ typedef struct {
 #define SplashDuration					10
 #define TouchSample						5
 #define TouchSlideDelta					20
+#define TouchPressure					900
 #define MAX_RELAY_EXPANSION_MODULES		8
 #define FONT_HEADER 					7
 #define TS_CALIBRATION_XMIN				365

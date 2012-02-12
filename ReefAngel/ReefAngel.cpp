@@ -897,6 +897,11 @@ void ReefAngelClass::SingleATO(bool bLow, byte ATORelay, byte byteTimeout, byte 
     }
 }
 
+void ReefAngelClass::DosingPump(byte DPRelay, byte DPTimer, byte OnHour, byte OnMinute, byte RunTime)
+{
+	DosingPump(DPRelay, OnHour, OnMinute, RunTime);
+}
+
 void ReefAngelClass::DosingPump(byte DPRelay, byte OnHour, byte OnMinute, byte RunTime)
 {
     /*
@@ -1183,7 +1188,7 @@ void ReefAngelClass::LoadWebBanner(int pointer, byte qty)
 //	webbannerqty = qty;
 }
 
-void ReefAngelClass::Portal(char *text)
+void ReefAngelClass::Portal(char *username)
 {
 	/*
 	static byte LastRelayData;
@@ -1212,15 +1217,15 @@ void ReefAngelClass::Portal(char *text)
 
 #endif  // RelayExp
 	 */
-	if (Timer[PORTAL_TIMER].IsTriggered()) SendPortal(text,"");
+	if (Timer[PORTAL_TIMER].IsTriggered()) SendPortal(username,"");
 }
 
-void ReefAngelClass::Portal(char *text, char *key)
+void ReefAngelClass::Portal(char *username, char *key)
 {
-	if (Timer[PORTAL_TIMER].IsTriggered()) SendPortal(text,key);
+	if (Timer[PORTAL_TIMER].IsTriggered()) SendPortal(username,key);
 }
 
-void ReefAngelClass::SendPortal(char *text, char*key)
+void ReefAngelClass::SendPortal(char *username, char*key)
 {
 	Timer[PORTAL_TIMER].Start();
 	PROGMEMprint(BannerGET);
@@ -1232,7 +1237,7 @@ void ReefAngelClass::SendPortal(char *text, char*key)
 	PROGMEMprint(BannerPH);
 	WIFI_SERIAL.print(Params.PH, DEC);
 	PROGMEMprint(BannerID);
-	WIFI_SERIAL.print(text);
+	WIFI_SERIAL.print(username);
 	PROGMEMprint(BannerEM);
 	WIFI_SERIAL.print(EM, DEC);
 	PROGMEMprint(BannerREM);
@@ -1565,19 +1570,19 @@ void ReefAngelClass::ShowInterface()
 					taddr++;
 					if ( taddr >= 120 ) taddr = 0;
 					Timer[STORE_PARAMS_TIMER].Start();
-					CurTemp = map(Params.Temp1, T1LOW, T1HIGH, 0, 50); // apply the calibration to the sensor reading
+					CurTemp = map(Params.Temp[1], T1LOW, T1HIGH, 0, 50); // apply the calibration to the sensor reading
 					CurTemp = constrain(CurTemp, 0, 50); // in case the sensor value is outside the range seen during calibration
 					//LCD.Clear(DefaultBGColor,0,0,1,1);
 					Memory.Write(taddr, CurTemp);
 					pingSerial();
 					LCD.Clear(DefaultBGColor,0,0,1,1);
-					CurTemp = map(Params.Temp2, T2LOW, T2HIGH, 0, 50); // apply the calibration to the sensor reading
+					CurTemp = map(Params.Temp[2], T2LOW, T2HIGH, 0, 50); // apply the calibration to the sensor reading
 					CurTemp = constrain(CurTemp, 0, 50); // in case the sensor value is outside the range seen during calibration
 					LCD.Clear(DefaultBGColor,0,0,1,1);
 					Memory.Write(taddr+120, CurTemp);
 					pingSerial();
 					LCD.Clear(DefaultBGColor,0,0,1,1);
-					CurTemp = map(Params.Temp3, T3LOW, T3HIGH, 0, 50); // apply the calibration to the sensor reading
+					CurTemp = map(Params.Temp[3], T3LOW, T3HIGH, 0, 50); // apply the calibration to the sensor reading
 					CurTemp = constrain(CurTemp, 0, 50); // in case the sensor value is outside the range seen during calibration
 					//LCD.Clear(DefaultBGColor,0,0,1,1);
 					Memory.Write(taddr+240, CurTemp);
@@ -1618,6 +1623,10 @@ void ReefAngelClass::ShowInterface()
 #ifdef PWMEXPANSION
 					PWM.ExpansionWrite();
 #endif  // PWMEXPANSION
+#ifdef IOEXPANSION
+					IO.GetChannel();
+#endif  // IOEXPANSION
+					
 				break;
 			}  // DEFAULT_MENU
 			case FEEDING_MODE:

@@ -1571,32 +1571,41 @@ void TouchScreen::SaveCalibration()
 void TouchScreen::GetTouch()
 {
 	int a,b;
-	int LastX, LastY;
+	int uZ1,uZ2;
 	
-	LastX=X;
-	LastY=Y;
 	SPCR=0x53;
 	uX=0;
 	uY=0;
 	TP0;
-	for (int i=0;i<TouchSample;i++)
-	{
-		SPI.transfer(0xd0);
-		a= SPI.transfer(0);
-		b= SPI.transfer(0);
-		uX+=(a<<5|b>>3);
-	}
-	for (int i=0;i<TouchSample;i++)
-	{
-		SPI.transfer(0x90);
-		a= SPI.transfer(0);
-		b= SPI.transfer(0);
-		uY+=(a<<5|b>>3);
-	}
+	SPI.transfer(0xd0);
+	a= SPI.transfer(0);
+	b= SPI.transfer(0);
+	uX=(a<<5|b>>3);
+
+	SPI.transfer(0x90);
+	a= SPI.transfer(0);
+	b= SPI.transfer(0);
+	uY=(a<<5|b>>3);
+
+	SPI.transfer(0xb0);
+	a= SPI.transfer(0);
+	b= SPI.transfer(0);
+	uZ1=(a<<5|b>>3);
+
+	SPI.transfer(0xc0);
+	a= SPI.transfer(0);
+	b= SPI.transfer(0);
+	uZ2=(a<<5|b>>3);
+
+	double pressure;
+	pressure=uZ2;
+	pressure/=uZ1;
+	pressure*=100;
+
+	if (pressure>TouchPressure) uX=0;
+
 	TP1;
 	SPCR=0x50;
-	uX/=TouchSample;
-	uY/=TouchSample;
 	if (uX==0) uY=0;
 
 	switch (ReefTouch.LCD.GetOrientation())
@@ -1626,8 +1635,8 @@ void TouchScreen::GetTouch()
 		Y=constrain(Y,0,239);
 		break;
 	}
-	if (X <= 0) X = LastX;
-	if (Y <= 0) Y = LastY;
+	if (X <= 0) X = 0;
+	if (Y <= 0) Y = 0;
 }
 
 boolean TouchScreen::IsTouched()
