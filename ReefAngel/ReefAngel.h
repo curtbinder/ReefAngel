@@ -149,6 +149,7 @@ public:
 	void StandardATO(byte ATORelay, int ATOTimeout);
 	void SingleATO(bool bLow, byte ATORelay, byte byteTimeout, byte byteHrInterval);
 	void DosingPump(byte DPRelay, byte DPTimer, byte OnHour, byte OnMinute, byte RunTime);
+	void DosingPump(byte DPRelay, byte OnHour, byte OnMinute, byte RunTime);
 	void DosingPumpRepeat(byte DPRelay, int OffsetMinute, int RepeatMinute, byte RunTime);
 	void Wavemaker(byte WMRelay, int WMTimer);
 	void WavemakerRandom(byte WMRelay, int MinWMTimer, int MaxWMTimer);
@@ -183,9 +184,9 @@ public:
 #ifdef wifi
 	void LoadWebBanner(int pointer, byte qty);
 	void WebBanner();
-	void Portal(char *text);
-	void Portal(char *text, char*key);
-	void SendPortal(char *text, char*key);
+	void Portal(char *username);
+	void Portal(char *username, char*key);
+	void SendPortal(char *username, char*key);
 	byte EM;
 	byte REM;
 #endif  // wifi

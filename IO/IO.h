@@ -30,7 +30,7 @@ public:
 	IOClass();
 	byte IOPorts;	
 	byte GetChannel();
-	byte GetChannel(byte Channel);
+	boolean GetChannel(byte Channel);
 
 };
 
