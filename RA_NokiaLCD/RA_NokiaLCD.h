@@ -25,7 +25,7 @@
 #include <Globals.h>
 
 typedef struct  {
-  int Temp[4];
+  int Temp[3];
   int PH;
   int Salinity;
   int ORP;
