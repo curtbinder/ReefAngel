@@ -897,6 +897,11 @@ void ReefAngelClass::SingleATO(bool bLow, byte ATORelay, byte byteTimeout, byte 
     }
 }
 
+void ReefAngelClass::DosingPump(byte DPRelay, byte DPTimer, byte OnHour, byte OnMinute, byte RunTime)
+{
+	DosingPump(DPRelay, OnHour, OnMinute, RunTime);
+}
+
 void ReefAngelClass::DosingPump(byte DPRelay, byte OnHour, byte OnMinute, byte RunTime)
 {
     /*
