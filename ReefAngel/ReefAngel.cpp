@@ -897,7 +897,7 @@ void ReefAngelClass::SingleATO(bool bLow, byte ATORelay, byte byteTimeout, byte 
     }
 }
 
-void ReefAngelClass::DosingPump(byte DPRelay, byte OnHour, byte OnMinute, byte RunTime)
+void ReefAngelClass::DosingPump(byte DPRelay, byte DPTimer, byte OnHour, byte OnMinute, byte RunTime)
 {
 	DosingPump(DPRelay, OnHour, OnMinute, RunTime);
 }
@@ -950,7 +950,6 @@ void ReefAngelClass::DosingPumpRepeat(byte DPRelay, int OffsetMinute, int Repeat
 	RunTime - duration (in seconds) to run the pump
 	*/
 
-/*
 	// if the current minutes since midnight are divisible by the repeat interval and the current seconds
 	// are zero (top of the minute), then we can run the pump
 	/*
