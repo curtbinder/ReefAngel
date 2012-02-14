@@ -53,22 +53,6 @@ const prog_char NoIMCheck1[] PROGMEM = "Found";
 #define Port2   2
 #define Port1   1
 
-<<<<<<< HEAD
-// Bitwise values for simpler port values
-#define Port8Bit 0x80
-#define Port7Bit 0x40
-#define Port6Bit 0x20
-#define Port5Bit 0x10
-#define Port4Bit 0x08
-#define Port3Bit 0x04
-#define Port2Bit 0x02
-#define Port1Bit 0x01
-
-// Relay Box Modules
-#define MAX_RELAY_EXPANSION_MODULES     8
-#define PWM_EXPANSION_CHANNELS			6
-#define AI_CHANNELS						3
-=======
 // Port bits
 #define Port8Bit   1<<7
 #define Port7Bit   1<<6
@@ -83,7 +67,6 @@ const prog_char NoIMCheck1[] PROGMEM = "Found";
 #define MAX_RELAY_EXPANSION_MODULES     8
 #define PWM_EXPANSION_CHANNELS     		6
 #define AI_CHANNELS     				3
->>>>>>> dev
 #define RF_CHANNELS						6
 
 #ifdef RelayExp
@@ -212,15 +195,9 @@ const prog_char NoIMCheck1[] PROGMEM = "Found";
 #define STORE_PARAMS_TIMER		5
 
 // Temp Sensor References
-<<<<<<< HEAD
-#define T1_PROBE		0
-#define T2_PROBE		1
-#define T3_PROBE		2
-=======
 #define T1_PROBE		1
 #define T2_PROBE		2
 #define T3_PROBE		3
->>>>>>> dev
 
 /*
 EEPROM locations
@@ -826,11 +803,7 @@ byte intlength(int intin);
 int NumMins(uint8_t ScheduleHour, uint8_t ScheduleMinute);
 bool IsLeapYear(int year);
 byte PWMSlope(byte startHour, byte startMinute, byte endHour, byte endMinute, byte startPWM, byte endPWM, byte Duration, byte oldValue);
-<<<<<<< HEAD
-byte PWMParabola(byte startHour, byte startMinute, byte endHour, byte endMinute, byte startPWM, byte endPWM, byte Duration, byte oldValue);
-=======
 byte PWMParabola(byte startHour, byte startMinute, byte endHour, byte endMinute, byte startPWM, byte endPWM, byte oldValue);
->>>>>>> dev
 byte MoonPhase();
 void ConvertNumToString(char* string, int num, byte decimal);
 
