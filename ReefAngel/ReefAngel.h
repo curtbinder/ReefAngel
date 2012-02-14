@@ -19,33 +19,39 @@
   * Updates Released under Apache License, Version 2.0
   */
 
-#ifndef	ReefAngel_h
-#define ReefAngel_h
+#ifndef	__REEFANGEL_H__
+#define __REEFANGEL_H__
 
-#define ReefAngel_Version "0.8.5.20"
+#define ReefAngel_Version "0.9.0"
 
-#include <ReefAngel_Globals.h>
-#include <ReefAngel_EEPROM.h>  // NOTE read/write internal memory
+#include <Globals.h>
+#include <InternalEEPROM.h>  // NOTE read/write internal memory
 #include <Time.h>
-#include <ReefAngel_NokiaLCD.h>
-#include <ReefAngel_ATO.h>
-#include <ReefAngel_Joystick.h>
-#include <ReefAngel_LED.h>
-#include <ReefAngel_TempSensor.h>
-#include <ReefAngel_Relay.h>
-#include <ReefAngel_PWM.h>
-#include <ReefAngel_Timer.h>
-#include <ReefAngel_Memory.h>
+#include <RA_NokiaLCD.h>
+#include <RA_ATO.h>
+#include <RA_Joystick.h>
+#include <LED.h>
+#include <RA_TempSensor.h>
+#include <Relay.h>
+#include <RA_PWM.h>
+#include <Timer.h>
+#include <Memory.h>
 
 #if defined SALINITYEXPANSION
-	#include <ReefAngel_Salinity.h>
+	#include <Salinity.h>
 #endif  // defined SALINITYEXPANSION
+#if defined ORPEXPANSION
+	#include <ORP.h>
+#endif  // defined ORPEXPANSION
 #if defined RFEXPANSION
-	#include <ReefAngel_RF.h>
+	#include <RF.h>
 #endif  // defined RFEXPANSION
 #if defined AI_LED
-	#include <ReefAngel_AI.h>
+	#include <AI.h>
 #endif  // defined AI_LED
+#if defined IOEXPANSION
+	#include <IO.h>
+#endif  // defined IOEXPANSION
 
 #include <avr/pgmspace.h>
 
@@ -73,26 +79,33 @@ public:
 	int PHMin,PHMax,SalMax;
 	ParamsStruct Params;
 	ReefAngelClass();
-	ReefAngel_NokiaLCD LCD;
-	ReefAngel_JoystickClass Joystick;
-	ReefAngel_LEDClass LED;
+	RA_NokiaLCD LCD;
+	RA_JoystickClass Joystick;
+	LEDClass LED;
 	DS1307RTC RTC;
-	ReefAngel_ATOHighClass HighATO;
-	ReefAngel_ATOLowClass LowATO;
-	ReefAngel_TempSensorClass TempSensor;
-	ReefAngel_RelayClass Relay;
+	RA_ATOHighClass HighATO;
+	RA_ATOLowClass LowATO;
+	RA_TempSensorClass TempSensor;
+	RelayClass Relay;
 #if defined DisplayLEDPWM && ! defined RemoveAllLights
-	ReefAngel_PWMClass PWM;
+	RA_PWMClass PWM;
 #endif  // defined DisplayLEDPWM && ! defined RemoveAllLights
 #if defined SALINITYEXPANSION
-	ReefAngel_SalinityClass Salinity;
+	SalinityClass Salinity;
 #endif  // defined SALINITYEXPANSION
+#if defined ORPEXPANSION
+	ORPClass ORP;
+#endif  // ORPEXPANSION IOEXPANSION
 #if defined RFEXPANSION
-	ReefAngel_RFClass RF;
+	RFClass RF;
 #endif  // defined RFEXPANSION
 #if defined AI_LED
-	ReefAngel_AIClass AI;
+	AIClass AI;
 #endif  // defined AI_LED
+#if defined IOEXPANSION
+	IOClass IO;
+#endif  // defined IOEXPANSION
+
 	/*
 	Timers:
 	0 - Feeding Mode timer
@@ -102,7 +115,7 @@ public:
 	4 - Not used
 	5 - Store params to eeprom
 	*/
-	ReefAngel_TimerClass Timer[6];
+	TimerClass Timer[6];
 	byte SelectedMenuItem;
 
 	// Ports to toggle during different modes
@@ -122,13 +135,6 @@ public:
 #endif  // RelayExp
 #endif  // RemoveAllLights
 
-/*
-#ifdef WavemakerSetup
-    // TODO find a better way to save the wavemaker ports for restarting once timers are updated from setup screen
-    byte WM1Port;
-    byte WM2Port;
-#endif  // WavemakerSetup
-*/
 	byte OverheatProbe;
 	byte TempProbe;
 
@@ -142,12 +148,18 @@ public:
 	void StandardFan(byte FanRelay, int LowTemp, int HighTemp);
 	void StandardATO(byte ATORelay, int ATOTimeout);
 	void SingleATO(bool bLow, byte ATORelay, byte byteTimeout, byte byteHrInterval);
+	void DosingPump(byte DPRelay, byte DPTimer, byte OnHour, byte OnMinute, byte RunTime);
 	void DosingPump(byte DPRelay, byte OnHour, byte OnMinute, byte RunTime);
-	void DosingPumpRepeat(byte DPRelay, byte OffsetMinute, int RepeatMinute, byte RunTime);
-	void Wavemaker(byte WMRelay, int timer);
+	void DosingPumpRepeat(byte DPRelay, int OffsetMinute, int RepeatMinute, byte RunTime);
+	void Wavemaker(byte WMRelay, int WMTimer);
+	void WavemakerRandom(byte WMRelay, int MinWMTimer, int MaxWMTimer);
+	void WavemakerRandom1(byte WMRelay, int MinWMTimer, int MaxWMTimer);
+	void WavemakerRandom2(byte WMRelay, int MinWMTimer, int MaxWMTimer);
 
 	// Simplified PDE versions of the calls
 	void StandardLights(byte Relay);
+	void StandardLights(byte Relay, byte MinuteOffset);
+	void MoonLights(byte Relay);
 	void MHLights(byte Relay);
 	void StandardHeater(byte Relay);
 	void StandardFan(byte Relay);
@@ -172,6 +184,11 @@ public:
 #ifdef wifi
 	void LoadWebBanner(int pointer, byte qty);
 	void WebBanner();
+	void Portal(char *username);
+	void Portal(char *username, char*key);
+	void SendPortal(char *username, char*key);
+	byte EM;
+	byte REM;
 #endif  // wifi
 
 	void FeedingModeStart();
@@ -230,6 +247,10 @@ public:
 #endif  // DosingPumpSetup
 #endif  // !defined SIMPLE_MENU && !defined CUSTOM_MENU
 
+#ifdef CUSTOM_VARIABLES
+    byte CustomVar[8];
+#endif //CUSTOM_VARIABLES
+
 private:
 	bool showmenu;
 	time_t menutimeout;
@@ -244,11 +265,11 @@ private:
 	byte PreviousMenu;
 	bool redrawmenu;
 
-#ifdef wifi
-	// WebBanner variables
-	int webbannerpointer;
-	byte webbannerqty;
-#endif  // wifi
+//#ifdef wifi
+//	// WebBanner variables
+//	int webbannerpointer;
+//	byte webbannerqty;
+//#endif  // wifi
 
 #ifdef SaveRelayState
 	byte CurrentRelayState;
@@ -291,5 +312,5 @@ void MenuEntry9();
 
 extern ReefAngelClass ReefAngel;  // make an instance for the user
 
-#endif
+#endif  // __REEFANGEL_H__
 

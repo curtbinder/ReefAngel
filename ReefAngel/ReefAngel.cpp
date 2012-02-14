@@ -19,11 +19,11 @@
   * Updates Released under Apache License, Version 2.0
   */
 
-#include <ReefAngel_Globals.h>
+#include <Globals.h>
 #include <Wire.h>
 #include <DS1307RTC.h>
 #include "ReefAngel.h"
-#include <ReefAngel_Wifi.h>
+#include <RA_Wifi.h>
 
 byte ButtonPress = 0;
 
@@ -460,13 +460,26 @@ void ReefAngelClass::Init()
 	Relay.AllOff();
 	OverheatProbe = T2_PROBE;
 	TempProbe = T1_PROBE;
+	if (InternalMemory.IMCheck_read()!=0x5241494D) //0x5241494D
+	{
+		char temptext[25];
+		while(1)
+		{
+			strcpy_P(temptext, NoIMCheck);
+			LCD.DrawText(ModeScreenColor,DefaultBGColor,13,50,temptext);
+			strcpy_P(temptext, NoIMCheck1);
+			LCD.DrawText(ModeScreenColor,DefaultBGColor,50,75,temptext);
+		}
+	}
 #ifdef ENABLE_ATO_LOGGING
 	AtoEventCount = 0;
 #endif  // ENABLE_ATO_LOGGING
 
     PHMin = InternalMemory.PHMin_read();
     PHMax = InternalMemory.PHMax_read();
+#ifdef SALINITYEXPANSION
     SalMax = InternalMemory.SalMax_read();
+#endif  // SALINITYEXPANSION
 	taddr = InternalMemory.T1Pointer_read();
 	Params.Salinity=0;
 
@@ -480,8 +493,11 @@ void ReefAngelClass::Init()
 	if ( InternalMemory.LCDTimer_read() < 60 ) InternalMemory.LCDTimer_write(60);  // if it's less than 60, force it to 60
 	Timer[LCD_TIMER].SetInterval(InternalMemory.LCDTimer_read());  // LCD Sleep Mode timer
 	Timer[LCD_TIMER].Start();  // start timer
+	Timer[PORTAL_TIMER].SetInterval(300);	// Portal
+	Timer[PORTAL_TIMER].Start();  // start timer
 	Timer[STORE_PARAMS_TIMER].SetInterval(720);  // Store Params
 	Timer[STORE_PARAMS_TIMER].ForceTrigger();
+
 
 
 #if defined DisplayLEDPWM && ! defined RemoveAllLights
@@ -536,6 +552,24 @@ void ReefAngelClass::Init()
 	// enable watchdog timer for 1 second.  consider allowing this option to be configured.
 	if ( wdtenabled ) wdt_enable(WDTO_1S);
 #endif  // defined WDT || defined WDT_FORCE
+
+#ifdef wifi
+	EM = PWMEbit + RFEbit + AIbit + Salbit + ORPbit + IObit;
+#ifdef RelayExp
+	for (byte a=0;a<InstalledRelayExpansionModules;a++)
+	{
+		REM+=1<<a;
+	}
+#else  // RelayExp
+    REM = 0;
+#endif  // RelayExp
+#endif  // wifi
+#ifdef CUSTOM_VARIABLES
+	for ( byte EID = 0; EID < 8; EID++ )
+	{
+		CustomVar[EID]=0;
+	}
+#endif //CUSTOM_VARIABLES
 }
 
 void ReefAngelClass::Refresh()
@@ -817,7 +851,7 @@ void ReefAngelClass::SingleATO(bool bLow, byte ATORelay, byte byteTimeout, byte 
             bCanRun = false;
         }
     }
-    ReefAngel_ATOClass *ato;
+    RA_ATOClass *ato;
     if ( bLow )
     {
         ato = &LowATO;
@@ -865,6 +899,11 @@ void ReefAngelClass::SingleATO(bool bLow, byte ATORelay, byte byteTimeout, byte 
 
 void ReefAngelClass::DosingPump(byte DPRelay, byte OnHour, byte OnMinute, byte RunTime)
 {
+	DosingPump(DPRelay, OnHour, OnMinute, RunTime);
+}
+
+void ReefAngelClass::DosingPump(byte DPRelay, byte OnHour, byte OnMinute, byte RunTime)
+{
     /*
     This function configures and sets up the dosing pump and turns it on at the appropriate time
     Once the timer has expired for the dosing pump, it shuts it off
@@ -895,8 +934,9 @@ void ReefAngelClass::DosingPump(byte DPRelay, byte OnHour, byte OnMinute, byte R
 	Relay.Set(DPRelay, (now()%((OnHour*3600)+(OnMinute*60)))<RunTime);
 }
 
-void ReefAngelClass::DosingPumpRepeat(byte DPRelay, byte OffsetMinute, int RepeatMinute, byte RunTime)
+void ReefAngelClass::DosingPumpRepeat(byte DPRelay, int OffsetMinute, int RepeatMinute, byte RunTime)
 {
+	// Old code has been replaced with dedvalson (Don) - 01/06/2012
 	/*
 	This function runs the specified relay for the RunTime seconds every RepeatMinute minutes.
 	So you can run the relay for 10 seconds every 60 minutes (1 hour)
@@ -913,6 +953,7 @@ void ReefAngelClass::DosingPumpRepeat(byte DPRelay, byte OffsetMinute, int Repea
 /*
 	// if the current minutes since midnight are divisible by the repeat interval and the current seconds
 	// are zero (top of the minute), then we can run the pump
+	/*
 	time_t t = now();
 	uint8_t h = hour(t);
 	if ( (h == 0) && (minute(t) == 0) )
@@ -935,23 +976,44 @@ void ReefAngelClass::DosingPumpRepeat(byte DPRelay, byte OffsetMinute, int Repea
 	{
 		Relay.Off(DPRelay);
 	}
-*/
-	// Old code replaced with dedvalson (Don) code - 01/06/2012
-	Relay.Set(DPRelay, ((now()-(OffsetMinute*60))%(RepeatMinute*60))<RunTime);
+	*/
+	Relay.Set(DPRelay,((now()-(OffsetMinute*60))%(RepeatMinute*60))<RunTime);
 }
 
-void ReefAngelClass::Wavemaker(byte WMRelay, int timer)
+void ReefAngelClass::Wavemaker(byte WMRelay, int WMTimer)
 {
-	/*
-    // TODO Update Timers appropriately
-    if ( Timer[WMTimer].IsTriggered() )
-    {
-        Timer[WMTimer].Start();
-        Relay.Toggle(WMRelay);
-    }
-    */
-    // Old code replaced with dedvalson (Don) code - 01/06/2012
-    Relay.Set(WMRelay, (now()%(timer*2))<timer);
+	// Old code has been replaced with dedvalson (Don) - 01/06/2012
+	Relay.Set(WMRelay,(now()%(WMTimer*2))<WMTimer);
+}
+
+void ReefAngelClass::WavemakerRandom(byte WMRelay, int MinWMTimer, int MaxWMTimer)
+{
+	static time_t WMRTimer=now()+MinWMTimer;
+	if (now()>WMRTimer)
+	{
+		WMRTimer=now()+random(MinWMTimer, MaxWMTimer);
+		ReefAngel.Relay.Toggle(WMRelay);
+	}
+}
+
+void ReefAngelClass::WavemakerRandom1(byte WMRelay, int MinWMTimer, int MaxWMTimer)
+{
+	static time_t WMRTimer1=now()+MinWMTimer;
+	if (now()>WMRTimer1)
+	{
+		WMRTimer1=now()+random(MinWMTimer, MaxWMTimer);
+		ReefAngel.Relay.Toggle(WMRelay);
+	}
+}
+
+void ReefAngelClass::WavemakerRandom2(byte WMRelay, int MinWMTimer, int MaxWMTimer)
+{
+	static time_t WMRTimer2=now()+MinWMTimer;
+	if (now()>WMRTimer2)
+	{
+		WMRTimer2=now()+random(MinWMTimer, MaxWMTimer);
+		ReefAngel.Relay.Toggle(WMRelay);
+	}
 }
 
 // Simplified for PDE file
@@ -963,6 +1025,28 @@ void ReefAngelClass::StandardLights(byte Relay)
                    InternalMemory.StdLightsOffHour_read(),
                    InternalMemory.StdLightsOffMinute_read());
 }
+
+void ReefAngelClass::StandardLights(byte Relay, byte MinuteOffset)
+{
+	int onTime=NumMins(InternalMemory.StdLightsOnHour_read(),InternalMemory.StdLightsOnMinute_read())-MinuteOffset;
+	int offTime=NumMins(InternalMemory.StdLightsOffHour_read(),InternalMemory.StdLightsOffMinute_read())+MinuteOffset;
+	StandardLights(Relay,
+			onTime/60,
+			onTime%60,
+			offTime/60,
+			offTime%60
+			);
+}
+
+void ReefAngelClass::MoonLights(byte Relay)
+{
+    StandardLights(Relay,
+                   InternalMemory.StdLightsOffHour_read(),
+                   InternalMemory.StdLightsOffMinute_read(),
+                   InternalMemory.StdLightsOnHour_read(),
+                   InternalMemory.StdLightsOnMinute_read());
+}
+
 
 void ReefAngelClass::MHLights(byte Relay)
 {
@@ -1005,7 +1089,6 @@ void ReefAngelClass::SingleATOHigh(byte Relay)
 
 void ReefAngelClass::DosingPump1(byte Relay)
 {
-    // TODO Update Timers appropriately
     DosingPump(Relay,
                InternalMemory.DP1OnHour_read(),
                InternalMemory.DP1OnMinute_read(),
@@ -1014,7 +1097,6 @@ void ReefAngelClass::DosingPump1(byte Relay)
 
 void ReefAngelClass::DosingPump2(byte Relay)
 {
-    // TODO Update Timers appropriately
     DosingPump(Relay,
                InternalMemory.DP2OnHour_read(),
                InternalMemory.DP2OnMinute_read(),
@@ -1023,7 +1105,7 @@ void ReefAngelClass::DosingPump2(byte Relay)
 
 void ReefAngelClass::DosingPumpRepeat1(byte Relay)
 {
-	// 0 offset
+	// 0 minute offset
 	DosingPumpRepeat(Relay, 0,
 					InternalMemory.DP1RepeatInterval_read(),
 					InternalMemory.DP1Timer_read());
@@ -1039,46 +1121,12 @@ void ReefAngelClass::DosingPumpRepeat2(byte Relay)
 
 void ReefAngelClass::Wavemaker1(byte WMRelay)
 {
-/*
-    // TODO Update Timers appropriately
-    static bool bSetup = false;
-    if ( ! bSetup )
-    {
-        Timer[1].SetInterval(InternalMemory.WM1Timer_read());
-        Timer[1].Start();
-        Relay.On(WMRelay);
-#ifdef WavemakerSetup
-        WM1Port = WMRelay;
-#endif  // WavemakerSetup
-        // once setup, don't setup again
-        bSetup = true;
-    }
-
-    Wavemaker(WMRelay, 1);
-*/
-	Wavemaker(WMRelay, InternalMemory.WM1Timer_read());
+	Wavemaker(WMRelay,InternalMemory.WM1Timer_read());
 }
 
 void ReefAngelClass::Wavemaker2(byte WMRelay)
 {
-/*
-    // TODO Update Timers appropriately
-    static bool bSetup = false;
-    if ( ! bSetup )
-    {
-        Timer[2].SetInterval(InternalMemory.WM2Timer_read());
-        Timer[2].Start();
-        Relay.On(WMRelay);
-#ifdef WavemakerSetup
-        WM2Port = WMRelay;
-#endif  // Wavemakersetup
-        // once setup, don't setup again
-        bSetup = true;
-    }
-
-    Wavemaker(WMRelay, 2);
-*/
-	Wavemaker(WMRelay, InternalMemory.WM2Timer_read());
+	Wavemaker(WMRelay,InternalMemory.WM2Timer_read());
 }
 
 #ifdef VersionMenu
@@ -1139,75 +1187,162 @@ void ReefAngelClass::MoonlightPWM(byte RelayID, bool ShowPWM)
 #ifdef wifi
 void ReefAngelClass::LoadWebBanner(int pointer, byte qty)
 {
-	webbannerpointer = pointer;
-	webbannerqty = qty;
+//	webbannerpointer = pointer;
+//	webbannerqty = qty;
 }
 
-void ReefAngelClass::WebBanner()
+void ReefAngelClass::Portal(char *username)
 {
-	char buffer[22];
-	int ptr = webbannerpointer;
-	int tagptr = pgm_read_word(&(webbanner_tags[0]));
-
-	PROGMEMprint(BannerGET);
-	Serial.print(Params.Temp[T1_PROBE], DEC);
-	PROGMEMprint(BannerT2);
-	Serial.print(Params.Temp[T2_PROBE], DEC);
-	PROGMEMprint(BannerT3);
-	Serial.print(Params.Temp[T3_PROBE], DEC);
-	PROGMEMprint(BannerPH);
-	Serial.print(Params.PH, DEC);
-	PROGMEMprint(BannerRelayData);
-	Serial.print("=");
-	// compute the correct relay data, when we force a port on or off, it does not get reflected in the relaydata
-	// so we must compute it based on the mask and send the data to the banner (compute just like when sending the
-	// relay data on the wire)
+	/*
+	static byte LastRelayData;
     byte TempRelay = Relay.RelayData;
     TempRelay &= Relay.RelayMaskOff;
     TempRelay |= Relay.RelayMaskOn;
-	Serial.print(TempRelay, DEC);
+    if (TempRelay!=LastRelayData)
+    {
+    	Timer[PORTAL_TIMER].ForceTrigger();
+    	LastRelayData=TempRelay;
+    }
+#ifdef RelayExp
+	static byte LastRelayDataE[MAX_RELAY_EXPANSION_MODULES];
+
+    for ( byte EID = 0; EID < MAX_RELAY_EXPANSION_MODULES; EID++ )
+	{
+		TempRelay = Relay.RelayDataE[EID];
+		TempRelay &= Relay.RelayMaskOffE[EID];
+		TempRelay |= Relay.RelayMaskOnE[EID];
+	    if (TempRelay!=LastRelayDataE[EID])
+	    {
+	    	Timer[PORTAL_TIMER].ForceTrigger();
+	    	LastRelayDataE[EID]=TempRelay;
+	    }
+	}
+
+#endif  // RelayExp
+	 */
+	if (Timer[PORTAL_TIMER].IsTriggered()) SendPortal(username,"");
+}
+
+void ReefAngelClass::Portal(char *username, char *key)
+{
+	if (Timer[PORTAL_TIMER].IsTriggered()) SendPortal(username,key);
+}
+
+void ReefAngelClass::SendPortal(char *username, char*key)
+{
+	Timer[PORTAL_TIMER].Start();
+	PROGMEMprint(BannerGET);
+	WIFI_SERIAL.print(Params.Temp[T1_PROBE], DEC);
+	PROGMEMprint(BannerT2);
+	WIFI_SERIAL.print(Params.Temp[T2_PROBE], DEC);
+	PROGMEMprint(BannerT3);
+	WIFI_SERIAL.print(Params.Temp[T3_PROBE], DEC);
+	PROGMEMprint(BannerPH);
+	WIFI_SERIAL.print(Params.PH, DEC);
+	PROGMEMprint(BannerID);
+	WIFI_SERIAL.print(username);
+	PROGMEMprint(BannerEM);
+	WIFI_SERIAL.print(EM, DEC);
+	PROGMEMprint(BannerREM);
+	WIFI_SERIAL.print(REM, DEC);
+	PROGMEMprint(BannerKey);
+	WIFI_SERIAL.print(key);
+	PROGMEMprint(BannerATOHIGH);
+	WIFI_SERIAL.print(HighATO.IsActive(), DEC);
+	PROGMEMprint(BannerATOLOW);
+	WIFI_SERIAL.print(LowATO.IsActive(), DEC);
+	PROGMEMprint(BannerRelayData);
+	WIFI_SERIAL.print("=");
+	WIFI_SERIAL.print(Relay.RelayData, DEC);
+	PROGMEMprint(BannerRelayMaskOn);
+	WIFI_SERIAL.print("=");
+	WIFI_SERIAL.print(Relay.RelayMaskOn, DEC);
+	PROGMEMprint(BannerRelayMaskOff);
+	WIFI_SERIAL.print("=");
+	WIFI_SERIAL.print(Relay.RelayMaskOff, DEC);
+
 #ifdef RelayExp
 	for ( byte x = 0; x < InstalledRelayExpansionModules && x < MAX_RELAY_EXPANSION_MODULES; x++ )
 	{
 		PROGMEMprint(BannerRelayData);
-		Serial.print(x+1, DEC);
-		Serial.print("=");
-		TempRelay = Relay.RelayDataE[x];
-		TempRelay &= Relay.RelayMaskOffE[x];
-		TempRelay |= Relay.RelayMaskOnE[x];
-		Serial.print(TempRelay, DEC);
+		WIFI_SERIAL.print(x+1, DEC);
+		WIFI_SERIAL.print("=");
+		WIFI_SERIAL.print(Relay.RelayDataE[x], DEC);
+		PROGMEMprint(BannerRelayMaskOn);
+		WIFI_SERIAL.print(x+1, DEC);
+		WIFI_SERIAL.print("=");
+		WIFI_SERIAL.print(Relay.RelayMaskOnE[x], DEC);
+		PROGMEMprint(BannerRelayMaskOff);
+		WIFI_SERIAL.print(x+1, DEC);
+		WIFI_SERIAL.print("=");
+		WIFI_SERIAL.print(Relay.RelayMaskOffE[x], DEC);
 	}  // for x
 #endif  // RelayExp
-
-	if ( webbannerqty == WEB_BANNER_QTY )
+#if defined DisplayLEDPWM && ! defined RemoveAllLights
+	PROGMEMprint(BannerPWMA);
+	WIFI_SERIAL.print(PWM.GetActinicValue(), DEC);
+	PROGMEMprint(BannerPWMD);
+	WIFI_SERIAL.print(PWM.GetDaylightValue(), DEC);
+#endif  // DisplayLEDPWM && ! defined RemoveAllLights
+#ifdef PWMEXPANSION
+	for ( byte EID = 0; EID < PWM_EXPANSION_CHANNELS; EID++ )
 	{
-		for ( byte i = 0; i < WEB_BANNER_QTY; i++ )
-		{
-			strcpy_P(buffer, (char *)tagptr++);
-			tagptr += strlen(buffer);
-			Serial.print("&");
-			Serial.print(buffer);
-			Serial.print("=");
-			strcpy_P(buffer, (char *)ptr++);
-			ptr += strlen(buffer);
-			Serial.print(buffer);
-		}  // for i
+		PROGMEMprint(BannerPWME);
+		WIFI_SERIAL.print(EID, DEC);
+		WIFI_SERIAL.print("=");
+		WIFI_SERIAL.print(PWM.GetChannelValue(EID), DEC);
 	}
-	else
+#endif  // PWMEXPANSION
+#ifdef RFEXPANSION
+	PROGMEMprint(BannerRFM);
+	WIFI_SERIAL.print(RF.Mode, DEC);
+	PROGMEMprint(BannerRFS);
+	WIFI_SERIAL.print(RF.Speed, DEC);
+	PROGMEMprint(BannerRFD);
+	WIFI_SERIAL.print(RF.Duration, DEC);
+	PROGMEMprint(BannerRFW);
+	WIFI_SERIAL.print(RF.GetChannel(0), DEC);
+	PROGMEMprint(BannerRFRB);
+	WIFI_SERIAL.print(RF.GetChannel(1), DEC);
+	PROGMEMprint(BannerRFR);
+	WIFI_SERIAL.print(RF.GetChannel(2), DEC);
+	PROGMEMprint(BannerRFG);
+	WIFI_SERIAL.print(RF.GetChannel(3), DEC);
+	PROGMEMprint(BannerRFB);
+	WIFI_SERIAL.print(RF.GetChannel(4), DEC);
+	PROGMEMprint(BannerRFI);
+	WIFI_SERIAL.print(RF.GetChannel(5), DEC);
+#endif  // RFEXPANSION
+#ifdef AI_LED
+	PROGMEMprint(BannerAIW);
+	WIFI_SERIAL.print(AI.GetChannel(0), DEC);
+	PROGMEMprint(BannerAIB);
+	WIFI_SERIAL.print(AI.GetChannel(1), DEC);
+	PROGMEMprint(BannerAIRB);
+	WIFI_SERIAL.print(AI.GetChannel(2), DEC);
+#endif  // AI_LED
+#ifdef SALINITYEXPANSION
+	PROGMEMprint(BannerSal);
+	WIFI_SERIAL.print(Params.Salinity, DEC);
+#endif  // SALINITYEXPANSION
+#ifdef ORPEXPANSION
+	PROGMEMprint(BannerORP);
+	WIFI_SERIAL.print(Params.ORP, DEC);
+#endif  // ORPEXPANSION
+#ifdef IOEXPANSION
+	PROGMEMprint(BannerIO);
+	WIFI_SERIAL.print(IO.GetChannel(), DEC);
+#endif  // IOEXPANSION
+#ifdef CUSTOM_VARIABLES
+	for ( byte EID = 0; EID < 8; EID++ )
 	{
-		strcpy_P(buffer, (char *)tagptr++);
-		tagptr += strlen(buffer);
-		Serial.print("&");
-		Serial.print(buffer);
-		Serial.print("=");
-		strcpy_P(buffer, (char *)ptr++);
-		ptr += strlen(buffer);
-		Serial.print(buffer);
-		Serial.print("&");
-		P(badmsg)=BAD;
-		printP(badmsg);
+		PROGMEMprint(BannerCustomVar);
+		WIFI_SERIAL.print(EID, DEC);
+		WIFI_SERIAL.print("=");
+		WIFI_SERIAL.print(CustomVar[EID], DEC);
 	}
-	Serial.println("\n\n");
+#endif  // CUSTOM_VARIABLES
+	WIFI_SERIAL.println("\n\n");
 }
 #endif  // wifi
 
@@ -1488,6 +1623,13 @@ void ReefAngelClass::ShowInterface()
 				}
 				// commit relay changes
 				Relay.Write();
+#ifdef PWMEXPANSION
+					PWM.ExpansionWrite();
+#endif  // PWMEXPANSION
+#ifdef IOEXPANSION
+					IO.GetChannel();
+#endif  // IOEXPANSION
+
 				break;
 			}  // DEFAULT_MENU
 			case FEEDING_MODE:
@@ -2184,19 +2326,7 @@ void ReefAngelClass::ProcessButtonPressSetup()
             {
                 InternalMemory.WM1Timer_write(v);
                 InternalMemory.WM2Timer_write(y);
-                // after we set the values we need to update the timers
-                // TODO Update Timers appropriately
-                /*
-                Timer[1].Trigger = 0;
-                Timer[1].SetInterval(v);
-                Timer[1].Start();
-                */
                 Relay.On(WM1Port);
-                /*
-                Timer[2].Trigger = 0;
-                Timer[2].SetInterval(y);
-                Timer[2].Start();
-                */
                 Relay.On(WM2Port);
                 Relay.Write();
             }
@@ -3077,6 +3207,7 @@ void ReefAngelClass::SetupCalibrateSalinity()
 #if defined WDT || defined WDT_FORCE
 		wdt_reset();
 #endif  // defined WDT || defined WDT_FORCE
+		iS=0;
 	    for (int a=0;a<15;a++)
 	    {
 	    	iS += Salinity.Read();
