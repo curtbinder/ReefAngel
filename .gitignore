@@ -7,6 +7,8 @@ Firmata/
 LiquidCrystal/
 Matrix/
 OneWire/
+NokiaLCD/
+Phillips6610LCD/
 Phillips6610LCDInv/
 Phillips6610LCDInv2/
 Servo/
