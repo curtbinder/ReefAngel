@@ -931,7 +931,7 @@ void ReefAngelClass::DosingPump(byte DPRelay, byte OnHour, byte OnMinute, byte R
         //LED.Off();
     }
 */
-	Relay.Set(DPRelay, (now()%((OnHour*3600)+(OnMinute*60)))<RunTime);
+	Relay.Set(DPRelay, (elapsedSecsToday(now()) % ( ((long)OnHour*3600)+(OnMinute*60) ) < RunTime));
 }
 
 void ReefAngelClass::DosingPumpRepeat(byte DPRelay, int OffsetMinute, int RepeatMinute, byte RunTime)
@@ -976,7 +976,7 @@ void ReefAngelClass::DosingPumpRepeat(byte DPRelay, int OffsetMinute, int Repeat
 		Relay.Off(DPRelay);
 	}
 	*/
-	Relay.Set(DPRelay,((now()-(OffsetMinute*60))%(RepeatMinute*60))<RunTime);
+	Relay.Set(DPRelay,((elapsedSecsToday(now())-(OffsetMinute*60))%(RepeatMinute*60))<RunTime);
 }
 
 void ReefAngelClass::Wavemaker(byte WMRelay, int WMTimer)

@@ -46,12 +46,14 @@ RelayClass::RelayClass()
 
 void RelayClass::On(byte ID)
 {
-    if ( ID < 9 ) bitSet(RelayData, ID-1);
+//    if ( ID < 9 ) bitSet(RelayData, ID-1);
+    if ( ID < 9 ) RelayData |= 1<<(ID-1);
 #ifdef RelayExp
 	if ( (ID > 10) && (ID < 89) )
 	{
 		byte EID = byte(ID/10);
-		bitSet(RelayDataE[EID-1],(ID%10)-1);
+//		bitSet(RelayDataE[EID-1],(ID%10)-1);
+		RelayDataE[EID-1] |= 1<<((ID%10)-1);
 	}
 #endif  // RelayExp
 }

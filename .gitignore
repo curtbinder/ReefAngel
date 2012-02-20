@@ -6,8 +6,10 @@ Ethernet/
 Firmata/
 LiquidCrystal/
 Matrix/
-#OneWire/
-#Phillips6610LCDInv/
+OneWire/
+NokiaLCD/
+Phillips6610LCD/
+Phillips6610LCDInv/
 Phillips6610LCDInv2/
 Servo/
 SoftwareSerial/
