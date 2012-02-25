@@ -899,11 +899,6 @@ void ReefAngelClass::SingleATO(bool bLow, byte ATORelay, byte byteTimeout, byte 
 
 void ReefAngelClass::DosingPump(byte DPRelay, byte DPTimer, byte OnHour, byte OnMinute, byte RunTime)
 {
-	DosingPump(DPRelay, OnHour, OnMinute, RunTime);
-}
-
-void ReefAngelClass::DosingPump(byte DPRelay, byte OnHour, byte OnMinute, byte RunTime)
-{
     /*
     This function configures and sets up the dosing pump and turns it on at the appropriate time
     Once the timer has expired for the dosing pump, it shuts it off
@@ -913,7 +908,7 @@ void ReefAngelClass::DosingPump(byte DPRelay, byte OnHour, byte OnMinute, byte R
     OnHour & OnMinute - time to turn on the dosing pump (in 24hr based time)
     RunTime - duration to run the pump
     */
-/*
+
     // Let's see if it's supposed to start running the timer now
     if ( (NumMins(hour(), minute()) == NumMins(OnHour, OnMinute)) && (second() == 0) )
     {
@@ -930,8 +925,7 @@ void ReefAngelClass::DosingPump(byte DPRelay, byte OnHour, byte OnMinute, byte R
         Relay.Off(DPRelay);
         //LED.Off();
     }
-*/
-	Relay.Set(DPRelay, (elapsedSecsToday(now()) % ( ((long)OnHour*3600)+(OnMinute*60) ) < RunTime));
+
 }
 
 void ReefAngelClass::DosingPumpRepeat(byte DPRelay, int OffsetMinute, int RepeatMinute, byte RunTime)
@@ -1088,7 +1082,7 @@ void ReefAngelClass::SingleATOHigh(byte Relay)
 
 void ReefAngelClass::DosingPump1(byte Relay)
 {
-    DosingPump(Relay,
+    DosingPump(Relay, 1,
                InternalMemory.DP1OnHour_read(),
                InternalMemory.DP1OnMinute_read(),
                InternalMemory.DP1Timer_read());
@@ -1096,7 +1090,7 @@ void ReefAngelClass::DosingPump1(byte Relay)
 
 void ReefAngelClass::DosingPump2(byte Relay)
 {
-    DosingPump(Relay,
+    DosingPump(Relay, 2,
                InternalMemory.DP2OnHour_read(),
                InternalMemory.DP2OnMinute_read(),
                InternalMemory.DP2Timer_read());
