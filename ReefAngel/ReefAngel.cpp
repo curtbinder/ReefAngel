@@ -511,8 +511,8 @@ void ReefAngelClass::Init()
     // Default to have ports 4, 5, & 8 toggled
     // Override in Setup function of PDE
     //           Port   87654321
-    FeedingModePorts = B10011000;
-    WaterChangePorts = B10011000;
+    FeedingModePorts = B10110000;
+    WaterChangePorts = B10110000;
 
     // Set the ports that get shutoff when the overheat value is reached
     // Default to have port 3 shutoff
