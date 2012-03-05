@@ -284,7 +284,25 @@ When adding more variables, use the previous value plus 1 or 2
 #define Mem_B_RFMode			  VarsStart+55
 #define Mem_B_RFSpeed			  VarsStart+56
 #define Mem_B_RFDuration		  VarsStart+57
-// Next value starts VarsStart+58
+#define Mem_B_PWMSlopeStart0      VarsStart+58
+#define Mem_B_PWMSlopeEnd0	      VarsStart+59
+#define Mem_B_PWMSlopeDuration0   VarsStart+60
+#define Mem_B_PWMSlopeStart1      VarsStart+61
+#define Mem_B_PWMSlopeEnd1	      VarsStart+62
+#define Mem_B_PWMSlopeDuration1   VarsStart+63
+#define Mem_B_PWMSlopeStart2      VarsStart+64
+#define Mem_B_PWMSlopeEnd2	      VarsStart+65
+#define Mem_B_PWMSlopeDuration2   VarsStart+66
+#define Mem_B_PWMSlopeStart3      VarsStart+67
+#define Mem_B_PWMSlopeEnd3	      VarsStart+68
+#define Mem_B_PWMSlopeDuration3   VarsStart+69
+#define Mem_B_PWMSlopeStart4      VarsStart+70
+#define Mem_B_PWMSlopeEnd4	      VarsStart+71
+#define Mem_B_PWMSlopeDuration4   VarsStart+72
+#define Mem_B_PWMSlopeStart5      VarsStart+73
+#define Mem_B_PWMSlopeEnd5	      VarsStart+74
+#define Mem_B_PWMSlopeDuration5   VarsStart+75
+// Next value starts VarsStart+76
 
 // Internal Memory Check Pointer
 #define IMPointer			600
