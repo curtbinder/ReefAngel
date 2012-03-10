@@ -587,6 +587,7 @@ Used by the RF Expansion Module
 #define Smart_TSM     6 // Tidal Swell Mode
 #define Feeding_Start 7
 #define Feeding_Stop  8
+#define Night_Stop	  8
 #define Night         9
 #define Slave_Start   97
 #define Slave_Stop    98

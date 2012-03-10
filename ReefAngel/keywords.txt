@@ -37,6 +37,8 @@ SingleATOLow	KEYWORD2
 DosingPump	KEYWORD2
 DosingPumpRepeat	KEYWORD2
 Wavemaker	KEYWORD2
+Wavemaker1	KEYWORD2
+Wavemaker2	KEYWORD2
 WavemakerRandom	KEYWORD2
 WavemakerRandom1	KEYWORD2
 WavemakerRandom2	KEYWORD2
