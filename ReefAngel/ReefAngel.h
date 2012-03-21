@@ -22,7 +22,7 @@
 #ifndef	__REEFANGEL_H__
 #define __REEFANGEL_H__
 
-#define ReefAngel_Version "0.9.2"
+#define ReefAngel_Version "0.9.3"
 
 #include <Globals.h>
 #include <InternalEEPROM.h>  // NOTE read/write internal memory
@@ -139,7 +139,7 @@ public:
 	byte WM1Port;
 	byte WM2Port;
 #endif  // WavemakerSetup
-	
+
 	byte OverheatProbe;
 	byte TempProbe;
 
