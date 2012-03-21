@@ -134,7 +134,12 @@ public:
 	byte LightsOnPortsE[MAX_RELAY_EXPANSION_MODULES];
 #endif  // RelayExp
 #endif  // RemoveAllLights
-
+#ifdef WavemakerSetup
+	// TODO find a better way to save the wavemaker ports for restarting once timers are updated from setup screen
+	byte WM1Port;
+	byte WM2Port;
+#endif  // WavemakerSetup
+	
 	byte OverheatProbe;
 	byte TempProbe;
 
