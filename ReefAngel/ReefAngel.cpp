@@ -990,7 +990,7 @@ void ReefAngelClass::WavemakerRandom(byte WMRelay, int MinWMTimer, int MaxWMTime
 	if (now()>WMRTimer)
 	{
 		WMRTimer=now()+random(MinWMTimer, MaxWMTimer);
-		ReefAngel.Relay.Toggle(WMRelay);
+		Relay.Toggle(WMRelay);
 	}
 }
 
@@ -1000,7 +1000,7 @@ void ReefAngelClass::WavemakerRandom1(byte WMRelay, int MinWMTimer, int MaxWMTim
 	if (now()>WMRTimer1)
 	{
 		WMRTimer1=now()+random(MinWMTimer, MaxWMTimer);
-		ReefAngel.Relay.Toggle(WMRelay);
+		Relay.Toggle(WMRelay);
 	}
 }
 
@@ -1010,7 +1010,21 @@ void ReefAngelClass::WavemakerRandom2(byte WMRelay, int MinWMTimer, int MaxWMTim
 	if (now()>WMRTimer2)
 	{
 		WMRTimer2=now()+random(MinWMTimer, MaxWMTimer);
-		ReefAngel.Relay.Toggle(WMRelay);
+		Relay.Toggle(WMRelay);
+	}
+}
+
+void ReefAngelClass::WavemakerToggle(byte WMRelay1, byte WMRelay2, int WMTimer)
+{
+	if ( (now()%(WMTimer*2))<WMTimer )
+	{
+		Relay.On(WMRelay1);
+		Relay.Off(WMRelay2);
+	}
+	else
+	{
+		Relay.Off(WMRelay1);
+		Relay.On(WMRelay2);
 	}
 }
 
@@ -1122,7 +1136,7 @@ void ReefAngelClass::Wavemaker1(byte WMRelay)
 	Wavemaker(WMRelay,InternalMemory.WM1Timer_read());
 #ifdef WavemakerSetup
 	WM1Port = WMRelay;
-#endif  
+#endif
 }
 
 void ReefAngelClass::Wavemaker2(byte WMRelay)
@@ -1130,7 +1144,7 @@ void ReefAngelClass::Wavemaker2(byte WMRelay)
 	Wavemaker(WMRelay,InternalMemory.WM2Timer_read());
 #ifdef WavemakerSetup
 	WM2Port = WMRelay;
-#endif  
+#endif
 }
 
 #ifdef VersionMenu

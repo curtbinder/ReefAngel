@@ -160,6 +160,7 @@ public:
 	void WavemakerRandom(byte WMRelay, int MinWMTimer, int MaxWMTimer);
 	void WavemakerRandom1(byte WMRelay, int MinWMTimer, int MaxWMTimer);
 	void WavemakerRandom2(byte WMRelay, int MinWMTimer, int MaxWMTimer);
+	void WavemakerToggle(byte WMRelay1, byte WMRelay2, int WMTimer);
 
 	// Simplified PDE versions of the calls
 	void StandardLights(byte Relay);
