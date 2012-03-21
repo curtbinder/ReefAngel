@@ -599,7 +599,12 @@ void ReefAngelClass::Refresh()
       AI.AImillis=millis();
     }
 #endif  // AI_LED
-
+#ifdef PWMEXPANSION
+	PWM.ExpansionWrite();
+#endif  // PWMEXPANSION
+#ifdef IOEXPANSION
+	IO.GetChannel();
+#endif  // IOEXPANSION
 	if (ds.read_bit()==0) return;  // ds for OneWire TempSensor
 	now();
 #ifdef DirectTempSensor
@@ -1622,13 +1627,6 @@ void ReefAngelClass::ShowInterface()
 				}
 				// commit relay changes
 				Relay.Write();
-#ifdef PWMEXPANSION
-					PWM.ExpansionWrite();
-#endif  // PWMEXPANSION
-#ifdef IOEXPANSION
-					IO.GetChannel();
-#endif  // IOEXPANSION
-
 				break;
 			}  // DEFAULT_MENU
 			case FEEDING_MODE:
