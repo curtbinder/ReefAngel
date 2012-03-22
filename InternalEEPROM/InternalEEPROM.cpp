@@ -328,6 +328,186 @@ void InternalEEPROMClass::RFDuration_write(const uint8_t value)
     write(Mem_B_RFDuration, value);
 }
 
+uint8_t InternalEEPROMClass::PWMSlopeStart0_read()
+{
+    return read(Mem_B_PWMSlopeStart0);
+}
+
+void InternalEEPROMClass::PWMSlopeStart0_write(const uint8_t value)
+{
+    write(Mem_B_PWMSlopeStart0, value);
+}
+
+uint8_t InternalEEPROMClass::PWMSlopeEnd0_read()
+{
+    return read(Mem_B_PWMSlopeEnd0);
+}
+
+void InternalEEPROMClass::PWMSlopeEnd0_write(const uint8_t value)
+{
+    write(Mem_B_PWMSlopeEnd0, value);
+}
+
+uint8_t InternalEEPROMClass::PWMSlopeDuration0_read()
+{
+    return read(Mem_B_PWMSlopeDuration0);
+}
+
+void InternalEEPROMClass::PWMSlopeDuration0_write(const uint8_t value)
+{
+    write(Mem_B_PWMSlopeDuration0, value);
+}
+
+uint8_t InternalEEPROMClass::PWMSlopeStart1_read()
+{
+    return read(Mem_B_PWMSlopeStart1);
+}
+
+void InternalEEPROMClass::PWMSlopeStart1_write(const uint8_t value)
+{
+    write(Mem_B_PWMSlopeStart1, value);
+}
+
+uint8_t InternalEEPROMClass::PWMSlopeEnd1_read()
+{
+    return read(Mem_B_PWMSlopeEnd1);
+}
+
+void InternalEEPROMClass::PWMSlopeEnd1_write(const uint8_t value)
+{
+    write(Mem_B_PWMSlopeEnd1, value);
+}
+
+uint8_t InternalEEPROMClass::PWMSlopeDuration1_read()
+{
+    return read(Mem_B_PWMSlopeDuration1);
+}
+
+void InternalEEPROMClass::PWMSlopeDuration1_write(const uint8_t value)
+{
+    write(Mem_B_PWMSlopeDuration1, value);
+}
+
+uint8_t InternalEEPROMClass::PWMSlopeStart2_read()
+{
+    return read(Mem_B_PWMSlopeStart2);
+}
+
+void InternalEEPROMClass::PWMSlopeStart2_write(const uint8_t value)
+{
+    write(Mem_B_PWMSlopeStart2, value);
+}
+
+uint8_t InternalEEPROMClass::PWMSlopeEnd2_read()
+{
+    return read(Mem_B_PWMSlopeEnd2);
+}
+
+void InternalEEPROMClass::PWMSlopeEnd2_write(const uint8_t value)
+{
+    write(Mem_B_PWMSlopeEnd2, value);
+}
+
+uint8_t InternalEEPROMClass::PWMSlopeDuration2_read()
+{
+    return read(Mem_B_PWMSlopeDuration2);
+}
+
+void InternalEEPROMClass::PWMSlopeDuration2_write(const uint8_t value)
+{
+    write(Mem_B_PWMSlopeDuration2, value);
+}
+
+uint8_t InternalEEPROMClass::PWMSlopeStart3_read()
+{
+    return read(Mem_B_PWMSlopeStart3);
+}
+
+void InternalEEPROMClass::PWMSlopeStart3_write(const uint8_t value)
+{
+    write(Mem_B_PWMSlopeStart3, value);
+}
+
+uint8_t InternalEEPROMClass::PWMSlopeEnd3_read()
+{
+    return read(Mem_B_PWMSlopeEnd3);
+}
+
+void InternalEEPROMClass::PWMSlopeEnd3_write(const uint8_t value)
+{
+    write(Mem_B_PWMSlopeEnd3, value);
+}
+
+uint8_t InternalEEPROMClass::PWMSlopeDuration3_read()
+{
+    return read(Mem_B_PWMSlopeDuration3);
+}
+
+void InternalEEPROMClass::PWMSlopeDuration3_write(const uint8_t value)
+{
+    write(Mem_B_PWMSlopeDuration3, value);
+}
+
+uint8_t InternalEEPROMClass::PWMSlopeStart4_read()
+{
+    return read(Mem_B_PWMSlopeStart4);
+}
+
+void InternalEEPROMClass::PWMSlopeStart4_write(const uint8_t value)
+{
+    write(Mem_B_PWMSlopeStart4, value);
+}
+
+uint8_t InternalEEPROMClass::PWMSlopeEnd4_read()
+{
+    return read(Mem_B_PWMSlopeEnd4);
+}
+
+void InternalEEPROMClass::PWMSlopeEnd4_write(const uint8_t value)
+{
+    write(Mem_B_PWMSlopeEnd4, value);
+}
+
+uint8_t InternalEEPROMClass::PWMSlopeDuration4_read()
+{
+    return read(Mem_B_PWMSlopeDuration4);
+}
+
+void InternalEEPROMClass::PWMSlopeDuration4_write(const uint8_t value)
+{
+    write(Mem_B_PWMSlopeDuration4, value);
+}
+
+uint8_t InternalEEPROMClass::PWMSlopeStart5_read()
+{
+    return read(Mem_B_PWMSlopeStart5);
+}
+
+void InternalEEPROMClass::PWMSlopeStart5_write(const uint8_t value)
+{
+    write(Mem_B_PWMSlopeStart5, value);
+}
+
+uint8_t InternalEEPROMClass::PWMSlopeEnd5_read()
+{
+    return read(Mem_B_PWMSlopeEnd5);
+}
+
+void InternalEEPROMClass::PWMSlopeEnd5_write(const uint8_t value)
+{
+    write(Mem_B_PWMSlopeEnd5, value);
+}
+
+uint8_t InternalEEPROMClass::PWMSlopeDuration5_read()
+{
+    return read(Mem_B_PWMSlopeDuration5);
+}
+
+void InternalEEPROMClass::PWMSlopeDuration5_write(const uint8_t value)
+{
+    write(Mem_B_PWMSlopeDuration5, value);
+}
+
 // Int Functions
 int InternalEEPROMClass::WM1Timer_read()
 {
