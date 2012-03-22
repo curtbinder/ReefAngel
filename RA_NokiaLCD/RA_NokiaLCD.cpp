@@ -1028,6 +1028,156 @@ void RA_NokiaLCD::SetContrast(byte Contrast)
     SendData(Contrast);
 }
 
+void RA_NokiaLCD::DrawCircleOutline(byte x, byte y, byte radius, byte bordercolor)
+{
+	int f = 1 - radius;
+	int ddF_x = 1;
+	int ddF_y = -2 * radius;
+	byte x_pos = 0;
+	byte y_pos = radius;
+
+	PutPixel(bordercolor, x, y+radius);
+	PutPixel(bordercolor, x, y-radius);
+	PutPixel(bordercolor, x+radius, y);
+	PutPixel(bordercolor, x-radius, y);
+
+	while ( x_pos < y_pos )
+	{
+		if ( f >= 0 )
+		{
+			y_pos--;
+			ddF_y += 2;
+			f += ddF_y;
+		}
+		x_pos++;
+		ddF_x += 2;
+		f += ddF_x;
+
+		PutPixel(bordercolor, x + x_pos, y + y_pos);
+		PutPixel(bordercolor, x - x_pos, y + y_pos);
+		PutPixel(bordercolor, x + x_pos, y - y_pos);
+		PutPixel(bordercolor, x - x_pos, y - y_pos);
+		PutPixel(bordercolor, x + y_pos, y + x_pos);
+		PutPixel(bordercolor, x - y_pos, y + x_pos);
+		PutPixel(bordercolor, x + y_pos, y - x_pos);
+		PutPixel(bordercolor, x - y_pos, y - x_pos);
+	}
+}
+
+void RA_NokiaLCD::FillCircle(byte x, byte y, byte radius, byte fillcolor)
+{
+	int f = 1 - radius;
+	int ddF_x = 1;
+	int ddF_y = -2 * radius;
+	byte x_pos = 0;
+	byte y_pos = radius;
+	byte i;
+
+	for ( i = y-radius; i <= y+radius; i++ )
+	{
+		PutPixel(fillcolor, x, i);
+	}
+	while ( x_pos < y_pos )
+	{
+		if ( f >= 0 )
+		{
+			y_pos--;
+			ddF_y += 2;
+			f += ddF_y;
+		}
+		x_pos++;
+		ddF_x += 2;
+		f += ddF_x;
+		for ( i = y-y_pos; i <= y+y_pos; i++ )
+		{
+			PutPixel(fillcolor, x+x_pos, i);
+			PutPixel(fillcolor, x-x_pos, i);
+		}
+		for ( i = y-x_pos; i <= y+x_pos; i++ )
+		{
+			PutPixel(fillcolor, x+y_pos, i);
+			PutPixel(fillcolor, x-y_pos, i);
+		}
+	}
+}
+
+void RA_NokiaLCD::DrawCircleOutletBox(byte x, byte y, byte RelayData, bool reverse /*= false*/)
+{
+	byte a = 0;
+	byte b = 0;
+	byte c = 0;
+	for (a=0;a<2;a++)
+	{
+		// 0 & 1
+		if ( reverse )
+			c = 1 - a;
+		else
+			c = a;
+		DrawCircle ((a*10)+x,y,5,OutletBorderColor);
+		if ((RelayData&(1<<c))==1<<c)
+		{
+			FillCircle((a*10)+x,y,3,OutletOnBGColor);
+		}
+		else
+		{
+			FillCircle((a*10)+x,y,3,OutletOffBGColor);
+		}
+	}
+	for (a=2;a<4;a++)
+	{
+		// 2 & 3
+		if ( reverse )
+			c = 3 - a;
+		else
+			c = a;
+		b=(a-2)*10;
+		DrawCircle (b+x,y+10,5,OutletBorderColor);
+		if ((RelayData&(1<<c))==1<<c)
+		{
+			FillCircle(b+x,y+10,3,OutletOnBGColor);
+		}
+		else
+		{
+			FillCircle(b+x,y+10,3,OutletOffBGColor);
+		}
+	}
+	for (a=4;a<6;a++)
+	{
+		// 4 & 5
+		if ( reverse )
+			c = 5 - a;
+		else
+			c = a;
+		b=(a-4)*10;
+		DrawCircle (b+x,y+20,5,OutletBorderColor);
+		if ((RelayData&(1<<c))==1<<c)
+		{
+			FillCircle(b+x,y+20,3,OutletOnBGColor);
+		}
+		else
+		{
+			FillCircle(b+x,y+20,3,OutletOffBGColor);
+		}
+	}
+	for (a=6;a<8;a++)
+	{
+		// 6 & 7
+		if ( reverse )
+			c = 7 - a;
+		else
+			c = a;
+		b=(a-6)*10;
+		DrawCircle (b+x,y+30,5,OutletBorderColor);
+		if ((RelayData&(1<<c))==1<<c)
+		{
+			FillCircle(b+x,y+30,3,OutletOnBGColor);
+		}
+		else
+		{
+			FillCircle(b+x,y+30,3,OutletOffBGColor);
+		}
+	}
+}
 
 void RA_NokiaLCD::DrawDate(byte x, byte y)
 {

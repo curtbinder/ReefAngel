@@ -67,8 +67,11 @@ public:
 	void DrawText(byte fcolor, byte bcolor, byte x, byte y, long text);
 	void PutPixel(byte color, byte x, byte y);
 	void SetContrast(byte Contrast);
+	void DrawCircleOutline(byte x, byte y, byte radius, byte bordercolor);
+	void FillCircle(byte x, byte y, byte radius, byte fillcolor);
+	void DrawCircleOutletBox(byte x, byte y, byte RelayData, bool reverse = false);
 	void DrawDate(byte x, byte y);
-	void DrawOutletBox(byte x, byte y,byte RelayData);
+	void DrawOutletBox(byte x, byte y, byte RelayData);
 #if defined DisplayLEDPWM && ! defined RemoveAllLights
 	void DrawMonitor(byte x, byte y, ParamsStruct Params, byte DaylightPWMValue, byte ActinicPWMValue);
 #else  // defined DisplayLEDPWM && ! defined RemoveAllLights
