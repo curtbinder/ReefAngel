@@ -24,13 +24,6 @@
 
 #include <Globals.h>
 
-typedef struct  {
-  int Temp[4];
-  int PH;
-  int Salinity;
-  int ORP;
-} ParamsStruct;
-
 enum FontHeight {
 	Font8x8,
 	Font8x16,

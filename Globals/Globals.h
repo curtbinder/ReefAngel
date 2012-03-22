@@ -631,6 +631,14 @@ Used by the AI Functions
 #define RoyalBlue		2
 const byte RawChannel[]={67,65,66};
 
+// Parameters structure, moved from RA_NokiaLCD.h to a more central location
+typedef struct  {
+  int Temp[4];
+  int PH;
+  int Salinity;
+  int ORP;
+} ParamsStruct;
+
 //ReefTouch Block
 
 typedef struct Calibration
