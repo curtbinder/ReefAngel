@@ -1127,7 +1127,7 @@ void RA_NokiaLCD::DrawCircleOutletBox(byte x, byte y, byte RelayData, bool rever
 	{
 		// 2 & 3
 		if ( reverse )
-			c = 3 - a;
+			c = 3 - (a-2);
 		else
 			c = a;
 		b=(a-2)*10;
@@ -1145,7 +1145,7 @@ void RA_NokiaLCD::DrawCircleOutletBox(byte x, byte y, byte RelayData, bool rever
 	{
 		// 4 & 5
 		if ( reverse )
-			c = 5 - a;
+			c = 5 - (a-4);
 		else
 			c = a;
 		b=(a-4)*10;
@@ -1163,7 +1163,7 @@ void RA_NokiaLCD::DrawCircleOutletBox(byte x, byte y, byte RelayData, bool rever
 	{
 		// 6 & 7
 		if ( reverse )
-			c = 7 - a;
+			c = 7 - (a-6);
 		else
 			c = a;
 		b=(a-6)*10;
