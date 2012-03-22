@@ -1113,7 +1113,7 @@ void RA_NokiaLCD::DrawCircleOutletBox(byte x, byte y, byte RelayData, bool rever
 			c = 1 - a;
 		else
 			c = a;
-		DrawCircle ((a*10)+x,y,5,OutletBorderColor);
+		DrawCircleOutline((a*10)+x,y,5,OutletBorderColor);
 		if ((RelayData&(1<<c))==1<<c)
 		{
 			FillCircle((a*10)+x,y,3,OutletOnBGColor);
@@ -1131,7 +1131,7 @@ void RA_NokiaLCD::DrawCircleOutletBox(byte x, byte y, byte RelayData, bool rever
 		else
 			c = a;
 		b=(a-2)*10;
-		DrawCircle (b+x,y+10,5,OutletBorderColor);
+		DrawCircleOutline(b+x,y+10,5,OutletBorderColor);
 		if ((RelayData&(1<<c))==1<<c)
 		{
 			FillCircle(b+x,y+10,3,OutletOnBGColor);
@@ -1149,7 +1149,7 @@ void RA_NokiaLCD::DrawCircleOutletBox(byte x, byte y, byte RelayData, bool rever
 		else
 			c = a;
 		b=(a-4)*10;
-		DrawCircle (b+x,y+20,5,OutletBorderColor);
+		DrawCircleOutline(b+x,y+20,5,OutletBorderColor);
 		if ((RelayData&(1<<c))==1<<c)
 		{
 			FillCircle(b+x,y+20,3,OutletOnBGColor);
@@ -1167,7 +1167,7 @@ void RA_NokiaLCD::DrawCircleOutletBox(byte x, byte y, byte RelayData, bool rever
 		else
 			c = a;
 		b=(a-6)*10;
-		DrawCircle (b+x,y+30,5,OutletBorderColor);
+		DrawCircleOutline(b+x,y+30,5,OutletBorderColor);
 		if ((RelayData&(1<<c))==1<<c)
 		{
 			FillCircle(b+x,y+30,3,OutletOnBGColor);
