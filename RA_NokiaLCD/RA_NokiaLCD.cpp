@@ -1030,6 +1030,7 @@ void RA_NokiaLCD::SetContrast(byte Contrast)
 
 void RA_NokiaLCD::DrawCircleOutline(byte x, byte y, byte radius, byte bordercolor)
 {
+	// 3/21/12 - Original code from Jon (jsclownfish)
 	int f = 1 - radius;
 	int ddF_x = 1;
 	int ddF_y = -2 * radius;
@@ -1066,6 +1067,7 @@ void RA_NokiaLCD::DrawCircleOutline(byte x, byte y, byte radius, byte bordercolo
 
 void RA_NokiaLCD::FillCircle(byte x, byte y, byte radius, byte fillcolor)
 {
+	// 3/21/12 - Original code from Jon (jsclownfish)
 	int f = 1 - radius;
 	int ddF_x = 1;
 	int ddF_y = -2 * radius;
@@ -1103,6 +1105,7 @@ void RA_NokiaLCD::FillCircle(byte x, byte y, byte radius, byte fillcolor)
 
 void RA_NokiaLCD::DrawCircleOutletBox(byte x, byte y, byte RelayData, bool reverse /*= false*/)
 {
+	// 3/21/12 - Original code from Jon (jsclownfish)
 	byte a = 0;
 	byte b = 0;
 	byte c = 0;
