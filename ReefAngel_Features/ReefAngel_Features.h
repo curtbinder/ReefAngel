@@ -534,7 +534,7 @@ Uncomment this next line if you have a Salinity Module that you would like to us
 use a custom main screen as well to display the Salinity values for you.  You must also put this line
 in your PDE file above the ReefAngel.h include line:
 
-#include <ReefAngel_Salinity.h>  // <-- Add this line
+#include <Salinity.h>  // <-- Add this line
 #include <ReefAngel.h>  // <-- Add above this line
 
 If you do not, you will get an error compiling.
@@ -549,7 +549,7 @@ RF Module
 This module is used to control Vortech pumps.  Enable this feature if you want that control.
 You will have to add in this line above the ReefAngel.h include:
 
-#include <ReefAngel_RF.h>  // <-- add this line
+#include <RF.h>  // <-- add this line
 #include <ReefAngel.h>  // add above this line
 
 Approximately 346 bytes to enable this feature
@@ -562,7 +562,7 @@ AI LED
 This features the ability to control the AI LED's.
 You will have to add in this line above the ReefAngel.h include:
 
-#include <ReefAngel_AI.h>  // <-- add this line
+#include <AI.h>  // <-- add this line
 #include <ReefAngel.h>  // add above this line
 
 Approximately 382 bytes to enable this feature
