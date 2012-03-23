@@ -621,6 +621,15 @@ void ReefAngelClass::Refresh()
 #if defined SALINITYEXPANSION
 	Params.Salinity=Salinity.Read();
 	Params.Salinity=map(Params.Salinity, 0, SalMax, 60, 350); // apply the calibration to the sensor reading
+	if (Salinity.TemperatureCompensation)
+	{
+		double SalCompensation;
+		if (TempSensor.unit && Params.Temp[T1_PROBE])
+		SalCompensation=Params.Salinity/(1+((Params.Temp[T1_PROBE]-250)*0.0024));
+		else
+		SalCompensation=Params.Salinity/(1+((Params.Temp[T1_PROBE]-770)*0.001333));
+		Params.Salinity=round(SalCompensation);
+	}
 	LCD.Clear(DefaultBGColor,0,0,1,1);
 #endif  // defined SALINITYEXPANSION
 	TempSensor.RequestConversion();

@@ -27,9 +27,10 @@
 class SalinityClass
 {
 public:
+	boolean TemperatureCompensation;
 	SalinityClass();
 	int Read();
-
+	inline void SetCompensation(boolean value) { TemperatureCompensation = value; }
 };
 
 #endif  // __SALINITY_H__
