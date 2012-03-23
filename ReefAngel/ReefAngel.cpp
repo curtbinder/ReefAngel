@@ -621,6 +621,8 @@ void ReefAngelClass::Refresh()
 #if defined SALINITYEXPANSION
 	Params.Salinity=Salinity.Read();
 	Params.Salinity=map(Params.Salinity, 0, SalMax, 60, 350); // apply the calibration to the sensor reading
+	// Salinity Compensation was contributed by ahmedess
+	// http://forum.reefangel.com/viewtopic.php?p=7386#p7386
 	if (Salinity.TemperatureCompensation)
 	{
 		double SalCompensation;
