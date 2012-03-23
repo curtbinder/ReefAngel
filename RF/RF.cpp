@@ -30,6 +30,13 @@ RFClass::RFClass()
 
 void RFClass::SetMode(byte mode, byte speed, byte duration)
 {
+    if (mode<Slave_Start)
+    {
+    	Mode=mode;
+    	Speed=speed;
+    	Duration=duration;
+    	speed*=2.55;
+    }
     Wire.beginTransmission(I2CRF); // transmit to device #16
     Wire.write('$');              // sends $
     Wire.write('$');              // sends $
@@ -38,12 +45,6 @@ void RFClass::SetMode(byte mode, byte speed, byte duration)
     Wire.write(speed);              // sends speed
     Wire.write(duration);              // sends duration
     Wire.endTransmission();    // stop transmitting
-    if (mode<Slave_Start)
-    {
-    	Mode=mode;
-    	Speed=speed;
-    	Duration=duration;
-    }
 }
 
 byte RFClass::RFCheck()
