@@ -107,7 +107,7 @@ int RA_TempSensorClass::ReadTemperature(byte addr[8])
 				Temp=(data[1]<<8)+data[0];//take the two bytes from the response relating to temperature
 				Temp=Temp/1.6;
 				if (Temp == 0) return 0;
-
+				if (Temp > 85) return 0;
 				if ( unit == DEGREE_F )
                     Temp = Temp * 1.8 + 320;
 	//		}
