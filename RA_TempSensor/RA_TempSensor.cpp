@@ -82,7 +82,7 @@ void RA_TempSensorClass::RequestConversion()
 int RA_TempSensorClass::ReadTemperature(byte addr[8])
 {
 	//byte count=0;
-	int Temp=0;
+	unsigned int Temp=0;
 	byte data[12];
 
 
