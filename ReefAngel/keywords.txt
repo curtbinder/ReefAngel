@@ -122,6 +122,12 @@ RFCheck	KEYWORD2
 GetChannel	KEYWORD2
 RadionWrite	KEYWORD2
 
+#AI
+
+SetPort	KEYWORD2
+SetStreamDelay	KEYWORD2
+
+
 #Joystick
 IsButtonPressed	KEYWORD2
 IsUp	KEYWORD2
@@ -187,6 +193,42 @@ PWMSlopeEndA_read	KEYWORD2
 PWMSlopeEndA_write	KEYWORD2
 PWMSlopeDurationA_read	KEYWORD2
 PWMSlopeDurationA_write	KEYWORD2
+PWMSlopeStart0_read	KEYWORD2
+PWMSlopeStart0_write	KEYWORD2
+PWMSlopeEnd0_read	KEYWORD2
+PWMSlopeEnd0_write	KEYWORD2
+PWMSlopeDuration0_read	KEYWORD2
+PWMSlopeDuration0_write	KEYWORD2
+PWMSlopeStart1_read	KEYWORD2
+PWMSlopeStart1_write	KEYWORD2
+PWMSlopeEnd1_read	KEYWORD2
+PWMSlopeEnd1_write	KEYWORD2
+PWMSlopeDuration1_read	KEYWORD2
+PWMSlopeDuration1_write	KEYWORD2
+PWMSlopeStart2_read	KEYWORD2
+PWMSlopeStart2_write	KEYWORD2
+PWMSlopeEnd2_read	KEYWORD2
+PWMSlopeEnd2_write	KEYWORD2
+PWMSlopeDuration2_read	KEYWORD2
+PWMSlopeDuration2_write	KEYWORD2
+PWMSlopeStart3_read	KEYWORD2
+PWMSlopeStart3_write	KEYWORD2
+PWMSlopeEnd3_read	KEYWORD2
+PWMSlopeEnd3_write	KEYWORD2
+PWMSlopeDuration3_read	KEYWORD2
+PWMSlopeDuration3_write	KEYWORD2
+PWMSlopeStart4_read	KEYWORD2
+PWMSlopeStart4_write	KEYWORD2
+PWMSlopeEnd4_read	KEYWORD2
+PWMSlopeEnd4_write	KEYWORD2
+PWMSlopeDuration4_read	KEYWORD2
+PWMSlopeDuration4_write	KEYWORD2
+PWMSlopeStart5_read	KEYWORD2
+PWMSlopeStart5_write	KEYWORD2
+PWMSlopeEnd5_read	KEYWORD2
+PWMSlopeEnd5_write	KEYWORD2
+PWMSlopeDuration5_read	KEYWORD2
+PWMSlopeDuration5_write	KEYWORD2
 RFMode_read	KEYWORD2
 RFMode_write	KEYWORD2
 RFSpeed_read	KEYWORD2
@@ -241,6 +283,7 @@ LowATO	LITERAL1
 HighATO	LITERAL1
 ATO	LITERAL1
 RF	LITERAL1
+AI	LITERAL1
 Joystick	LITERAL1
 LED	LITERAL1
 IO	LITERAL1
