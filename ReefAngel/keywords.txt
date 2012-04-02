@@ -88,6 +88,8 @@ ActinicPWMParabola	KEYWORD2
 DaylightPWMParabola	KEYWORD2
 ActinicPWMParabola	KEYWORD2
 DaylightPWMParabola	KEYWORD2
+StandardDaylight	KEYWORD2
+StandardActinic	KEYWORD2
 SetChannel	KEYWORD2
 Expansion	KEYWORD2
 ExpansionSetPercent	KEYWORD2

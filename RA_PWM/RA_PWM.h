@@ -39,7 +39,11 @@ public:
 	void DaylightPWMParabola(byte MinuteOffset);
 	void ActinicPWMParabola();
 	void DaylightPWMParabola();
-
+	void StandardActinic();
+	void StandardDaylight();
+	void StandardActinic(byte MinuteOffset);
+	void StandardDaylight(byte MinuteOffset);
+	
 #ifdef PWMEXPANSION
 	byte ExpansionChannel[PWM_EXPANSION_CHANNELS];
 	void SetChannel(byte Channel, byte Value);
