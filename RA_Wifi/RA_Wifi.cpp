@@ -286,6 +286,8 @@ void processHTTP()
 #endif  // RelayExp
 				}
 				ReefAngel.Relay.Write();
+				// Force update of the Portal after relay change
+				ReefAngel.Timer[PORTAL_TIMER].ForceTrigger();
 			}
 			case REQ_RA_STATUS:
 			case REQ_R_STATUS:
@@ -415,10 +417,14 @@ void processHTTP()
 					else if ( weboption2 == Mem_B_LEDPWMActinic )
 					{
 						ReefAngel.PWM.SetActinic(weboption);
+						// Force update of the Portal after change
+						ReefAngel.Timer[PORTAL_TIMER].ForceTrigger();
 					}
 					else if ( weboption2 == Mem_B_LEDPWMDaylight )
 					{
 						ReefAngel.PWM.SetDaylight(weboption);
+						// Force update of the Portal after change
+						ReefAngel.Timer[PORTAL_TIMER].ForceTrigger();
 					}
 #endif  // DisplayLEDPWM
 
