@@ -843,7 +843,7 @@ void ReefAngelClass::StandardATO(byte ATORelay, int ATOTimeout)
 	}
 }
 
-void ReefAngelClass::SingleATO(bool bLow, byte ATORelay, byte byteTimeout, byte byteHrInterval)
+void ReefAngelClass::SingleATO(bool bLow, byte ATORelay, int byteTimeout, byte byteHrInterval)
 {
 	/*
 	If the switch is active, the float is opposite of the 2 wires,
