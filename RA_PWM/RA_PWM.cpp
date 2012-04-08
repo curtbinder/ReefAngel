@@ -28,6 +28,7 @@ RA_PWMClass::RA_PWMClass()
     // initialize variables
     ActinicPWMValue = 0;
     DaylightPWMValue = 0;
+    LightsOverride = false;
 #ifdef PWMEXPANSION
 	for ( byte a = 0; a < PWM_EXPANSION_CHANNELS; a++ )
 	{
@@ -38,14 +39,12 @@ RA_PWMClass::RA_PWMClass()
 
 void RA_PWMClass::SetActinic(byte value)
 {
-    analogWrite(actinicPWMPin, value*2.55);
     ActinicPWMValue = value;
 
 }
 
 void RA_PWMClass::SetDaylight(byte value)
 {
-    analogWrite(daylightPWMPin, value*2.55);
     DaylightPWMValue = value;
 }
 

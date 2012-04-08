@@ -29,6 +29,7 @@ class RA_PWMClass
 {
 public:
 	RA_PWMClass();
+	boolean LightsOverride;
 	void SetActinic(byte value);
 	void SetDaylight(byte value);
 	void ActinicPWMSlope(byte MinuteOffset);

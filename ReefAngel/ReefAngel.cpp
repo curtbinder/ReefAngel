@@ -578,6 +578,16 @@ void ReefAngelClass::Refresh()
 #if defined WDT || defined WDT_FORCE
 	wdt_reset();
 #endif  // defined WDT || defined WDT_FORCE
+#ifdef DisplayLEDPWM
+	if (PWM.LightsOverride)
+	{
+		PWM.SetActinic(InternalMemory.LEDPWMActinic_read());
+		PWM.SetDaylight(InternalMemory.LEDPWMDaylight_read());
+	}
+	analogWrite(actinicPWMPin, PWM.GetActinicValue()*2.55);
+    analogWrite(daylightPWMPin, PWM.GetDaylightValue()*2.55);
+#endif  // DisplayLEDPWM
+
 #ifdef RFEXPANSION
 	byte RFRecv=0;
 	RFRecv=RF.RFCheck();
@@ -2429,8 +2439,7 @@ void ReefAngelClass::ProcessButtonPressLights()
 			}
 #endif  // RelayExp
 #ifdef DisplayLEDPWM
-            PWM.SetActinic(InternalMemory.LEDPWMActinic_read());
-            PWM.SetDaylight(InternalMemory.LEDPWMDaylight_read());
+            PWM.LightsOverride=true;
 #endif  // DisplayLEDPWM
             Relay.Write();
             DisplayMenuEntry("Lights On");
@@ -2452,6 +2461,7 @@ void ReefAngelClass::ProcessButtonPressLights()
             // sets PWM to 0%
             PWM.SetActinic(0);
             PWM.SetDaylight(0);
+            PWM.LightsOverride=false;
 #endif  // DisplayLEDPWM
             Relay.Write();
             DisplayMenuEntry("Restore Lights");
