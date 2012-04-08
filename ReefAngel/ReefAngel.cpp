@@ -627,6 +627,7 @@ void ReefAngelClass::Refresh()
 	LCD.Clear(DefaultBGColor,0,0,1,1);
 	Params.PH=analogRead(PHPin);
 	Params.PH=map(Params.PH, PHMin, PHMax, 700, 1000); // apply the calibration to the sensor reading
+	Params.PH=constrain(Params.PH,100,1400);
 	LCD.Clear(DefaultBGColor,0,0,1,1);
 #if defined SALINITYEXPANSION
 	Params.Salinity=Salinity.Read();
@@ -669,6 +670,8 @@ void ReefAngelClass::Refresh()
     Params.PH/=20;
     LCD.Clear(DefaultBGColor,0,0,1,1);
 	Params.PH=map(Params.PH, PHMin, PHMax, 700, 1000); // apply the calibration to the sensor reading
+	Params.PH=constrain(Params.PH,100,1400);
+	
 #if defined SALINITYEXPANSION
 	Params.Salinity=Salinity.Read();
 	Params.Salinity=map(Params.Salinity, 0, SalMax, 60, 350); // apply the calibration to the sensor reading
