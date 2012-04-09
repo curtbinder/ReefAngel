@@ -97,7 +97,18 @@ ExpansionWrite	KEYWORD2
 GetChannelValue	KEYWORD2
 GetActinicValue	KEYWORD2
 GetDaylightValue	KEYWORD2
-
+Channel0PWMSlope	KEYWORD2
+Channel1PWMSlope	KEYWORD2
+Channel2PWMSlope	KEYWORD2
+Channel3PWMSlope	KEYWORD2
+Channel4PWMSlope	KEYWORD2
+Channel5PWMSlope	KEYWORD2
+Channel0PWMParabola	KEYWORD2
+Channel1PWMParabola	KEYWORD2
+Channel2PWMParabola	KEYWORD2
+Channel3PWMParabola	KEYWORD2
+Channel4PWMParabola	KEYWORD2
+Channel5PWMParabola	KEYWORD2
 #Relay
 
 On	KEYWORD2
