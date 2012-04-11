@@ -29,6 +29,7 @@ class RA_PWMClass
 {
 public:
 	RA_PWMClass();
+	boolean LightsOverride;
 	void SetActinic(byte value);
 	void SetDaylight(byte value);
 	void ActinicPWMSlope(byte MinuteOffset);
@@ -39,7 +40,11 @@ public:
 	void DaylightPWMParabola(byte MinuteOffset);
 	void ActinicPWMParabola();
 	void DaylightPWMParabola();
-
+	void StandardActinic();
+	void StandardDaylight();
+	void StandardActinic(byte MinuteOffset);
+	void StandardDaylight(byte MinuteOffset);
+	
 #ifdef PWMEXPANSION
 	byte ExpansionChannel[PWM_EXPANSION_CHANNELS];
 	void SetChannel(byte Channel, byte Value);
@@ -47,6 +52,35 @@ public:
 	void ExpansionSetPercent(byte p);
 	void ExpansionWrite();
 	inline byte GetChannelValue(byte Channel) { return ExpansionChannel[Channel]; }
+	void Channel0PWMSlope();
+	void Channel1PWMSlope();
+	void Channel2PWMSlope();
+	void Channel3PWMSlope();
+	void Channel4PWMSlope();
+	void Channel5PWMSlope();
+	void Channel0PWMSlope(byte MinuteOffset);
+	void Channel1PWMSlope(byte MinuteOffset);
+	void Channel2PWMSlope(byte MinuteOffset);
+	void Channel3PWMSlope(byte MinuteOffset);
+	void Channel4PWMSlope(byte MinuteOffset);
+	void Channel5PWMSlope(byte MinuteOffset);
+	void ChannelPWMSlope(byte Channel, byte Start, byte End, byte Duration);
+	void ChannelPWMSlope(byte Channel, byte Start, byte End, byte Duration, byte MinuteOffset);
+	void Channel0PWMParabola();
+	void Channel1PWMParabola();
+	void Channel2PWMParabola();
+	void Channel3PWMParabola();
+	void Channel4PWMParabola();
+	void Channel5PWMParabola();
+	void Channel0PWMParabola(byte MinuteOffset);
+	void Channel1PWMParabola(byte MinuteOffset);
+	void Channel2PWMParabola(byte MinuteOffset);
+	void Channel3PWMParabola(byte MinuteOffset);
+	void Channel4PWMParabola(byte MinuteOffset);
+	void Channel5PWMParabola(byte MinuteOffset);
+	void ChannelPWMParabola(byte Channel, byte Start, byte End);
+	void ChannelPWMParabola(byte Channel, byte Start, byte End, byte MinuteOffset);	
+
 #endif  // PWMEXPANSION
 	inline byte GetActinicValue() { return ActinicPWMValue; }
 	inline byte GetDaylightValue() { return DaylightPWMValue; }

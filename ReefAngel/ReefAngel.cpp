@@ -578,6 +578,16 @@ void ReefAngelClass::Refresh()
 #if defined WDT || defined WDT_FORCE
 	wdt_reset();
 #endif  // defined WDT || defined WDT_FORCE
+#ifdef DisplayLEDPWM
+	if (PWM.LightsOverride)
+	{
+		PWM.SetActinic(InternalMemory.LEDPWMActinic_read());
+		PWM.SetDaylight(InternalMemory.LEDPWMDaylight_read());
+	}
+	analogWrite(actinicPWMPin, PWM.GetActinicValue()*2.55);
+    analogWrite(daylightPWMPin, PWM.GetDaylightValue()*2.55);
+#endif  // DisplayLEDPWM
+
 #ifdef RFEXPANSION
 	byte RFRecv=0;
 	RFRecv=RF.RFCheck();
@@ -617,6 +627,7 @@ void ReefAngelClass::Refresh()
 	LCD.Clear(DefaultBGColor,0,0,1,1);
 	Params.PH=analogRead(PHPin);
 	Params.PH=map(Params.PH, PHMin, PHMax, 700, 1000); // apply the calibration to the sensor reading
+	Params.PH=constrain(Params.PH,100,1400);
 	LCD.Clear(DefaultBGColor,0,0,1,1);
 #if defined SALINITYEXPANSION
 	Params.Salinity=Salinity.Read();
@@ -659,6 +670,8 @@ void ReefAngelClass::Refresh()
     Params.PH/=20;
     LCD.Clear(DefaultBGColor,0,0,1,1);
 	Params.PH=map(Params.PH, PHMin, PHMax, 700, 1000); // apply the calibration to the sensor reading
+	Params.PH=constrain(Params.PH,100,1400);
+	
 #if defined SALINITYEXPANSION
 	Params.Salinity=Salinity.Read();
 	Params.Salinity=map(Params.Salinity, 0, SalMax, 60, 350); // apply the calibration to the sensor reading
@@ -843,7 +856,7 @@ void ReefAngelClass::StandardATO(byte ATORelay, int ATOTimeout)
 	}
 }
 
-void ReefAngelClass::SingleATO(bool bLow, byte ATORelay, byte byteTimeout, byte byteHrInterval)
+void ReefAngelClass::SingleATO(bool bLow, byte ATORelay, int byteTimeout, byte byteHrInterval)
 {
 	/*
 	If the switch is active, the float is opposite of the 2 wires,
@@ -2429,8 +2442,7 @@ void ReefAngelClass::ProcessButtonPressLights()
 			}
 #endif  // RelayExp
 #ifdef DisplayLEDPWM
-            PWM.SetActinic(InternalMemory.LEDPWMActinic_read());
-            PWM.SetDaylight(InternalMemory.LEDPWMDaylight_read());
+            PWM.LightsOverride=true;
 #endif  // DisplayLEDPWM
             Relay.Write();
             DisplayMenuEntry("Lights On");
@@ -2452,6 +2464,7 @@ void ReefAngelClass::ProcessButtonPressLights()
             // sets PWM to 0%
             PWM.SetActinic(0);
             PWM.SetDaylight(0);
+            PWM.LightsOverride=false;
 #endif  // DisplayLEDPWM
             Relay.Write();
             DisplayMenuEntry("Restore Lights");

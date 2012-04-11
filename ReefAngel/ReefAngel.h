@@ -152,7 +152,7 @@ public:
 	void StandardHeater(byte HeaterRelay, int LowTemp, int HighTemp);
 	void StandardFan(byte FanRelay, int LowTemp, int HighTemp);
 	void StandardATO(byte ATORelay, int ATOTimeout);
-	void SingleATO(bool bLow, byte ATORelay, byte byteTimeout, byte byteHrInterval);
+	void SingleATO(bool bLow, byte ATORelay, int byteTimeout, byte byteHrInterval);
 	void DosingPump(byte DPRelay, byte DPTimer, byte OnHour, byte OnMinute, byte RunTime);
 	void DosingPump(byte DPRelay, byte OnHour, byte OnMinute, byte RunTime);
 	void DosingPumpRepeat(byte DPRelay, int OffsetMinute, int RepeatMinute, byte RunTime);
