@@ -487,6 +487,7 @@ void processHTTP()
 			}  // REQ_M_BYTE || REQ_M_INT
 			case REQ_M_ALL:
 			{
+				// TODO update all memory function
 				//int s = 123;  // start with the base size of the headers plus the mem tags
 				int s = 11;  // start with the base size of the mem tags
 				/*
