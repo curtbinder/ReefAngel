@@ -671,7 +671,7 @@ void ReefAngelClass::Refresh()
     LCD.Clear(DefaultBGColor,0,0,1,1);
 	Params.PH=map(Params.PH, PHMin, PHMax, 700, 1000); // apply the calibration to the sensor reading
 	Params.PH=constrain(Params.PH,100,1400);
-	
+
 #if defined SALINITYEXPANSION
 	Params.Salinity=Salinity.Read();
 	Params.Salinity=map(Params.Salinity, 0, SalMax, 60, 350); // apply the calibration to the sensor reading
@@ -856,7 +856,7 @@ void ReefAngelClass::StandardATO(byte ATORelay, int ATOTimeout)
 	}
 }
 
-void ReefAngelClass::SingleATO(bool bLow, byte ATORelay, int byteTimeout, byte byteHrInterval)
+void ReefAngelClass::SingleATO(bool bLow, byte ATORelay, int intTimeout, byte byteHrInterval)
 {
 	/*
 	If the switch is active, the float is opposite of the 2 wires,
@@ -889,7 +889,7 @@ void ReefAngelClass::SingleATO(bool bLow, byte ATORelay, int byteTimeout, byte b
     {
         ato = &HighATO;
     }
-    unsigned long t = byteTimeout;
+    unsigned long t = intTimeout;
     t *= 1000;
     if ( ato->IsActive() )
     {
@@ -2637,17 +2637,17 @@ void ReefAngelClass::ProcessButtonPressTimeouts()
 #ifdef SingleATOSetup
             int v = InternalMemory.ATOTimeout_read();
             int y = InternalMemory.ATOHighTimeout_read();
-            if ( SetupOption(v, y, 0, 255, 3, "s", "", "ATO Timeout", "Low:", "High:") )
+            if ( SetupOption(v, y, 0, 32767, 5, "s", "", "ATO Timeout", "Low:", "High:") )
             {
-                InternalMemory.ATOTimeout_write((uint8_t)v);
-                InternalMemory.ATOHighTimeout_write((uint8_t)y);
+                InternalMemory.ATOTimeout_write(v);
+                InternalMemory.ATOHighTimeout_write(y);
             }
 #else  // SingleATOSetup
             int v = InternalMemory.ATOTimeout_read();
             int y = -1;
-            if ( SetupOption(v, y, 0, 255, 3, "s", "", "ATO Timeout", "", "") )
+            if ( SetupOption(v, y, 0, 32767, 5, "s", "", "ATO Timeout", "", "") )
             {
-                InternalMemory.ATOTimeout_write((uint8_t)v);
+                InternalMemory.ATOTimeout_write(v);
             }
 #endif  // SingleATOSetup
             break;

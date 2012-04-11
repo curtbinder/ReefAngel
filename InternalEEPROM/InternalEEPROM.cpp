@@ -138,26 +138,6 @@ void InternalEEPROMClass::LEDPWMActinic_write(const uint8_t value)
     write(Mem_B_LEDPWMActinic, value);
 }
 
-uint8_t InternalEEPROMClass::ATOTimeout_read()
-{
-    return read(Mem_B_ATOTimeout);
-}
-
-void InternalEEPROMClass::ATOTimeout_write(const uint8_t value)
-{
-    write(Mem_B_ATOTimeout, value);
-}
-
-uint8_t InternalEEPROMClass::ATOHighTimeout_read()
-{
-    return read(Mem_B_ATOHighTimeout);
-}
-
-void InternalEEPROMClass::ATOHighTimeout_write(const uint8_t value)
-{
-    write(Mem_B_ATOHighTimeout, value);
-}
-
 uint8_t InternalEEPROMClass::ATOHourInterval_read()
 {
     return read(Mem_B_ATOHourInterval);
@@ -647,6 +627,26 @@ int InternalEEPROMClass::SalMax_read()
 void InternalEEPROMClass::SalMax_write(const int value)
 {
     write_int(Mem_I_SalMax, value);
+}
+
+int InternalEEPROMClass::ATOTimeout_read()
+{
+    return read_int(Mem_I_ATOTimeout);
+}
+
+void InternalEEPROMClass::ATOTimeout_write(const int value)
+{
+    write_int(Mem_I_ATOTimeout, value);
+}
+
+int InternalEEPROMClass::ATOHighTimeout_read()
+{
+    return read_int(Mem_I_ATOHighTimeout);
+}
+
+void InternalEEPROMClass::ATOHighTimeout_write(const int value)
+{
+    write_int(Mem_I_ATOHighTimeout, value);
 }
 
 unsigned long InternalEEPROMClass::IMCheck_read()

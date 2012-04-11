@@ -261,7 +261,7 @@ When adding more variables, use the previous value plus 1 or 2
 #define Mem_I_HeaterTempOff       VarsStart+24
 #define Mem_I_ChillerTempOn       VarsStart+26
 #define Mem_I_ChillerTempOff      VarsStart+28
-#define Mem_B_ATOTimeout          VarsStart+30
+#define Mem_B_Unused1             VarsStart+30
 #define Mem_I_PHMax               VarsStart+31
 #define Mem_I_PHMin               VarsStart+33
 #define Mem_B_MHDelay             VarsStart+35
@@ -271,7 +271,7 @@ When adding more variables, use the previous value plus 1 or 2
 #define Mem_B_DP2OnMinute         VarsStart+39
 #define Mem_B_ATOHourInterval     VarsStart+40
 #define Mem_B_ATOHighHourInterval VarsStart+41
-#define Mem_B_ATOHighTimeout      VarsStart+42
+#define Mem_B_Unused2	          VarsStart+42
 #define Mem_I_DP1RepeatInterval	  VarsStart+43
 #define Mem_I_DP2RepeatInterval	  VarsStart+45
 #define Mem_I_SalMax			  VarsStart+47
@@ -302,7 +302,9 @@ When adding more variables, use the previous value plus 1 or 2
 #define Mem_B_PWMSlopeStart5      VarsStart+73
 #define Mem_B_PWMSlopeEnd5	      VarsStart+74
 #define Mem_B_PWMSlopeDuration5   VarsStart+75
-// Next value starts VarsStart+76
+#define Mem_I_ATOTimeout		  VarsStart+76
+#define Mem_I_ATOHighTimeout	  VarsStart+78
+// Next value starts VarsStart+80
 
 // Internal Memory Check Pointer
 #define IMPointer			600
