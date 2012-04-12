@@ -51,6 +51,10 @@ class InternalEEPROMClass {
         void LEDPWMDaylight_write(const uint8_t value);
         uint8_t LEDPWMActinic_read();
         void LEDPWMActinic_write(const uint8_t value);
+        uint8_t ATOTimeout_read();
+        void ATOTimeout_write(const uint8_t value);
+        uint8_t ATOHighTimeout_read();
+        void ATOHighTimeout_write(const uint8_t value);
         uint8_t ATOHourInterval_read();
         void ATOHourInterval_write(const uint8_t value);
         uint8_t ATOHighHourInterval_read();
@@ -151,10 +155,10 @@ class InternalEEPROMClass {
         void DP2RepeatInterval_write(const int value);
         int SalMax_read();
         void SalMax_write(const int value);
-        int ATOTimeout_read();
-        void ATOTimeout_write(const int value);
-        int ATOHighTimeout_read();
-        void ATOHighTimeout_write(const int value);
+        int ATOExtendedTimeout_read();
+        void ATOExtendedTimeout_write(const int value);
+        int ATOHighExtendedTimeout_read();
+        void ATOHighExtendedTimeout_write(const int value);
 
         unsigned long IMCheck_read();
         void IMCheck_write(const unsigned long value);

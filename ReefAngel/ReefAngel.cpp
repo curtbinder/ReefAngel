@@ -1123,6 +1123,21 @@ void ReefAngelClass::SingleATOHigh(byte Relay)
     SingleATO(false, Relay, InternalMemory.ATOHighTimeout_read(), InternalMemory.ATOHighHourInterval_read());
 }
 
+void ReefAngelClass::StandardATOExtended(byte Relay)
+{
+    StandardATO(Relay, InternalMemory.ATOExtendedTimeout_read());
+}
+
+void ReefAngelClass::SingleATOLowExtended(byte Relay)
+{
+    SingleATO(true, Relay, InternalMemory.ATOExtendedTimeout_read(), InternalMemory.ATOHourInterval_read());
+}
+
+void ReefAngelClass::SingleATOHighExtended(byte Relay)
+{
+    SingleATO(false, Relay, InternalMemory.ATOHighExtendedTimeout_read(), InternalMemory.ATOHighHourInterval_read());
+}
+
 void ReefAngelClass::DosingPump1(byte Relay)
 {
     DosingPump(Relay, 1,
@@ -2637,17 +2652,17 @@ void ReefAngelClass::ProcessButtonPressTimeouts()
 #ifdef SingleATOSetup
             int v = InternalMemory.ATOTimeout_read();
             int y = InternalMemory.ATOHighTimeout_read();
-            if ( SetupOption(v, y, 0, 32767, 5, "s", "", "ATO Timeout", "Low:", "High:") )
+            if ( SetupOption(v, y, 0, 255, 3, "s", "", "ATO Timeout", "Low:", "High:") )
             {
-                InternalMemory.ATOTimeout_write(v);
-                InternalMemory.ATOHighTimeout_write(y);
+                InternalMemory.ATOTimeout_write((uint8_t)v);
+                InternalMemory.ATOHighTimeout_write((uint8_t)y);
             }
 #else  // SingleATOSetup
             int v = InternalMemory.ATOTimeout_read();
             int y = -1;
-            if ( SetupOption(v, y, 0, 32767, 5, "s", "", "ATO Timeout", "", "") )
+            if ( SetupOption(v, y, 0, 255, 3, "s", "", "ATO Timeout", "", "") )
             {
-                InternalMemory.ATOTimeout_write(v);
+                InternalMemory.ATOTimeout_write((uint8_t)v);
             }
 #endif  // SingleATOSetup
             break;

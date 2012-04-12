@@ -172,6 +172,9 @@ public:
 	void StandardATO(byte Relay);
 	void SingleATOLow(byte Relay);
 	void SingleATOHigh(byte Relay);
+	void StandardATOExtended(byte Relay);
+	void SingleATOLowExtended(byte Relay);
+	void SingleATOHighExtended(byte Relay);
 	void DosingPump1(byte Relay);
 	void DosingPump2(byte Relay);
 	void DosingPumpRepeat1(byte Relay);
