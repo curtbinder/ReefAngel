@@ -22,7 +22,7 @@
 #ifndef	__REEFANGEL_H__
 #define __REEFANGEL_H__
 
-#define ReefAngel_Version "0.9.4"
+#define ReefAngel_Version "0.9.5"
 
 #include <Globals.h>
 #include <InternalEEPROM.h>  // NOTE read/write internal memory
