@@ -35,7 +35,11 @@ SingleATO	KEYWORD2
 SingleATOHigh	KEYWORD2
 SingleATOLow	KEYWORD2
 DosingPump	KEYWORD2
+DosingPump1	KEYWORD2
+DosingPump2	KEYWORD2
 DosingPumpRepeat	KEYWORD2
+DosingPumpRepeat1	KEYWORD2
+DosingPumpRepeat2	KEYWORD2
 Wavemaker	KEYWORD2
 Wavemaker1	KEYWORD2
 Wavemaker2	KEYWORD2
@@ -321,6 +325,7 @@ WaterChangePortsE	LITERAL2
 OverheatShutoffPorts	LITERAL2
 OverheatShutoffPortsE	LITERAL2
 LightsOnPorts	LITERAL2
+LightsOnPortsE	LITERAL2
 DelayedOnPorts	LITERAL2
 DelayedOnPortsE	LITERAL2
 ExpansionChannel	LITERAL2
