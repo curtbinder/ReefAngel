@@ -234,7 +234,7 @@ void RA_PWMClass::Expansion(byte cmd, byte data)
 	Wire.write('$');
 	Wire.write('$');
 	Wire.write(cmd);				// send the command
-	Wire.write(data);			// send the data
+	Wire.write(data*2.55);			// send the data
 	Wire.endTransmission();		// stop transmitting
 	if (cmd<PWM_EXPANSION_CHANNELS) ExpansionChannel[cmd]=data;
 }
@@ -244,7 +244,7 @@ void RA_PWMClass::ExpansionSetPercent(byte p)
 	// loop through all 6 channels and send the value
 	for ( byte a = 0; a < PWM_EXPANSION_CHANNELS; a++ )
 	{
-		Expansion(a, int(2.55*p));
+		Expansion(a, p);
 	}
 }
 
@@ -252,7 +252,7 @@ void RA_PWMClass::ExpansionWrite()
 {
 	for ( byte a = 0; a < PWM_EXPANSION_CHANNELS; a++ )
 	{
-		Expansion(a,ExpansionChannel[a]*2.55);
+		Expansion(a,ExpansionChannel[a]);
 	}	
 }
 
