@@ -609,7 +609,7 @@ void ReefAngelClass::Refresh()
       AI.AImillis=millis();
     }
 #endif  // AI_LED
-#ifdef PWMEXPANSION
+#if defined PWMEXPANSION && defined DisplayLEDPWM
 	PWM.ExpansionWrite();
 #endif  // PWMEXPANSION
 #ifdef IOEXPANSION

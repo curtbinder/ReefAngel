@@ -79,6 +79,9 @@ DrawOption	KEYWORD2
 DrawCancel	KEYWORD2
 DrawOK	KEYWORD2
 DrawCalibrate	KEYWORD2
+DrawCircleOutline	KEYWORD2
+FillCircle	KEYWORD2
+DrawCircleOutletBox	KEYWORD2
 
 #PWM
 
@@ -151,6 +154,12 @@ IsUp	KEYWORD2
 IsDown	KEYWORD2
 IsRight	KEYWORD2
 IsLeft	KEYWORD2
+
+#Timer
+IsTriggered	KEYWORD2
+Start	KEYWORD2
+ForceTrigger	KEYWORD2
+SetInterval	KEYWORD2
 
 #InternalEEPROM
 
@@ -305,6 +314,7 @@ Joystick	LITERAL1
 LED	LITERAL1
 IO	LITERAL1
 InternalMemory	KEYWORD1
+Timer	LITERAL1
 
 #######################################
 # Constants (LITERAL1)
