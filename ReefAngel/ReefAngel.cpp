@@ -551,6 +551,9 @@ void ReefAngelClass::Init()
 #if defined WDT || defined WDT_FORCE
 	// enable watchdog timer for 1 second.  consider allowing this option to be configured.
 	if ( wdtenabled ) wdt_enable(WDTO_1S);
+#if defined(__AVR_ATmega2560__)
+	wdt_enable(WDTO_1S);
+#endif  // __AVR_ATmega2560__
 #endif  // defined WDT || defined WDT_FORCE
 
 #ifdef wifi
