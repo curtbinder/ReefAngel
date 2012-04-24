@@ -599,11 +599,17 @@ Vortech Modes
 Used by the RF Expansion Module
  */
 #define Constant      0
+#define Lagoon		  1
 #define Random1       1 // Lagoonal
+#define ReefCrest	  2
 #define Random2       2 // Reef Crest
+#define ShortPulse	  3
 #define ShortWave     3
+#define LongPulse	  4
 #define LongWave      4
+#define NutrientTransport	5
 #define Smart_NTM     5 // Nutrient Transport Mode
+#define TidalSwell	  6
 #define Smart_TSM     6 // Tidal Swell Mode
 #define Feeding_Start 7
 #define Feeding_Stop  8
