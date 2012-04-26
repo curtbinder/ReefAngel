@@ -649,6 +649,10 @@ typedef struct  {
   int ORP;
 } ParamsStruct;
 
+// Temperature units
+#define Celsius		1
+#define Fahrenheit	0 
+
 //ReefTouch Block
 
 typedef struct Calibration

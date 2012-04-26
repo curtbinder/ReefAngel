@@ -464,3 +464,5 @@ Mode	LITERAL2
 Speed	LITERAL2
 Duration	LITERAL2
 RadionChannels	LITERAL2
+Celsius	LITERAL2
+Fahrenheit	LITERAL2 
