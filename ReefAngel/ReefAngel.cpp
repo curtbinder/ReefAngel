@@ -480,8 +480,13 @@ void ReefAngelClass::Init()
 #ifdef SALINITYEXPANSION
     SalMax = InternalMemory.SalMax_read();
 #endif  // SALINITYEXPANSION
+#ifdef ORPEXPANSION
+    ORPMin = InternalMemory.ORPMin_read();
+    ORPMax = InternalMemory.ORPMax_read();
+#endif  // ORPEXPANSION    
 	taddr = InternalMemory.T1Pointer_read();
 	Params.Salinity=0;
+	Params.ORP=0;
 
 	if ((taddr>120) || (taddr<0))
 	{
@@ -648,6 +653,12 @@ void ReefAngelClass::Refresh()
 	}
 	LCD.Clear(DefaultBGColor,0,0,1,1);
 #endif  // defined SALINITYEXPANSION
+#if defined ORPEXPANSION
+	Params.ORP=ORP.Read();
+	Params.ORP=map(Params.ORP, ORPMin, ORPMax, 0, 470); // apply the calibration to the sensor reading
+	Params.ORP=constrain(Params.ORP,0,550);
+	LCD.Clear(DefaultBGColor,0,0,1,1);
+#endif  // defined ORPEXPANSION	
 	TempSensor.RequestConversion();
 	LCD.Clear(DefaultBGColor,0,0,1,1);
 #else  // DirectTempSensor
@@ -680,6 +691,12 @@ void ReefAngelClass::Refresh()
 	Params.Salinity=map(Params.Salinity, 0, SalMax, 60, 350); // apply the calibration to the sensor reading
 	LCD.Clear(DefaultBGColor,0,0,1,1);
 #endif  // defined SALINITYEXPANSION
+#if defined ORPEXPANSION
+	Params.ORP=ORP.Read();
+	Params.ORP=map(Params.ORP, ORPMin, ORPMax, 0, 470); // apply the calibration to the sensor reading
+	Params.ORP=constrain(Params.ORP,0,550);
+	LCD.Clear(DefaultBGColor,0,0,1,1);
+#endif  // defined ORPEXPANSION	
 	TempSensor.RequestConversion();
 #endif  // DirectTempSensor
 }
@@ -3305,6 +3322,82 @@ void ReefAngelClass::SetupCalibrateSalinity()
     }
 }
 #endif  // SALINITYEXPANSION
+
+#ifdef ORPEXPANSION
+void ReefAngelClass::SetupCalibrateORP()
+{
+    bool bOKSel = false;
+    bool bSave = false;
+    bool bDone = false;
+    bool bDrawButtons = true;
+    unsigned int iO[2] = {0,0};
+    unsigned int iCal[2] = {0,470};
+    byte offset = 65;
+    // draw labels
+    ClearScreen(DefaultBGColor);
+    for (int b=0;b<2;b++)
+    {
+    	if (b==1 && !bSave) break;
+    	bDone=false;
+    	bSave=false;
+		LCD.DrawText(DefaultFGColor, DefaultBGColor, MENU_START_COL, MENU_START_ROW, "Calibrate ORP");
+		char text[10];
+		itoa(iCal[b],text,10);
+		strcat(text , " mV  ");
+		LCD.DrawText(DefaultFGColor, DefaultBGColor, MENU_START_COL, MENU_START_ROW*5, text);
+		do
+		{
+#if defined WDT || defined WDT_FORCE
+			wdt_reset();
+#endif  // defined WDT || defined WDT_FORCE
+			iO[b]=0;
+			for (int a=0;a<15;a++)
+			{
+				iO[b] += ORP.Read();
+			}
+			iO[b]/=15;
+			LCD.DrawCalibrate(iO[b], MENU_START_COL + offset, MENU_START_ROW*5);
+			if (  bDrawButtons )
+			{
+				if ( bOKSel )
+				{
+					LCD.DrawOK(true);
+					LCD.DrawCancel(false);
+				}
+				else
+				{
+					LCD.DrawOK(false);
+					LCD.DrawCancel(true);
+				}
+				bDrawButtons = false;
+			}
+			if ( Joystick.IsUp() || Joystick.IsDown() || Joystick.IsRight() || Joystick.IsLeft() )
+			{
+				// toggle the selection
+				bOKSel = !bOKSel;
+				bDrawButtons = true;
+			}
+			if ( Joystick.IsButtonPressed() )
+			{
+				bDone = true;
+				if ( bOKSel )
+				{
+					bSave = true;
+				}
+			}
+		} while ( ! bDone );
+    }
+    ClearScreen(DefaultBGColor);
+	if ( bSave )
+	{
+		// save PHMin & PHMax to memory
+		InternalMemory.ORPMin_write(iO[0]);
+		ORPMin = iO[0];
+		InternalMemory.ORPMax_write(iO[1]);
+		ORPMax = iO[1];
+	}
+}
+#endif  // ORPEXPANSION
 
 #ifdef DateTimeSetup
 void ReefAngelClass::SetupDateTime()

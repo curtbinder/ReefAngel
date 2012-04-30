@@ -669,6 +669,26 @@ void InternalEEPROMClass::ATOHighExtendedTimeout_write(const int value)
     write_int(Mem_I_ATOHighExtendedTimeout, value);
 }
 
+int InternalEEPROMClass::ORPMin_read()
+{
+    return read_int(Mem_I_ORPMin);
+}
+
+void InternalEEPROMClass::ORPMin_write(const int value)
+{
+    write_int(Mem_I_ORPMin, value);
+}
+
+int InternalEEPROMClass::ORPMax_read()
+{
+    return read_int(Mem_I_ORPMax);
+}
+
+void InternalEEPROMClass::ORPMax_write(const int value)
+{
+    write_int(Mem_I_ORPMax, value);
+}
+
 unsigned long InternalEEPROMClass::IMCheck_read()
 {
     return read_dword(IMPointer);
