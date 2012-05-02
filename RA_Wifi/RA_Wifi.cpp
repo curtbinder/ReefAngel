@@ -692,6 +692,10 @@ void processHTTP()
 #ifdef SALINITYEXPANSION
 				ReefAngel.SalMax = InternalMemory.SalMax_read();
 #endif  // SALINITYEXPANSION
+#ifdef ORPEXPANSION
+				ReefAngel.ORPMin = InternalMemory.ORPMin_read();
+				ReefAngel.ORPMax = InternalMemory.ORPMax_read();
+#endif  // ORPEXPANSION
 			    PROGMEMprint(XML_OK);
 			    break;
 			}

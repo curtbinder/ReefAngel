@@ -159,6 +159,10 @@ class InternalEEPROMClass {
         void ATOExtendedTimeout_write(const int value);
         int ATOHighExtendedTimeout_read();
         void ATOHighExtendedTimeout_write(const int value);
+        int ORPMin_read();
+        void ORPMin_write(const int value);
+        int ORPMax_read();
+        void ORPMax_write(const int value);
 
         unsigned long IMCheck_read();
         void IMCheck_write(const unsigned long value);

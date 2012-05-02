@@ -76,7 +76,7 @@ class ReefAngelClass
 {
 
 public:
-	int PHMin,PHMax,SalMax;
+	int PHMin,PHMax;
 	ParamsStruct Params;
 	ReefAngelClass();
 	RA_NokiaLCD LCD;
@@ -91,9 +91,11 @@ public:
 	RA_PWMClass PWM;
 #endif  // defined DisplayLEDPWM && ! defined RemoveAllLights
 #if defined SALINITYEXPANSION
+	int SalMax;
 	SalinityClass Salinity;
 #endif  // defined SALINITYEXPANSION
 #if defined ORPEXPANSION
+	int ORPMin, ORPMax;
 	ORPClass ORP;
 #endif  // ORPEXPANSION IOEXPANSION
 #if defined RFEXPANSION
@@ -247,6 +249,9 @@ public:
 #if defined SALINITYEXPANSION
     void SetupCalibrateSalinity();
 #endif  // defined SALINITYEXPANSION
+#if defined ORPEXPANSION
+    void SetupCalibrateORP();
+#endif  // defined ORPEXPANSION
 #ifdef DateTimeSetup
     void SetupDateTime();
 #endif  // DateTimeSetup

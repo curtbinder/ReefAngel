@@ -56,6 +56,12 @@ byte RFClass::RFCheck()
     }
 }
 
+void RFClass::SetChannel(byte Channel, byte Value)
+{
+	if (Channel<RF_CHANNELS) RadionChannels[Channel]=Value;
+
+}
+
 void RFClass::RadionWrite()
 {
 	for (byte a=0;a<RF_CHANNELS;a++)

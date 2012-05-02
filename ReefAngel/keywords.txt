@@ -35,7 +35,11 @@ SingleATO	KEYWORD2
 SingleATOHigh	KEYWORD2
 SingleATOLow	KEYWORD2
 DosingPump	KEYWORD2
+DosingPump1	KEYWORD2
+DosingPump2	KEYWORD2
 DosingPumpRepeat	KEYWORD2
+DosingPumpRepeat1	KEYWORD2
+DosingPumpRepeat2	KEYWORD2
 Wavemaker	KEYWORD2
 Wavemaker1	KEYWORD2
 Wavemaker2	KEYWORD2
@@ -75,6 +79,9 @@ DrawOption	KEYWORD2
 DrawCancel	KEYWORD2
 DrawOK	KEYWORD2
 DrawCalibrate	KEYWORD2
+DrawCircleOutline	KEYWORD2
+FillCircle	KEYWORD2
+DrawCircleOutletBox	KEYWORD2
 
 #PWM
 
@@ -147,6 +154,12 @@ IsUp	KEYWORD2
 IsDown	KEYWORD2
 IsRight	KEYWORD2
 IsLeft	KEYWORD2
+
+#Timer
+IsTriggered	KEYWORD2
+Start	KEYWORD2
+ForceTrigger	KEYWORD2
+SetInterval	KEYWORD2
 
 #InternalEEPROM
 
@@ -301,6 +314,7 @@ Joystick	LITERAL1
 LED	LITERAL1
 IO	LITERAL1
 InternalMemory	KEYWORD1
+Timer	LITERAL1
 
 #######################################
 # Constants (LITERAL1)
@@ -321,6 +335,7 @@ WaterChangePortsE	LITERAL2
 OverheatShutoffPorts	LITERAL2
 OverheatShutoffPortsE	LITERAL2
 LightsOnPorts	LITERAL2
+LightsOnPortsE	LITERAL2
 DelayedOnPorts	LITERAL2
 DelayedOnPortsE	LITERAL2
 ExpansionChannel	LITERAL2
@@ -449,3 +464,5 @@ Mode	LITERAL2
 Speed	LITERAL2
 Duration	LITERAL2
 RadionChannels	LITERAL2
+Celsius	LITERAL2
+Fahrenheit	LITERAL2 
