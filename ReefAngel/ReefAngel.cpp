@@ -40,31 +40,25 @@ SIGNAL(PCINT0_vect) {
 // Menu Headings
 const prog_char Menu_0_label[] PROGMEM = "Main:";
 #if !defined SIMPLE_MENU && !defined CUSTOM_MENU
-#ifdef PWMEXPANSION
-const prog_char Menu_1_label[] PROGMEM = "PWM:";
-#endif  // PWMEXPANSION
-const prog_char Menu_2_label[] PROGMEM = "Setup:";
+const prog_char Menu_1_label[] PROGMEM = "Setup:";
 #ifndef RemoveAllLights
-const prog_char Menu_3_label[] PROGMEM = "Lights:";
+const prog_char Menu_2_label[] PROGMEM = "Lights:";
 #endif  // RemoveAllLights
-const prog_char Menu_4_label[] PROGMEM = "Temp:";
+const prog_char Menu_3_label[] PROGMEM = "Temp:";
 #if defined SetupExtras || defined ATOSetup
-const prog_char Menu_5_label[] PROGMEM = "Timeouts:";
+const prog_char Menu_4_label[] PROGMEM = "Timeouts:";
 #endif  // defined SetupExtras || defined ATOSetup
 #endif  // !defined SIMPLE_MENU && !defined CUSTOM_MENU
 PROGMEM const char *menulabel_items[] = {
 	Menu_0_label,
 #if !defined SIMPLE_MENU && !defined CUSTOM_MENU
-#ifdef PWMEXPANSION
 	Menu_1_label,
-#endif  // PWMEXPANSION
-	Menu_2_label,
 #ifndef RemoveAllLights
-	Menu_3_label,
+	Menu_2_label,
 #endif  // RemoveAllLights
-	Menu_4_label,
+	Menu_3_label,
 #if defined SetupExtras || defined ATOSetup
-	Menu_5_label,
+	Menu_4_label,
 #endif  // defined SetupExtras || defined ATOSetup
 #endif  // !defined SIMPLE_MENU && !defined CUSTOM_MENU
 };
@@ -83,9 +77,6 @@ PROGMEM const char *return_items[] = { Return_0_label, Return_1_label/*, Return_
 enum Menus {
     MainMenu,
 #if !defined SIMPLE_MENU && !defined CUSTOM_MENU
-#ifdef PWMEXPANSION
-	PWMMenu,
-#endif  // PWMEXPANSION
     SetupMenu,
 #ifndef RemoveAllLights
     LightsMenu,
@@ -184,44 +175,35 @@ enum MainMenuItem {
 // Main Menu
 const prog_char mainmenu_0_label[] PROGMEM = "Feeding";
 const prog_char mainmenu_1_label[] PROGMEM = "Water Change";
-#ifdef PWMEXPANSION
-const prog_char mainmenu_2_label[] PROGMEM = "PWM ->";
-#endif  // PWMEXPANSION
 #ifndef RemoveAllLights
-const prog_char mainmenu_3_label[] PROGMEM = "Lights ->";
+const prog_char mainmenu_2_label[] PROGMEM = "Lights ->";
 #endif  // RemoveAllLights
-const prog_char mainmenu_4_label[] PROGMEM = "Temps ->";
+const prog_char mainmenu_3_label[] PROGMEM = "Temps ->";
 #if defined SetupExtras || defined ATOSetup
-const prog_char mainmenu_5_label[] PROGMEM = "Timeouts ->";
+const prog_char mainmenu_4_label[] PROGMEM = "Timeouts ->";
 #endif  // if defined SetupExtras || defined ATOSetup
-const prog_char mainmenu_6_label[] PROGMEM = "Setup ->";
+const prog_char mainmenu_5_label[] PROGMEM = "Setup ->";
 #ifdef VersionMenu
-const prog_char mainmenu_7_label[] PROGMEM = "Version";
+const prog_char mainmenu_6_label[] PROGMEM = "Version";
 #endif  // VersionMenu
 PROGMEM const char *mainmenu_items[] = {
                     mainmenu_0_label,
                     mainmenu_1_label,
-#ifdef PWMEXPANSION
-					mainmenu_2_label,
-#endif  // PWMEXPANSION
 #ifndef RemoveAllLights
-                    mainmenu_3_label,
+                    mainmenu_2_label,
 #endif  // RemoveAllLights
-                    mainmenu_4_label,
+                    mainmenu_3_label,
 #if defined SetupExtras || defined ATOSetup
-                    mainmenu_5_label,
+                    mainmenu_4_label,
 #endif  // if defined SetupExtras || defined ATOSetup
-                    mainmenu_6_label,
+                    mainmenu_5_label,
 #ifdef VersionMenu
-                    mainmenu_7_label
+                    mainmenu_6_label
 #endif  // VersionMenu
                     };
 enum MainMenuItem {
     MainMenu_FeedingMode,
     MainMenu_WaterChangeMode,
-#ifdef PWMEXPANSION
-	MainMenu_PWM,
-#endif  // PWMEXPANSION
 #ifndef RemoveAllLights
     MainMenu_Lights,
 #endif  // RemoveAllLights
@@ -289,34 +271,6 @@ enum SetupMenuItem {
     SetupMenu_DateTime
 #endif  // DateTimeSetup
 };
-
-#ifdef PWMEXPANSION
-// Menu for the PWM Expansion Relay
-const prog_char pwmmenu_0_label[] PROGMEM = "Slow Cloud";
-const prog_char pwmmenu_1_label[] PROGMEM = "Fast Cloud";
-const prog_char pwmmenu_2_label[] PROGMEM = "T-storm 1";
-const prog_char pwmmenu_3_label[] PROGMEM = "T-storm 2";
-const prog_char pwmmenu_4_label[] PROGMEM = "0 %";
-const prog_char pwmmenu_5_label[] PROGMEM = "50 %";
-const prog_char pwmmenu_6_label[] PROGMEM = "100 %";
-const prog_char pwmmenu_7_label[] PROGMEM = "Custom";
-
-PROGMEM const char *pwmmenu_items[] = {
-	pwmmenu_0_label, pwmmenu_1_label, pwmmenu_2_label, pwmmenu_3_label,
-	pwmmenu_4_label, pwmmenu_5_label, pwmmenu_6_label, pwmmenu_7_label
-};
-
-enum PWMMenuItem {
-	PWMMenu_SlowCloud,
-	PWMMenu_FastCloud,
-	PWMMenu_TStorm1,
-	PWMMenu_TStorm2,
-	PWMMenu_0,
-	PWMMenu_50,
-	PWMMenu_100,
-	PWMMenu_Custom
-};
-#endif  // PWMEXPANSION
 
 #ifndef RemoveAllLights
 // Lights Menu
@@ -483,7 +437,7 @@ void ReefAngelClass::Init()
 #ifdef ORPEXPANSION
     ORPMin = InternalMemory.ORPMin_read();
     ORPMax = InternalMemory.ORPMax_read();
-#endif  // ORPEXPANSION    
+#endif  // ORPEXPANSION
 	taddr = InternalMemory.T1Pointer_read();
 	Params.Salinity=0;
 	Params.ORP=0;
@@ -658,7 +612,7 @@ void ReefAngelClass::Refresh()
 	Params.ORP=map(Params.ORP, ORPMin, ORPMax, 0, 470); // apply the calibration to the sensor reading
 	Params.ORP=constrain(Params.ORP,0,550);
 	LCD.Clear(DefaultBGColor,0,0,1,1);
-#endif  // defined ORPEXPANSION	
+#endif  // defined ORPEXPANSION
 	TempSensor.RequestConversion();
 	LCD.Clear(DefaultBGColor,0,0,1,1);
 #else  // DirectTempSensor
@@ -696,7 +650,7 @@ void ReefAngelClass::Refresh()
 	Params.ORP=map(Params.ORP, ORPMin, ORPMax, 0, 470); // apply the calibration to the sensor reading
 	Params.ORP=constrain(Params.ORP,0,550);
 	LCD.Clear(DefaultBGColor,0,0,1,1);
-#endif  // defined ORPEXPANSION	
+#endif  // defined ORPEXPANSION
 	TempSensor.RequestConversion();
 #endif  // DirectTempSensor
 }
@@ -1526,10 +1480,6 @@ void ReefAngelClass::InitMenus()
     menuqtysptr[MainMenu] = SIZE(mainmenu_items);
 
 #ifndef SIMPLE_MENU
-#ifdef PWMEXPANSION
-	menusptr[PWMMenu] = pgm_read_word(&(pwmmenu_items[0]));
-	menuqtysptr[PWMMenu] = SIZE(pwmmenu_items);
-#endif  // PWMEXPANSION
     menusptr[SetupMenu] = pgm_read_word(&(setupmenu_items[0]));
     menuqtysptr[SetupMenu] = SIZE(setupmenu_items);
 #ifndef RemoveAllLights
@@ -1947,42 +1897,25 @@ void ReefAngelClass::DisplayMenuHeading()
             }
             break;
 #if !defined SIMPLE_MENU && !defined CUSTOM_MENU
-#ifdef PWMEXPANSION
-		case PWMMenu:
-			{
-				ptr += strlen(Menu_0_label) + 1;
-				strcpy_P(buffer, (char*)ptr);
-			}
-			break;
-#endif  // PWMEXPANSION
         case SetupMenu:
             {
                 ptr += strlen(Menu_0_label) + 1;
-#ifdef PWMEXPANSION
-                ptr += strlen(Menu_1_label) + 1;
-#endif  // PWMEXPANSION
                 strcpy_P(buffer, (char*)ptr);
             }
             break;
 #ifndef RemoveAllLights
         case LightsMenu:
             {
-                ptr += strlen(Menu_0_label) + strlen(Menu_2_label) + 2;
-#ifdef PWMEXPANSION
-                ptr += strlen(Menu_1_label) + 1;
-#endif  // PWMEXPANSION
+                ptr += strlen(Menu_0_label) + strlen(Menu_1_label) + 2;
                 strcpy_P(buffer, (char*)ptr);
             }
             break;
 #endif  // RemoveAllLights
         case TempsMenu:
             {
-                ptr += strlen(Menu_0_label) + strlen(Menu_2_label) + 2;
-#ifdef PWMEXPANSION
-                ptr += strlen(Menu_1_label) + 1;
-#endif  // PWMEXPANSION
+                ptr += strlen(Menu_0_label) + strlen(Menu_1_label) + 2;
 #ifndef RemoveAllLights
-				ptr += strlen(Menu_3_label) + 1;
+				ptr += strlen(Menu_2_label) + 1;
 #endif  // RemoveAllLights
                 strcpy_P(buffer, (char*)ptr);
             }
@@ -1990,12 +1923,9 @@ void ReefAngelClass::DisplayMenuHeading()
 #if defined SetupExtras || defined ATOSetup
         case TimeoutsMenu:
             {
-                ptr += strlen(Menu_0_label) + strlen(Menu_2_label) + strlen(Menu_4_label) + 3;
-#ifdef PWMEXPANSION
-                ptr += strlen(Menu_1_label) + 1;
-#endif  // PWMEXPANSION
+                ptr += strlen(Menu_0_label) + strlen(Menu_1_label) + strlen(Menu_3_label) + 3;
 #ifndef RemoveAllLights
-				ptr += strlen(Menu_3_label) + 1;
+				ptr += strlen(Menu_2_label) + 1;
 #endif  // RemoveAllLights
                 strcpy_P(buffer, (char*)ptr);
             }
@@ -2059,13 +1989,6 @@ void ReefAngelClass::ProcessButtonPress()
         }
 
 #ifndef SIMPLE_MENU
-#ifdef PWMEXPANSION
-		case PWMMenu:
-		{
-			ProcessButtonPressPWM();
-			break;
-		}
-#endif  // PWMEXPANSION
         case SetupMenu:
         {
             ProcessButtonPressSetup();
@@ -2251,15 +2174,6 @@ void ReefAngelClass::ProcessButtonPressMain()
 #else  // SIMPLE_MENU
 
 		// Standard menus
-#ifdef PWMEXPANSION
-		case MainMenu_PWM:
-		{
-			SelectedMenuItem = DEFAULT_MENU_ITEM;
-			PreviousMenu = DisplayedMenu;
-			DisplayedMenu = PWMMenu;
-			break;
-		}
-#endif  // PWMEXPANSION
 #ifndef RemoveAllLights
         case MainMenu_Lights:
         {
@@ -2318,69 +2232,6 @@ void ReefAngelClass::ProcessButtonPressMain()
 }
 
 #ifndef SIMPLE_MENU
-#ifdef PWMEXPANSION
-void ReefAngelClass::ProcessButtonPressPWM()
-{
-	showmenu = true;
-	ClearScreen(DefaultBGColor);
-	switch ( SelectedMenuItem )
-	{
-		case PWMMenu_SlowCloud:
-		{
-			PWM.Expansion(PWM_CMD_CLOUDS, PWM_DATA_CLOUDS_SLOW);
-			break;
-		}
-		case PWMMenu_FastCloud:
-		{
-			PWM.Expansion(PWM_CMD_CLOUDS, PWM_DATA_CLOUDS_FAST);
-			break;
-		}
-		case PWMMenu_TStorm1:
-		{
-			PWM.Expansion(PWM_CMD_TSTORM1, PWM_DATA_DEFAULT);
-			break;
-		}
-		case PWMMenu_TStorm2:
-		{
-			PWM.Expansion(PWM_CMD_TSTORM2, PWM_DATA_DEFAULT);
-			break;
-		}
-		case PWMMenu_0:
-		{
-			PWM.ExpansionSetPercent(0);
-			break;
-		}
-		case PWMMenu_50:
-		{
-			PWM.ExpansionSetPercent(50);
-			break;
-		}
-		case PWMMenu_100:
-		{
-			PWM.ExpansionSetPercent(100);
-			break;
-		}
-		case PWMMenu_Custom:
-		{
-			int p = 50;
-			int q = -1;
-			if ( SetupOption(p, q, 0, 100, 3, "%", "", "PWM %", "", "") )
-			{
-				// Pressed OK
-				PWM.ExpansionSetPercent(p);
-			}
-			break;
-		}
-		default:
-		{
-			SelectedMenuItem = DEFAULT_MENU_ITEM;
-			DisplayedMenu = PreviousMenu;
-			break;
-		}
-	}  // switch
-}
-#endif  // PWMEXPANSION
-
 void ReefAngelClass::ProcessButtonPressSetup()
 {
     showmenu = true;

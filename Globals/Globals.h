@@ -373,31 +373,15 @@ When adding more variables, use the previous value plus 1 or 2
 // Standard Menu Checks
 #if defined SetupExtras || defined ATOSetup
 	#ifndef RemoveAllLights
-		#ifdef PWMEXPANSION
-			#define Total_Menus			6
-		#else  // PWMEXPANSION
-			#define Total_Menus         5    // total number of menus
-		#endif  // PWMEXPANSION
+		#define Total_Menus         5    // total number of menus
 	#else  // RemoveAllLights
-		#ifdef PWMEXPANSION
-			#define Total_Menus			5
-		#else  // PWMEXPANSION
-			#define Total_Menus         4
-		#endif  // PWMEXPANSION
+		#define Total_Menus         4
 	#endif  // RemoveAllLights
 #else  // if defined SetupExtras || defined ATOSetup
 	#ifndef RemoveAllLights
-		#ifdef PWMEXPANSION
-			#define Total_Menus			5
-		#else  // PWMEXPANSION
-			#define Total_Menus         4    // total number of menus
-		#endif  // PWMEXPANSION
+		#define Total_Menus         4    // total number of menus
 	#else // RemoveAllLights
-		#ifdef PWMEXPANSION
-			#define Total_Menus			4
-		#else  // PWMEXPANSION
-			#define Total_Menus         3
-		#endif  // PWMEXPANSION
+		#define Total_Menus         3
 	#endif  // RemoveAllLights
 #endif  // if defined SetupExtras || defined ATOSetup
 #endif  // SIMPLE_MENU || CUSTOM_MENU
@@ -653,7 +637,7 @@ typedef struct  {
 
 // Temperature units
 #define Celsius		1
-#define Fahrenheit	0 
+#define Fahrenheit	0
 
 //ReefTouch Block
 

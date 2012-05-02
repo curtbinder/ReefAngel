@@ -22,7 +22,7 @@
 #ifndef	__REEFANGEL_H__
 #define __REEFANGEL_H__
 
-#define ReefAngel_Version "0.9.5"
+#define ReefAngel_Version "0.9.6"
 
 #include <Globals.h>
 #include <InternalEEPROM.h>  // NOTE read/write internal memory
@@ -225,9 +225,6 @@ public:
     void ProcessButtonPressMain();
 
 #ifndef SIMPLE_MENU
-#ifdef PWMEXPANSION
-	void ProcessButtonPressPWM();
-#endif  // PWMEXPANSION
     void ProcessButtonPressSetup();
 #ifndef RemoveAllLights
     void ProcessButtonPressLights();
