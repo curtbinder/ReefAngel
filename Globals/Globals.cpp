@@ -81,15 +81,15 @@ byte PWMParabola(byte startHour, byte startMinute, byte endHour, byte endMinute,
 	int Start = NumMins(startHour, startMinute);
 	int End = NumMins(endHour, endMinute);
 	byte PWMDelta = endPWM-startPWM;
+	byte ParabolaPhase=constrain(map(Now,Start,End,0,180),0,180);
 
 	if ( Now <= Start || Now >= End)
 		return oldValue;
 	else
 	{
-		byte ParabolaPhase=constrain(map(Now,Start,End,0,180),0,180);
 		return startPWM+(PWMDelta*sin(radians(ParabolaPhase)));
 	}
-	
+
 }
 
 byte MoonPhase()
@@ -165,7 +165,7 @@ int alphaBlend(int fgcolor, int bgcolor, byte a)
 	r/=100;
 	g/=100;
 	b/=100;
-	
+
 	return RGB565(r,g,b);
 }
 
