@@ -155,9 +155,9 @@ public:
 	void StandardFan(byte FanRelay, int LowTemp, int HighTemp);
 	void StandardATO(byte ATORelay, int ATOTimeout);
 	void SingleATO(bool bLow, byte ATORelay, int intTimeout, byte byteHrInterval);
-	void DosingPump(byte DPRelay, byte DPTimer, byte OnHour, byte OnMinute, byte RunTime);
-	void DosingPump(byte DPRelay, byte OnHour, byte OnMinute, byte RunTime);
-	void DosingPumpRepeat(byte DPRelay, int OffsetMinute, int RepeatMinute, byte RunTime);
+	void DosingPump(byte DPRelay, byte DPTimer, byte OnHour, byte OnMinute, int RunTime);
+	void DosingPump(byte DPRelay, byte OnHour, byte OnMinute, int RunTime);
+	void DosingPumpRepeat(byte DPRelay, int OffsetMinute, int RepeatMinute, int RunTime);
 	void Wavemaker(byte WMRelay, int WMTimer);
 	void WavemakerRandom(byte WMRelay, int MinWMTimer, int MaxWMTimer);
 	void WavemakerRandom1(byte WMRelay, int MinWMTimer, int MaxWMTimer);
