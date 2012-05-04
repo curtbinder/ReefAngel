@@ -900,7 +900,7 @@ void ReefAngelClass::SingleATO(bool bLow, byte ATORelay, int intTimeout, byte by
     }
 }
 
-void ReefAngelClass::DosingPump(byte DPRelay, byte DPTimer, byte OnHour, byte OnMinute, byte RunTime)
+void ReefAngelClass::DosingPump(byte DPRelay, byte DPTimer, byte OnHour, byte OnMinute, int RunTime)
 {
     /*
     This function configures and sets up the dosing pump and turns it on at the appropriate time
@@ -931,7 +931,7 @@ void ReefAngelClass::DosingPump(byte DPRelay, byte DPTimer, byte OnHour, byte On
 
 }
 
-void ReefAngelClass::DosingPumpRepeat(byte DPRelay, int OffsetMinute, int RepeatMinute, byte RunTime)
+void ReefAngelClass::DosingPumpRepeat(byte DPRelay, int OffsetMinute, int RepeatMinute, int RunTime)
 {
 	// Old code has been replaced with dedvalson (Don) - 01/06/2012
 	/*
