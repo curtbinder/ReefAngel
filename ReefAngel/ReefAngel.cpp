@@ -130,11 +130,14 @@ const prog_char mainmenu_4_label[] PROGMEM = "PH Calibration";
 #ifdef SALINITYEXPANSION
 const prog_char mainmenu_5_label[] PROGMEM = "Sal Calibration";
 #endif  // SALINITYEXPANSION
+#ifdef ORPEXPANSION
+const prog_char mainmenu_6_label[] PROGMEM = "ORP Calibration";
+#endif  // ORPEXPANSION
 #ifdef DateTimeSetup
-const prog_char mainmenu_6_label[] PROGMEM = "Date / Time";
+const prog_char mainmenu_7_label[] PROGMEM = "Date / Time";
 #endif  // DateTimeSetup
 #ifdef VersionMenu
-const prog_char mainmenu_7_label[] PROGMEM = "Version";
+const prog_char mainmenu_8_label[] PROGMEM = "Version";
 #endif  // VersionMenu
 PROGMEM const char *mainmenu_items[] = {
                     mainmenu_0_label,
@@ -145,11 +148,14 @@ PROGMEM const char *mainmenu_items[] = {
 #ifdef SALINITYEXPANSION
 					mainmenu_5_label,
 #endif  // SALINITYEXPANSION
-#ifdef DateTimeSetup
+#ifdef ORPEXPANSION
                     mainmenu_6_label,
+#endif  // ORPEXPANSION
+#ifdef DateTimeSetup
+                    mainmenu_7_label,
 #endif  // DateTimeSetup
 #ifdef VersionMenu
-                    mainmenu_7_label
+                    mainmenu_8_label
 #endif  // VersionMenu
                     };
 enum MainMenuItem {
@@ -161,6 +167,9 @@ enum MainMenuItem {
 #ifdef SALINITYEXPANSION
 	MainMenu_SalinityCalibration,
 #endif  // SALINITYEXPANSION
+#ifdef ORPEXPANSION
+    MainMenu_ORPCalibration,
+#endif  // ORPEXPANSION
 #ifdef DateTimeSetup
     MainMenu_DateTime,
 #endif  // DateTimeSetup
@@ -232,6 +241,9 @@ const prog_char setupmenu_3_label[] PROGMEM = "Calibrate pH";
 #ifdef SALINITYEXPANSION
 const prog_char setupmenu_4_label[] PROGMEM = "Calibrate Sal";
 #endif  // SALINITYEXPANSION
+#ifdef ORPEXPANSION
+const prog_char setupmenu_5_label[] PROGMEM = "Calibrate ORP";
+#endif  // ORPEXPANSION
 #ifdef DateTimeSetup
 const prog_char setupmenu_5_label[] PROGMEM = "Date / Time";
 #endif  // DateTimeSetup
@@ -249,8 +261,11 @@ PROGMEM const char *setupmenu_items[] = {
 #ifdef SALINITYEXPANSION
 					setupmenu_4_label,
 #endif  // SALINITYEXPANSION
+#ifdef ORPEXPANSION
+                    setupmenu_5_label,
+#endif  // ORPEXPANSION
 #ifdef DateTimeSetup
-                    setupmenu_5_label
+                    setupmenu_6_label
 #endif  // DateTimeSetup
                     };
 enum SetupMenuItem {
@@ -267,6 +282,9 @@ enum SetupMenuItem {
 #ifdef SALINITYEXPANSION
 	SetupMenu_CalibrateSalinity,
 #endif  // SALINITYEXPANSION
+#ifdef ORPEXPANSION
+    SetupMenu_CalibrateORP,
+#endif  // ORPEXPANSION
 #ifdef DateTimeSetup
     SetupMenu_DateTime
 #endif  // DateTimeSetup
@@ -2163,6 +2181,13 @@ void ReefAngelClass::ProcessButtonPressMain()
 			break;
 		}
 #endif  // SALINITYEXPANSION
+#ifdef ORPEXPANSION
+        case MainMenu_ORPCalibration:
+        {
+            SetupCalibrateORP();
+            break;
+        }
+#endif  // ORPEXPANSION
 #ifdef DateTimeSetup
 		case MainMenu_DateTime:
 		{
@@ -2293,6 +2318,13 @@ void ReefAngelClass::ProcessButtonPressSetup()
 			break;
 		}
 #endif  // SALINITYEXPANSION
+#ifdef ORPEXPANSION
+        case SetupMenu_CalibrateORP:
+        {
+            SetupCalibrateORP();
+            break;
+        }
+#endif  // ORPEXPANSION
 #ifdef DateTimeSetup
         case SetupMenu_DateTime:
         {
@@ -3110,7 +3142,7 @@ void ReefAngelClass::SetupCalibratePH()
         PHMin = iO[0];
         InternalMemory.PHMax_write(iO[1]);
 		PHMax = iO[1];
-	}	
+	}
 }
 
 #ifdef SALINITYEXPANSION
