@@ -3045,69 +3045,72 @@ void ReefAngelClass::SetupCalibratePH()
     bool bSave = false;
     bool bDone = false;
     bool bDrawButtons = true;
-    int iTPHMin = 1024, iTPHMax = 0;
-    int iP = 0;
+    unsigned int iO[2] = {0,0};
+    unsigned int iCal[2] = {7,10};
     byte offset = 65;
     // draw labels
     ClearScreen(DefaultBGColor);
-    LCD.DrawText(DefaultFGColor, DefaultBGColor, MENU_START_COL, MENU_START_ROW, "Calibrate PH");
-    LCD.DrawText(DefaultFGColor, DefaultBGColor, MENU_START_COL, MENU_START_ROW*3, "PH 7.0");
-    LCD.DrawText(DefaultFGColor, DefaultBGColor, MENU_START_COL, MENU_START_ROW*7, "PH 10.0");
-    do
+    for (int b=0;b<2;b++)
     {
+    	if (b==1 && !bSave) break;
+    	bOKSel=false;
+    	bSave=false;
+    	bDone = false;
+    	bDrawButtons = true;
+		LCD.DrawText(DefaultFGColor, DefaultBGColor, MENU_START_COL, MENU_START_ROW, "Calibrate pH");
+		LCD.DrawText(DefaultFGColor, DefaultBGColor, MENU_START_COL, MENU_START_ROW*5, "pH");
+		LCD.DrawText(DefaultFGColor, DefaultBGColor, MENU_START_COL + 18, MENU_START_ROW*5, (int)iCal[b]);
+		do
+		{
 #if defined WDT || defined WDT_FORCE
-		wdt_reset();
+			wdt_reset();
 #endif  // defined WDT || defined WDT_FORCE
-        iP = analogRead(PHPin);
-        LCD.DrawCalibrate(iP, MENU_START_COL + offset, MENU_START_ROW*5);
-        if ( iP < iTPHMin )
-        {
-            iTPHMin = iP;
-            LCD.DrawCalibrate(iP, MENU_START_COL + offset, MENU_START_ROW*3);
-        }
-        if ( iP > iTPHMax )
-        {
-            iTPHMax = iP;
-            LCD.DrawCalibrate(iP, MENU_START_COL + offset, MENU_START_ROW*7);
-        }
-        if (  bDrawButtons )
-        {
-            if ( bOKSel )
-            {
-                LCD.DrawOK(true);
-                LCD.DrawCancel(false);
-            }
-            else
-            {
-                LCD.DrawOK(false);
-                LCD.DrawCancel(true);
-            }
-            bDrawButtons = false;
-        }
-        if ( Joystick.IsUp() || Joystick.IsDown() || Joystick.IsRight() || Joystick.IsLeft() )
-        {
-            // toggle the selection
-            bOKSel = !bOKSel;
-            bDrawButtons = true;
-        }
-        if ( Joystick.IsButtonPressed() )
-        {
-            bDone = true;
-            if ( bOKSel )
-            {
-                bSave = true;
-            }
-        }
-    } while ( ! bDone );
-
-    if ( bSave )
-    {
-        // save PHMin & PHMax to memory
-        InternalMemory.PHMax_write(iTPHMax);
-        InternalMemory.PHMin_write(iTPHMin);
-		PHMax = iTPHMax;
-        PHMin = iTPHMin;
+			iO[b]=0;
+			for (int a=0;a<30;a++)
+			{
+				iO[b] += analogRead(PHPin);
+			}
+			iO[b]/=30;
+			LCD.DrawCalibrate(iO[b], MENU_START_COL + offset, MENU_START_ROW*5);
+			if (  bDrawButtons )
+			{
+				if ( bOKSel )
+				{
+					LCD.DrawOK(true);
+					LCD.DrawCancel(false);
+				}
+				else
+				{
+					LCD.DrawOK(false);
+					LCD.DrawCancel(true);
+				}
+				bDrawButtons = false;
+			}
+			if ( Joystick.IsUp() || Joystick.IsDown() || Joystick.IsRight() || Joystick.IsLeft() )
+			{
+				// toggle the selection
+				bOKSel = !bOKSel;
+				bDrawButtons = true;
+			}
+			if ( Joystick.IsButtonPressed() )
+			{
+				bDone = true;
+				if ( bOKSel )
+				{
+					bSave = true;
+				}
+			}
+		} while ( ! bDone );
     }
+    ClearScreen(DefaultBGColor);
+	if ( bSave )
+	{
+        // save PHMin & PHMax to memory
+        InternalMemory.PHMin_write(iO[0]);
+        PHMin = iO[0];
+        InternalMemory.PHMax_write(iO[1]);
+		PHMax = iO[1];
+	}	
 }
 
 #ifdef SALINITYEXPANSION
@@ -3167,7 +3170,7 @@ void ReefAngelClass::SetupCalibrateSalinity()
 
     if ( bSave )
     {
-        // save PHMin & PHMax to memory
+        // save SalMax to memory
         InternalMemory.SalMax_write(iS);
 		SalMax = iS;
     }
@@ -3189,9 +3192,11 @@ void ReefAngelClass::SetupCalibrateORP()
     for (int b=0;b<2;b++)
     {
     	if (b==1 && !bSave) break;
-    	bDone=false;
+    	bOKSel=false;
     	bSave=false;
-		LCD.DrawText(DefaultFGColor, DefaultBGColor, MENU_START_COL, MENU_START_ROW, "Calibrate ORP");
+    	bDone = false;
+    	bDrawButtons = true;
+    	LCD.DrawText(DefaultFGColor, DefaultBGColor, MENU_START_COL, MENU_START_ROW, "Calibrate ORP");
 		char text[10];
 		itoa(iCal[b],text,10);
 		strcat(text , " mV  ");
@@ -3241,7 +3246,7 @@ void ReefAngelClass::SetupCalibrateORP()
     ClearScreen(DefaultBGColor);
 	if ( bSave )
 	{
-		// save PHMin & PHMax to memory
+		// save ORPMin & ORPMax to memory
 		InternalMemory.ORPMin_write(iO[0]);
 		ORPMin = iO[0];
 		InternalMemory.ORPMax_write(iO[1]);
