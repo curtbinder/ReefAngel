@@ -36,7 +36,7 @@ public:
 	void Toggle(byte ID);
 	void Set(byte ID, boolean Status);
 	void Write();
-	inline boolean Status(byte Port)  { return bitRead((ReefAngel.Relay.RelayData & ReefAngel.Relay.RelayMaskOff) | ReefAngel.Relay.RelayMaskOn,Port-1); }
+	inline boolean Status(byte Port)  { return bitRead((RelayData & RelayMaskOff) | RelayMaskOn,Port-1); }
 
 	byte RelayData;
 	byte RelayMaskOn;
