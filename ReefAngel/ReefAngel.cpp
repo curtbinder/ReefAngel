@@ -245,7 +245,7 @@ const prog_char setupmenu_4_label[] PROGMEM = "Calibrate Sal";
 const prog_char setupmenu_5_label[] PROGMEM = "Calibrate ORP";
 #endif  // ORPEXPANSION
 #ifdef DateTimeSetup
-const prog_char setupmenu_5_label[] PROGMEM = "Date / Time";
+const prog_char setupmenu_6_label[] PROGMEM = "Date / Time";
 #endif  // DateTimeSetup
 PROGMEM const char *setupmenu_items[] = {
 #ifdef WavemakerSetup
