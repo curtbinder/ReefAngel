@@ -114,7 +114,7 @@ public:
 	1 - Wavemaker 1 or Dosing Pump 1
 	2 - Wavemaker 2 or Dosing Pump 2
 	3 - Backlight timer / Sleep timer
-	4 - Not used
+	4 - Portal
 	5 - Store params to eeprom
 	*/
 	TimerClass Timer[6];
