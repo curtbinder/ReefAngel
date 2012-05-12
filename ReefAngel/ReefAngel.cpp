@@ -1692,12 +1692,12 @@ void ReefAngelClass::ShowInterface()
 						Relay.RelayDataE[i] &= ~(FeedingModePortsE[i] & DelayedOnPortsE[i]);
 					}
 #endif  // RelayExp
-					Relay.Write();
 #ifdef RFEXPANSION
 					RF.SetMode(Feeding_Stop,0,0);
 #endif  // RFEXPANSION
 					ExitMenu();
 				}
+				Relay.Write();
 				break;
 			}
 			case WATERCHANGE_MODE:
@@ -1721,9 +1721,9 @@ void ReefAngelClass::ShowInterface()
 						Relay.RelayDataE[i] &= ~(WaterChangePortsE[i] & DelayedOnPortsE[i]);
 					}
 #endif  // RelayExp
-					Relay.Write();
 					ExitMenu();
 				}
+				Relay.Write();
 				break;
 			}
 #ifdef CUSTOM_MENU
