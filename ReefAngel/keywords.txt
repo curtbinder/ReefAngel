@@ -289,6 +289,10 @@ DP2RepeatInterval_read	KEYWORD2
 DP2RepeatInterval_write	KEYWORD2
 SalMax_read	KEYWORD2
 SalMax_write	KEYWORD2
+ORPMax_write	KEYWORD2
+ORPMax_read	KEYWORD2
+ORPMin_write	KEYWORD2
+ORPMin_read	KEYWORD2
 IMCheck_read	KEYWORD2
 IMCheck_write	KEYWORD2
 read(uint8_t);
