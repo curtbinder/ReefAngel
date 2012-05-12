@@ -245,7 +245,7 @@ const prog_char setupmenu_4_label[] PROGMEM = "Calibrate Sal";
 const prog_char setupmenu_5_label[] PROGMEM = "Calibrate ORP";
 #endif  // ORPEXPANSION
 #ifdef DateTimeSetup
-const prog_char setupmenu_5_label[] PROGMEM = "Date / Time";
+const prog_char setupmenu_6_label[] PROGMEM = "Date / Time";
 #endif  // DateTimeSetup
 PROGMEM const char *setupmenu_items[] = {
 #ifdef WavemakerSetup
@@ -627,8 +627,11 @@ void ReefAngelClass::Refresh()
 #endif  // defined SALINITYEXPANSION
 #if defined ORPEXPANSION
 	Params.ORP=ORP.Read();
-	Params.ORP=map(Params.ORP, ORPMin, ORPMax, 0, 470); // apply the calibration to the sensor reading
-	Params.ORP=constrain(Params.ORP,0,550);
+	if (Params.ORP!=0)
+	{
+		Params.ORP=map(Params.ORP, ORPMin, ORPMax, 0, 470); // apply the calibration to the sensor reading
+		Params.ORP=constrain(Params.ORP,0,550);
+	}
 	LCD.Clear(DefaultBGColor,0,0,1,1);
 #endif  // defined ORPEXPANSION
 	TempSensor.RequestConversion();
@@ -665,8 +668,11 @@ void ReefAngelClass::Refresh()
 #endif  // defined SALINITYEXPANSION
 #if defined ORPEXPANSION
 	Params.ORP=ORP.Read();
-	Params.ORP=map(Params.ORP, ORPMin, ORPMax, 0, 470); // apply the calibration to the sensor reading
-	Params.ORP=constrain(Params.ORP,0,550);
+	if (Params.ORP!=0)
+	{
+		Params.ORP=map(Params.ORP, ORPMin, ORPMax, 0, 470); // apply the calibration to the sensor reading
+		Params.ORP=constrain(Params.ORP,0,550);
+	}
 	LCD.Clear(DefaultBGColor,0,0,1,1);
 #endif  // defined ORPEXPANSION
 	TempSensor.RequestConversion();
