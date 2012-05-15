@@ -446,6 +446,11 @@ void ReefAngelClass::Init()
 #ifdef ENABLE_ATO_LOGGING
 	AtoEventCount = 0;
 #endif  // ENABLE_ATO_LOGGING
+#ifdef ENABLE_EXCEED_FLAGS
+	InternalMemory.write(Overheat_Exceed_Flag, 0);
+	InternalMemory.write(ATO_Exceed_Flag, 0);
+#endif  // ENABLE_EXCEED_FLAGS
+
 
     PHMin = InternalMemory.PHMin_read();
     PHMax = InternalMemory.PHMax_read();
