@@ -564,7 +564,14 @@ void ReefAngelClass::Refresh()
 	wdt_reset();
 #endif  // defined WDT || defined WDT_FORCE
 #ifdef DisplayLEDPWM
-	if (PWM.LightsOverride)
+	boolean LightRelayOn=false;
+	for (int l=0;l<8;l++)
+	{
+		if (LightsOnPorts & 1<<l)
+			if (ReefAngel.Relay.RelayMaskOn & 1<<l) LightRelayOn=true;
+	}
+	if (PWM.LightsOverride) LightRelayOn=true;
+	if (LightRelayOn)
 	{
 		PWM.SetActinic(InternalMemory.LEDPWMActinic_read());
 		PWM.SetDaylight(InternalMemory.LEDPWMDaylight_read());
