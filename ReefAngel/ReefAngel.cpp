@@ -821,6 +821,18 @@ void ReefAngelClass::StandardFan(byte FanRelay, int LowTemp, int HighTemp)
 	if (Params.Temp[TempProbe] <= LowTemp) Relay.Off(FanRelay);  // If sensor 1 temperature <= LowTemp - turn off fan
 }
 
+void ReefAngelClass::CO2Control(byte CO2Relay, int LowPH, int HighPH)
+{
+    if (Params.PH <= LowPH) Relay.Off(CO2Relay);  // If PH <= LowPH - turn on CO2
+    if (Params.PH >= HighPH) Relay.On(CO2Relay);  // If sensor 1 PH >= HighPH - turn off CO2
+}
+
+void ReefAngelClass::PHControl(byte PHControlRelay, int LowPH, int HighPH)
+{
+    if (Params.PH <= LowPH) Relay.On(PHControlRelay);  // If PH <= LowPH - turn on PHControlRelay
+    if (Params.PH >= HighPH) Relay.Off(PHControlRelay);  // If sensor 1 PH >= HighPH - turn off PHControlRelay
+}
+
 void ReefAngelClass::StandardATO(byte ATORelay, int ATOTimeout)
 {
     // Input:  Relay port and timeout value (max number of seconds that ATO pump is allowed to run)
@@ -1136,6 +1148,20 @@ void ReefAngelClass::StandardFan(byte Relay)
     StandardFan(Relay,
                 InternalMemory.ChillerTempOff_read(),
                 InternalMemory.ChillerTempOn_read());
+}
+
+void ReefAngelClass::CO2Control(byte Relay)
+{
+    CO2Control(Relay,
+                InternalMemory.CO2ControlOff_read(),
+                InternalMemory.CO2ControlOn_read());	
+}
+
+void ReefAngelClass::PHControl(byte Relay)
+{
+	PHControl(Relay,
+                InternalMemory.PHControlOn_read(),
+                InternalMemory.PHControlOff_read());	
 }
 
 void ReefAngelClass::StandardATO(byte Relay)

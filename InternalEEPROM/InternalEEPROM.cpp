@@ -699,6 +699,46 @@ void InternalEEPROMClass::ORPMax_write(const int value)
     write_int(Mem_I_ORPMax, value);
 }
 
+int InternalEEPROMClass::CO2ControlOn_read()
+{
+    return read_int(Mem_I_CO2ControlOn);
+}
+
+void InternalEEPROMClass::CO2ControlOn_write(const int value)
+{
+    write_int(Mem_I_CO2ControlOn, value);
+}
+
+int InternalEEPROMClass::CO2ControlOff_read()
+{
+    return read_int(Mem_I_CO2ControlOff);
+}
+
+void InternalEEPROMClass::CO2ControlOff_write(int value)
+{
+    write_int(Mem_I_CO2ControlOff, value);
+}
+
+int InternalEEPROMClass::PHControlOn_read()
+{
+    return read_int(Mem_I_PHControlOn);
+}
+
+void InternalEEPROMClass::PHControlOn_write(const int value)
+{
+    write_int(Mem_I_PHControlOn, value);
+}
+
+int InternalEEPROMClass::PHControlOff_read()
+{
+    return read_int(Mem_I_PHControlOff);
+}
+
+void InternalEEPROMClass::PHControlOff_write(int value)
+{
+    write_int(Mem_I_PHControlOff, value);
+}
+
 unsigned long InternalEEPROMClass::IMCheck_read()
 {
     return read_dword(IMPointer);

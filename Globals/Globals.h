@@ -307,7 +307,11 @@ When adding more variables, use the previous value plus 1 or 2
 #define Mem_I_ORPMin			  VarsStart+80
 #define Mem_I_ORPMax			  VarsStart+82
 #define Mem_B_ActinicOffset		  VarsStart+84
-// Next value starts VarsStart+85
+#define Mem_I_CO2ControlOn        VarsStart+85
+#define Mem_I_CO2ControlOff       VarsStart+87
+#define Mem_I_PHControlOn         VarsStart+89
+#define Mem_I_PHControlOff        VarsStart+91
+// Next value starts VarsStart+93
 
 // Internal Memory Check Pointer
 #define IMPointer			600

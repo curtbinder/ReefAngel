@@ -165,6 +165,14 @@ class InternalEEPROMClass {
         void ORPMin_write(const int value);
         int ORPMax_read();
         void ORPMax_write(const int value);
+        int CO2ControlOn_read();
+        void CO2ControlOn_write(const int value);
+        int CO2ControlOff_read();
+        void CO2ControlOff_write(const int value);
+        int PHControlOn_read();
+        void PHControlOn_write(const int value);
+        int PHControlOff_read();
+        void PHControlOff_write(const int value);
 
         unsigned long IMCheck_read();
         void IMCheck_write(const unsigned long value);
