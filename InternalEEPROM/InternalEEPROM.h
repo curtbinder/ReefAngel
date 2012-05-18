@@ -125,7 +125,9 @@ class InternalEEPROMClass {
         void PWMSlopeEnd5_write(const uint8_t value);
         uint8_t PWMSlopeDuration5_read();
         void PWMSlopeDuration5_write(const uint8_t value);
-
+        uint8_t ActinicOffset_read();
+        void ActinicOffset_write(const uint8_t value);
+        
         // Functions that read/write an int
         int WM1Timer_read();
         void WM1Timer_write(const int value);

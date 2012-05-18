@@ -508,6 +508,16 @@ void InternalEEPROMClass::PWMSlopeDuration5_write(const uint8_t value)
     write(Mem_B_PWMSlopeDuration5, value);
 }
 
+uint8_t InternalEEPROMClass::ActinicOffset_read()
+{
+    return read(Mem_B_ActinicOffset);
+}
+
+void InternalEEPROMClass::ActinicOffset_write(const uint8_t value)
+{
+    write(Mem_B_ActinicOffset, value);
+}
+
 // Int Functions
 int InternalEEPROMClass::WM1Timer_read()
 {

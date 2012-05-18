@@ -306,7 +306,8 @@ When adding more variables, use the previous value plus 1 or 2
 #define Mem_I_ATOHighExtendedTimeout  VarsStart+78
 #define Mem_I_ORPMin			  VarsStart+80
 #define Mem_I_ORPMax			  VarsStart+82
-// Next value starts VarsStart+84
+#define Mem_B_ActinicOffset		  VarsStart+84
+// Next value starts VarsStart+85
 
 // Internal Memory Check Pointer
 #define IMPointer			600

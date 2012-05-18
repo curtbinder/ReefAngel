@@ -167,6 +167,9 @@ public:
 	// Simplified PDE versions of the calls
 	void StandardLights(byte Relay);
 	void StandardLights(byte Relay, byte MinuteOffset);
+	void DayLights(byte Relay);
+	void ActinicLights(byte Relay);
+	void DelayedStartLights(byte Relay);
 	void MoonLights(byte Relay);
 	void MHLights(byte Relay);
 	void StandardHeater(byte Relay);

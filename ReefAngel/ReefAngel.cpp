@@ -1084,6 +1084,26 @@ void ReefAngelClass::StandardLights(byte Relay, byte MinuteOffset)
 			);
 }
 
+void ReefAngelClass::DayLights(byte Relay)
+{
+	StandardLights(Relay);
+}
+
+void ReefAngelClass::ActinicLights(byte Relay)
+{
+	StandardLights(Relay, InternalMemory.ActinicOffset_read());
+}
+
+void ReefAngelClass::DelayedStartLights(byte Relay)
+{
+    MHLights(Relay,
+           InternalMemory.StdLightsOnHour_read(),
+           InternalMemory.StdLightsOnMinute_read(),
+           InternalMemory.StdLightsOffHour_read(),
+           InternalMemory.StdLightsOffMinute_read(),
+     	   InternalMemory.MHDelay_read());
+}
+
 void ReefAngelClass::MoonLights(byte Relay)
 {
     StandardLights(Relay,
