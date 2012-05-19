@@ -23,6 +23,7 @@
 #define __RELAY_H__
 
 #include <Globals.h>
+#include <InternalEEPROM.h>  // NOTE read/write internal memory
 
 class RelayClass
 {
@@ -30,6 +31,7 @@ public:
 	RelayClass();
 	void On(byte ID);
 	void DelayedOn(byte ID, byte MinuteDelay);
+	void DelayedOn(byte ID);
 	void Off(byte ID);
 	void AllOn();
 	void AllOff();

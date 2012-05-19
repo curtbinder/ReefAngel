@@ -82,6 +82,11 @@ void RelayClass::DelayedOn(byte ID, byte MinuteDelay)
 	}
 }
 
+void RelayClass::DelayedOn(byte ID)
+{
+	DelayedOn(ID, InternalMemory.DelayedStart_read());
+}
+
 void RelayClass::Off(byte ID)
 {
     if ( ID < 9 ) bitClear(RelayData, ID-1);
