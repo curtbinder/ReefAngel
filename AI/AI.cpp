@@ -86,32 +86,32 @@ void AIClass::SWprint(byte data)
   delayMicroseconds(bit9600Delay);
 }
 
-void AIClass::ChannelWhitePWMSlope()
+void AIClass::ChannelWhiteSlope()
 {
 	ChannelAISlope(0,InternalMemory.AISlopeStartW_read(),InternalMemory.AISlopeEndW_read(),InternalMemory.AISlopeDurationW_read());
 }
 
-void AIClass::ChannelBluePWMSlope()
+void AIClass::ChannelBlueSlope()
 {
 	ChannelAISlope(1,InternalMemory.AISlopeStartB_read(),InternalMemory.AISlopeEndB_read(),InternalMemory.AISlopeDurationB_read());
 }
 
-void AIClass::ChannelRoyalBluePWMSlope()
+void AIClass::ChannelRoyalBlueSlope()
 {
 	ChannelAISlope(2,InternalMemory.AISlopeStartRB_read(),InternalMemory.AISlopeEndRB_read(),InternalMemory.AISlopeDurationRB_read());
 }
 
-void AIClass::ChannelWhitePWMSlope(byte MinuteOffset)
+void AIClass::ChannelWhiteSlope(byte MinuteOffset)
 {
 	ChannelAISlope(0,InternalMemory.AISlopeStartW_read(),InternalMemory.AISlopeEndW_read(),InternalMemory.AISlopeDurationW_read(), MinuteOffset);
 }
 
-void AIClass::ChannelBluePWMSlope(byte MinuteOffset)
+void AIClass::ChannelBlueSlope(byte MinuteOffset)
 {
 	ChannelAISlope(1,InternalMemory.AISlopeStartB_read(),InternalMemory.AISlopeEndB_read(),InternalMemory.AISlopeDurationB_read(), MinuteOffset);
 }
 
-void AIClass::ChannelRoyalBluePWMSlope(byte MinuteOffset)
+void AIClass::ChannelRoyalBlueSlope(byte MinuteOffset)
 {
 	ChannelAISlope(2,InternalMemory.AISlopeStartRB_read(),InternalMemory.AISlopeEndRB_read(),InternalMemory.AISlopeDurationRB_read(), MinuteOffset);
 }
@@ -146,32 +146,32 @@ void AIClass::ChannelAISlope(byte Channel, byte Start, byte End, byte Duration, 
 	));	
 }
 
-void AIClass::ChannelWhitePWMParabola()
+void AIClass::ChannelWhiteParabola()
 {
 	ChannelAIParabola(0,InternalMemory.AISlopeStartW_read(),InternalMemory.AISlopeEndW_read());
 }
 
-void AIClass::ChannelBluePWMParabola()
+void AIClass::ChannelBlueParabola()
 {
 	ChannelAIParabola(1,InternalMemory.AISlopeStartB_read(),InternalMemory.AISlopeEndB_read());
 }
 
-void AIClass::ChannelRoyalBluePWMParabola()
+void AIClass::ChannelRoyalBlueParabola()
 {
 	ChannelAIParabola(2,InternalMemory.AISlopeStartRB_read(),InternalMemory.AISlopeEndRB_read());
 }
 
-void AIClass::ChannelWhitePWMParabola(byte MinuteOffset)
+void AIClass::ChannelWhiteParabola(byte MinuteOffset)
 {
 	ChannelAIParabola(0,InternalMemory.AISlopeStartW_read(),InternalMemory.AISlopeEndW_read(), MinuteOffset);
 }
 
-void AIClass::ChannelBluePWMParabola(byte MinuteOffset)
+void AIClass::ChannelBlueParabola(byte MinuteOffset)
 {
 	ChannelAIParabola(1,InternalMemory.AISlopeStartB_read(),InternalMemory.AISlopeEndB_read(), MinuteOffset);
 }
 
-void AIClass::ChannelRoyalBluePWMParabola(byte MinuteOffset)
+void AIClass::ChannelRoyalBlueParabola(byte MinuteOffset)
 {
 	ChannelAIParabola(2,InternalMemory.AISlopeStartRB_read(),InternalMemory.AISlopeEndRB_read(), MinuteOffset);
 }
