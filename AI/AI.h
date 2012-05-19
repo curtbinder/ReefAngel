@@ -23,6 +23,7 @@
 #define __AI_H__
 
 #include <Globals.h>
+#include <InternalEEPROM.h>
 
 class AIClass
 {
@@ -35,6 +36,23 @@ public:
 	int StreamDelay;
 	unsigned long AImillis;
 	void Send();
+	void ChannelWhitePWMSlope();	
+	void ChannelBluePWMSlope();	
+	void ChannelRoyalBluePWMSlope();	
+	void ChannelWhitePWMSlope(byte MinuteOffset);	
+	void ChannelBluePWMSlope(byte MinuteOffset);	
+	void ChannelRoyalBluePWMSlope(byte MinuteOffset);	
+	void ChannelAISlope(byte Channel, byte Start, byte End, byte Duration);
+	void ChannelAISlope(byte Channel, byte Start, byte End, byte Duration, byte MinuteOffset);
+	void ChannelWhitePWMParabola();	
+	void ChannelBluePWMParabola();	
+	void ChannelRoyalBluePWMParabola();	
+	void ChannelWhitePWMParabola(byte MinuteOffset);	
+	void ChannelBluePWMParabola(byte MinuteOffset);	
+	void ChannelRoyalBluePWMParabola(byte MinuteOffset);	
+	void ChannelAIParabola(byte Channel, byte Start, byte End);
+	void ChannelAIParabola(byte Channel, byte Start, byte End, byte MinuteOffset);	
+	
 private:
 	byte port;
 	byte AIChannels[AI_CHANNELS];

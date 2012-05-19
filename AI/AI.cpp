@@ -85,3 +85,122 @@ void AIClass::SWprint(byte data)
   digitalWrite(port, LOW);
   delayMicroseconds(bit9600Delay);
 }
+
+void AIClass::ChannelWhitePWMSlope()
+{
+	ChannelAISlope(0,InternalMemory.AISlopeStartW_read(),InternalMemory.AISlopeEndW_read(),InternalMemory.AISlopeDurationW_read());
+}
+
+void AIClass::ChannelBluePWMSlope()
+{
+	ChannelAISlope(1,InternalMemory.AISlopeStartB_read(),InternalMemory.AISlopeEndB_read(),InternalMemory.AISlopeDurationB_read());
+}
+
+void AIClass::ChannelRoyalBluePWMSlope()
+{
+	ChannelAISlope(2,InternalMemory.AISlopeStartRB_read(),InternalMemory.AISlopeEndRB_read(),InternalMemory.AISlopeDurationRB_read());
+}
+
+void AIClass::ChannelWhitePWMSlope(byte MinuteOffset)
+{
+	ChannelAISlope(0,InternalMemory.AISlopeStartW_read(),InternalMemory.AISlopeEndW_read(),InternalMemory.AISlopeDurationW_read(), MinuteOffset);
+}
+
+void AIClass::ChannelBluePWMSlope(byte MinuteOffset)
+{
+	ChannelAISlope(1,InternalMemory.AISlopeStartB_read(),InternalMemory.AISlopeEndB_read(),InternalMemory.AISlopeDurationB_read(), MinuteOffset);
+}
+
+void AIClass::ChannelRoyalBluePWMSlope(byte MinuteOffset)
+{
+	ChannelAISlope(2,InternalMemory.AISlopeStartRB_read(),InternalMemory.AISlopeEndRB_read(),InternalMemory.AISlopeDurationRB_read(), MinuteOffset);
+}
+
+void AIClass::ChannelAISlope(byte Channel, byte Start, byte End, byte Duration)
+{
+	SetChannel(Channel,PWMSlope(
+		InternalMemory.StdLightsOnHour_read(),
+		InternalMemory.StdLightsOnMinute_read(),
+		InternalMemory.StdLightsOffHour_read(),
+		InternalMemory.StdLightsOffMinute_read(),
+		Start,
+		End, 
+		Duration,  
+		AIChannels[Channel] 
+	));	
+}
+
+void AIClass::ChannelAISlope(byte Channel, byte Start, byte End, byte Duration, byte MinuteOffset)
+{
+	int onTime=NumMins(InternalMemory.StdLightsOnHour_read(),InternalMemory.StdLightsOnMinute_read())-MinuteOffset;
+	int offTime=NumMins(InternalMemory.StdLightsOffHour_read(),InternalMemory.StdLightsOffMinute_read())+MinuteOffset;
+	SetChannel(Channel,PWMSlope(
+		onTime/60,
+		onTime%60,
+		offTime/60,
+		offTime%60,
+		Start,
+		End, 
+		Duration,  
+		AIChannels[Channel] 
+	));	
+}
+
+void AIClass::ChannelWhitePWMParabola()
+{
+	ChannelAIParabola(0,InternalMemory.AISlopeStartW_read(),InternalMemory.AISlopeEndW_read());
+}
+
+void AIClass::ChannelBluePWMParabola()
+{
+	ChannelAIParabola(1,InternalMemory.AISlopeStartB_read(),InternalMemory.AISlopeEndB_read());
+}
+
+void AIClass::ChannelRoyalBluePWMParabola()
+{
+	ChannelAIParabola(2,InternalMemory.AISlopeStartRB_read(),InternalMemory.AISlopeEndRB_read());
+}
+
+void AIClass::ChannelWhitePWMParabola(byte MinuteOffset)
+{
+	ChannelAIParabola(0,InternalMemory.AISlopeStartW_read(),InternalMemory.AISlopeEndW_read(), MinuteOffset);
+}
+
+void AIClass::ChannelBluePWMParabola(byte MinuteOffset)
+{
+	ChannelAIParabola(1,InternalMemory.AISlopeStartB_read(),InternalMemory.AISlopeEndB_read(), MinuteOffset);
+}
+
+void AIClass::ChannelRoyalBluePWMParabola(byte MinuteOffset)
+{
+	ChannelAIParabola(2,InternalMemory.AISlopeStartRB_read(),InternalMemory.AISlopeEndRB_read(), MinuteOffset);
+}
+
+void AIClass::ChannelAIParabola(byte Channel, byte Start, byte End)
+{
+	SetChannel(Channel,PWMParabola(
+		InternalMemory.StdLightsOnHour_read(),
+		InternalMemory.StdLightsOnMinute_read(),
+		InternalMemory.StdLightsOffHour_read(),
+		InternalMemory.StdLightsOffMinute_read(),
+		Start,
+		End, 
+		AIChannels[Channel] 
+	));	
+}
+
+void AIClass::ChannelAIParabola(byte Channel, byte Start, byte End, byte MinuteOffset)
+{
+	int onTime=NumMins(InternalMemory.StdLightsOnHour_read(),InternalMemory.StdLightsOnMinute_read())-MinuteOffset;
+	int offTime=NumMins(InternalMemory.StdLightsOffHour_read(),InternalMemory.StdLightsOffMinute_read())+MinuteOffset;
+	SetChannel(Channel,PWMParabola(
+		onTime/60,
+		onTime%60,
+		offTime/60,
+		offTime%60,
+		Start,
+		End, 
+		AIChannels[Channel] 
+	));	
+}
+

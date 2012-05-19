@@ -518,6 +518,286 @@ void InternalEEPROMClass::ActinicOffset_write(const uint8_t value)
     write(Mem_B_ActinicOffset, value);
 }
 
+uint8_t InternalEEPROMClass::AISlopeStartW_read()
+{
+    return read(Mem_B_AISlopeStartW);
+}
+
+void InternalEEPROMClass::AISlopeStartW_write(const uint8_t value)
+{
+    write(Mem_B_AISlopeStartW, value);
+}
+
+void InternalEEPROMClass::AISlopeEndW_write(const uint8_t value)
+{
+    write(Mem_B_AISlopeEndW, value);
+}
+
+uint8_t InternalEEPROMClass::AISlopeEndW_read()
+{
+    return read(Mem_B_AISlopeEndW);
+}
+
+uint8_t InternalEEPROMClass::AISlopeDurationW_read()
+{
+    return read(Mem_B_AISlopeDurationW);
+}
+
+void InternalEEPROMClass::AISlopeDurationW_write(const uint8_t value)
+{
+    write(Mem_B_AISlopeDurationW, value);
+}
+
+uint8_t InternalEEPROMClass::AISlopeStartB_read()
+{
+    return read(Mem_B_AISlopeStartB);
+}
+
+void InternalEEPROMClass::AISlopeStartB_write(const uint8_t value)
+{
+    write(Mem_B_AISlopeStartB, value);
+}
+
+void InternalEEPROMClass::AISlopeEndB_write(const uint8_t value)
+{
+    write(Mem_B_AISlopeEndB, value);
+}
+
+uint8_t InternalEEPROMClass::AISlopeEndB_read()
+{
+    return read(Mem_B_AISlopeEndB);
+}
+
+uint8_t InternalEEPROMClass::AISlopeDurationB_read()
+{
+    return read(Mem_B_AISlopeDurationB);
+}
+
+void InternalEEPROMClass::AISlopeDurationB_write(const uint8_t value)
+{
+    write(Mem_B_AISlopeDurationB, value);
+}
+
+uint8_t InternalEEPROMClass::AISlopeStartRB_read()
+{
+    return read(Mem_B_AISlopeStartRB);
+}
+
+void InternalEEPROMClass::AISlopeStartRB_write(const uint8_t value)
+{
+    write(Mem_B_AISlopeStartRB, value);
+}
+
+void InternalEEPROMClass::AISlopeEndRB_write(const uint8_t value)
+{
+    write(Mem_B_AISlopeEndRB, value);
+}
+
+uint8_t InternalEEPROMClass::AISlopeEndRB_read()
+{
+    return read(Mem_B_AISlopeEndRB);
+}
+
+uint8_t InternalEEPROMClass::AISlopeDurationRB_read()
+{
+    return read(Mem_B_AISlopeDurationRB);
+}
+
+void InternalEEPROMClass::AISlopeDurationRB_write(const uint8_t value)
+{
+    write(Mem_B_AISlopeDurationRB, value);
+}
+
+uint8_t InternalEEPROMClass::RadionSlopeStartW_read()
+{
+    return read(Mem_B_RadionSlopeStartW);
+}
+
+void InternalEEPROMClass::RadionSlopeStartW_write(const uint8_t value)
+{
+    write(Mem_B_RadionSlopeStartW, value);
+}
+
+void InternalEEPROMClass::RadionSlopeEndW_write(const uint8_t value)
+{
+    write(Mem_B_RadionSlopeEndW, value);
+}
+
+uint8_t InternalEEPROMClass::RadionSlopeEndW_read()
+{
+    return read(Mem_B_RadionSlopeEndW);
+}
+
+uint8_t InternalEEPROMClass::RadionSlopeDurationW_read()
+{
+    return read(Mem_B_RadionSlopeDurationW);
+}
+
+void InternalEEPROMClass::RadionSlopeDurationW_write(const uint8_t value)
+{
+    write(Mem_B_RadionSlopeDurationW, value);
+}
+
+uint8_t InternalEEPROMClass::RadionSlopeStartRB_read()
+{
+    return read(Mem_B_RadionSlopeStartRB);
+}
+
+void InternalEEPROMClass::RadionSlopeStartRB_write(const uint8_t value)
+{
+    write(Mem_B_RadionSlopeStartRB, value);
+}
+
+void InternalEEPROMClass::RadionSlopeEndRB_write(const uint8_t value)
+{
+    write(Mem_B_RadionSlopeEndRB, value);
+}
+
+uint8_t InternalEEPROMClass::RadionSlopeEndRB_read()
+{
+    return read(Mem_B_RadionSlopeEndRB);
+}
+
+uint8_t InternalEEPROMClass::RadionSlopeDurationRB_read()
+{
+    return read(Mem_B_RadionSlopeDurationRB);
+}
+
+void InternalEEPROMClass::RadionSlopeDurationRB_write(const uint8_t value)
+{
+    write(Mem_B_RadionSlopeDurationRB, value);
+}
+
+uint8_t InternalEEPROMClass::RadionSlopeStartR_read()
+{
+    return read(Mem_B_RadionSlopeStartR);
+}
+
+void InternalEEPROMClass::RadionSlopeStartR_write(const uint8_t value)
+{
+    write(Mem_B_RadionSlopeStartR, value);
+}
+
+void InternalEEPROMClass::RadionSlopeEndR_write(const uint8_t value)
+{
+    write(Mem_B_RadionSlopeEndR, value);
+}
+
+uint8_t InternalEEPROMClass::RadionSlopeEndR_read()
+{
+    return read(Mem_B_RadionSlopeEndR);
+}
+
+uint8_t InternalEEPROMClass::RadionSlopeDurationR_read()
+{
+    return read(Mem_B_RadionSlopeDurationR);
+}
+
+void InternalEEPROMClass::RadionSlopeDurationR_write(const uint8_t value)
+{
+    write(Mem_B_RadionSlopeDurationR, value);
+}
+
+uint8_t InternalEEPROMClass::RadionSlopeStartG_read()
+{
+    return read(Mem_B_RadionSlopeStartG);
+}
+
+void InternalEEPROMClass::RadionSlopeStartG_write(const uint8_t value)
+{
+    write(Mem_B_RadionSlopeStartG, value);
+}
+
+void InternalEEPROMClass::RadionSlopeEndG_write(const uint8_t value)
+{
+    write(Mem_B_RadionSlopeEndG, value);
+}
+
+uint8_t InternalEEPROMClass::RadionSlopeEndG_read()
+{
+    return read(Mem_B_RadionSlopeEndG);
+}
+
+uint8_t InternalEEPROMClass::RadionSlopeDurationG_read()
+{
+    return read(Mem_B_RadionSlopeDurationG);
+}
+
+void InternalEEPROMClass::RadionSlopeDurationG_write(const uint8_t value)
+{
+    write(Mem_B_RadionSlopeDurationG, value);
+}
+
+uint8_t InternalEEPROMClass::RadionSlopeStartB_read()
+{
+    return read(Mem_B_RadionSlopeStartB);
+}
+
+void InternalEEPROMClass::RadionSlopeStartB_write(const uint8_t value)
+{
+    write(Mem_B_RadionSlopeStartB, value);
+}
+
+void InternalEEPROMClass::RadionSlopeEndB_write(const uint8_t value)
+{
+    write(Mem_B_RadionSlopeEndB, value);
+}
+
+uint8_t InternalEEPROMClass::RadionSlopeEndB_read()
+{
+    return read(Mem_B_RadionSlopeEndB);
+}
+
+uint8_t InternalEEPROMClass::RadionSlopeDurationB_read()
+{
+    return read(Mem_B_RadionSlopeDurationB);
+}
+
+void InternalEEPROMClass::RadionSlopeDurationB_write(const uint8_t value)
+{
+    write(Mem_B_RadionSlopeDurationB, value);
+}
+
+uint8_t InternalEEPROMClass::RadionSlopeStartI_read()
+{
+    return read(Mem_B_RadionSlopeStartI);
+}
+
+void InternalEEPROMClass::RadionSlopeStartI_write(const uint8_t value)
+{
+    write(Mem_B_RadionSlopeStartI, value);
+}
+
+void InternalEEPROMClass::RadionSlopeEndI_write(const uint8_t value)
+{
+    write(Mem_B_RadionSlopeEndI, value);
+}
+
+uint8_t InternalEEPROMClass::RadionSlopeEndI_read()
+{
+    return read(Mem_B_RadionSlopeEndI);
+}
+
+uint8_t InternalEEPROMClass::RadionSlopeDurationI_read()
+{
+    return read(Mem_B_RadionSlopeDurationI);
+}
+
+void InternalEEPROMClass::RadionSlopeDurationI_write(const uint8_t value)
+{
+    write(Mem_B_RadionSlopeDurationI, value);
+}
+
+uint8_t InternalEEPROMClass::DelayedStart_read()
+{
+    return read(Mem_B_DelayedStart);
+}
+
+void InternalEEPROMClass::DelayedStart_write(const uint8_t value)
+{
+    write(Mem_B_DelayedStart, value);
+}
+
 // Int Functions
 int InternalEEPROMClass::WM1Timer_read()
 {

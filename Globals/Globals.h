@@ -311,7 +311,36 @@ When adding more variables, use the previous value plus 1 or 2
 #define Mem_I_CO2ControlOff       VarsStart+87
 #define Mem_I_PHControlOn         VarsStart+89
 #define Mem_I_PHControlOff        VarsStart+91
-// Next value starts VarsStart+93
+#define Mem_B_AISlopeStartW       VarsStart+93
+#define Mem_B_AISlopeEndW	      VarsStart+94
+#define Mem_B_AISlopeDurationW    VarsStart+95
+#define Mem_B_AISlopeStartB       VarsStart+96
+#define Mem_B_AISlopeEndB	      VarsStart+97
+#define Mem_B_AISlopeDurationB    VarsStart+98
+#define Mem_B_AISlopeStartRB      VarsStart+99
+#define Mem_B_AISlopeEndRB	      VarsStart+100
+#define Mem_B_AISlopeDurationRB   VarsStart+101
+#define Mem_B_RadionSlopeStartW       VarsStart+102
+#define Mem_B_RadionSlopeEndW	      VarsStart+103
+#define Mem_B_RadionSlopeDurationW    VarsStart+104
+#define Mem_B_RadionSlopeStartRB      VarsStart+105
+#define Mem_B_RadionSlopeEndRB	      VarsStart+106
+#define Mem_B_RadionSlopeDurationRB   VarsStart+107
+#define Mem_B_RadionSlopeStartR       VarsStart+108
+#define Mem_B_RadionSlopeEndR	      VarsStart+109
+#define Mem_B_RadionSlopeDurationR    VarsStart+110
+#define Mem_B_RadionSlopeStartG       VarsStart+111
+#define Mem_B_RadionSlopeEndG	      VarsStart+112
+#define Mem_B_RadionSlopeDurationG    VarsStart+113
+#define Mem_B_RadionSlopeStartB       VarsStart+114
+#define Mem_B_RadionSlopeEndB	      VarsStart+115
+#define Mem_B_RadionSlopeDurationB    VarsStart+116
+#define Mem_B_RadionSlopeStartI       VarsStart+117
+#define Mem_B_RadionSlopeEndI	      VarsStart+118
+#define Mem_B_RadionSlopeDurationI    VarsStart+119
+#define Mem_B_DelayedStart            VarsStart+120
+
+// Next value starts VarsStart+121
 
 // Internal Memory Check Pointer
 #define IMPointer			600
