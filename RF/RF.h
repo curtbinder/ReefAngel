@@ -23,6 +23,7 @@
 #define __RF_H__
 
 #include <Globals.h>
+#include <InternalEEPROM.h>
 
 class RFClass
 {
@@ -38,6 +39,34 @@ public:
 	void SetChannel(byte Channel, byte Value);
 	inline byte GetChannel(byte channel) {return RadionChannels[channel];}
 	void RadionWrite();
+	void ChannelWhiteSlope();	
+	void ChannelRoyalBlueSlope();		
+	void ChannelRedSlope();	
+	void ChannelGreenSlope();	
+	void ChannelBlueSlope();	
+	void ChannelIntensitySlope();	
+	void ChannelWhiteSlope(byte MinuteOffset);	
+	void ChannelRoyalBlueSlope(byte MinuteOffset);		
+	void ChannelRedSlope(byte MinuteOffset);	
+	void ChannelGreenSlope(byte MinuteOffset);	
+	void ChannelBlueSlope(byte MinuteOffset);	
+	void ChannelIntensitySlope(byte MinuteOffset);
+	void ChannelRadionSlope(byte Channel, byte Start, byte End, byte Duration);
+	void ChannelRadionSlope(byte Channel, byte Start, byte End, byte Duration, byte MinuteOffset);
+	void ChannelWhiteParabola();	
+	void ChannelRoyalBlueParabola();		
+	void ChannelRedParabola();	
+	void ChannelGreenParabola();	
+	void ChannelBlueParabola();	
+	void ChannelIntensityParabola();	
+	void ChannelWhiteParabola(byte MinuteOffset);	
+	void ChannelRoyalBlueParabola(byte MinuteOffset);		
+	void ChannelRedParabola(byte MinuteOffset);	
+	void ChannelGreenParabola(byte MinuteOffset);	
+	void ChannelBlueParabola(byte MinuteOffset);	
+	void ChannelIntensityParabola(byte MinuteOffset);
+	void ChannelRadionParabola(byte Channel, byte Start, byte End, byte Duration);
+	void ChannelRadionParabola(byte Channel, byte Start, byte End, byte Duration, byte MinuteOffset);		
 private:
 };
 
