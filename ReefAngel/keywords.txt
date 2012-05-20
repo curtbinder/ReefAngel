@@ -25,7 +25,13 @@ Init	KEYWORD2
 Refresh	KEYWORD2
 SetTemperatureUnit	KEYWORD2
 ConvertTempUnit	KEYWORD2
+StandardMenu	KEYWORD2
+Wifi	KEYWORD2
 StandardLights	KEYWORD2
+AddWDT	KEYWORD2
+AddDateTimeMenu	KEYWORD2
+DelayedStartLights	KEYWORD2
+ActinicLights	KEYWORD2
 MoonLights	KEYWORD2
 MHLights	KEYWORD2
 StandardHeater	KEYWORD2
