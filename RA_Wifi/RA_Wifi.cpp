@@ -32,43 +32,24 @@ void WebResponse (const prog_char *response, long strsize)
 {
 //  P(WebHeaderMsg) = SERVER_HEADER_HTML;
 //  printP(WebHeaderMsg);
-    P(WebBodyMsg) = SERVER_HEADER_HTML;
-    printP(WebBodyMsg);
-    WIFI_SERIAL.print(strsize,DEC);
-    P(WebBodyMsg1) = SERVER_HEADER3;
-    printP(WebBodyMsg1);
-    printP(response);
+	PrintHTTPHeader(strsize);
+	PROGMEMprint(response);
 }
 
 void ModeResponse(bool fOk)
 {
-	P(WebBodyMsg) = SERVER_HEADER_XML;
-	printP(WebBodyMsg);
 	uint8_t s;
 	if ( fOk )
 		s = 15;
 	else
 		s = 16;
-	WIFI_SERIAL.print(s, DEC);
-	P(WebBodyMsg1) = SERVER_HEADER3;
-	printP(WebBodyMsg1);
+	PrintHTTPHeader(s);
 	PROGMEMprint(XML_MODE_OPEN);
 	if ( fOk )
 		PROGMEMprint(XML_OK);
 	else
 		PROGMEMprint(XML_ERR);
 	PROGMEMprint(XML_MODE_CLOSE);
-}
-
-void printP(const prog_char *str)
-{
-    char a;
-    do
-    {
-        a=pgm_read_byte(str++);
-        if (a!=0) WIFI_SERIAL.print(a);
-    }
-    while (a!=0);
 }
 
 void pushbuffer(byte inStr)
@@ -183,6 +164,7 @@ void pushbuffer(byte inStr)
             else if (strncmp("GET /mb", m_pushback, 7)==0) { reqtype = -REQ_M_BYTE; weboption2 = -1; bHasSecondValue = false; bCommaCount = 0; }
             else if (strncmp("GET /mi", m_pushback, 7)==0) { reqtype = -REQ_M_INT; weboption2 = -1; bHasSecondValue = false; bCommaCount = 0; }
             else if (strncmp("GET /ma", m_pushback, 7)==0) reqtype = -REQ_M_ALL;
+            else if (strncmp("GET /mr", m_pushback, 7)==0) reqtype = -REQ_M_RAW;
             else if (strncmp("GET /v", m_pushback, 6)==0) reqtype = -REQ_VERSION;
             else if (strncmp("GET /d", m_pushback, 6)==0) { reqtype = -REQ_DATE; weboption2 = -1; weboption3 = -1; bCommaCount = 0; }
             else if (strncmp("HTTP/1.", m_pushback, 7)==0) reqtype = -REQ_HTTP;
@@ -372,11 +354,7 @@ void processHTTP()
 					s += 320;
 				}
 #endif  // ENABLE_ATO_LOGGING
-				P(WebBodyMsg) = SERVER_HEADER_XML;
-				printP(WebBodyMsg);
-				WIFI_SERIAL.print(s, DEC);
-				P(WebBodyMsg1) = SERVER_HEADER3;
-				printP(WebBodyMsg1);
+				PrintHTTPHeader(s);
 #ifdef ENABLE_ATO_LOGGING
 				if ( reqtype == REQ_RA_STATUS )
 					SendXMLData(true);
@@ -391,8 +369,6 @@ void processHTTP()
 			case REQ_M_INT:
 			{
 				int s;
-				P(WebBodyMsg) = SERVER_HEADER_XML;
-				printP(WebBodyMsg);
 
 				// weboption2 is location
 				// weboption is value
@@ -431,9 +407,7 @@ void processHTTP()
 					s = 9;  // <M>OK</M>
 					// add in the location, twice
 					s += (intlength(weboption2)*2);
-					WIFI_SERIAL.print(s, DEC);
-					P(WebBodyMsg1) = SERVER_HEADER3;
-					printP(WebBodyMsg1);
+					PrintHTTPHeader(s);
 
 					PROGMEMprint(XML_M_OPEN);
 					WIFI_SERIAL.print(weboption2, DEC);
@@ -455,9 +429,7 @@ void processHTTP()
 					else
 						s += intlength(InternalMemory.read_int(weboption2));
 
-					WIFI_SERIAL.print(s, DEC);
-					P(WebBodyMsg1) = SERVER_HEADER3;
-					printP(WebBodyMsg1);
+					PrintHTTPHeader(s);
 
 					// no second value and no comma, so we read the value from memory
 					PROGMEMprint(XML_M_OPEN);
@@ -474,9 +446,7 @@ void processHTTP()
 				else
 				{
 					s = 10;  // <M>ERR</M>
-					WIFI_SERIAL.print(s, DEC);
-					P(WebBodyMsg1) = SERVER_HEADER3;
-					printP(WebBodyMsg1);
+					PrintHTTPHeader(s);
 					PROGMEMprint(XML_M_OPEN);
 					PROGMEMprint(XML_CLOSE_TAG);
 					PROGMEMprint(XML_ERR);
@@ -485,6 +455,22 @@ void processHTTP()
 				}
 				break;
 			}  // REQ_M_BYTE || REQ_M_INT
+			case REQ_M_RAW:
+			{
+				int s = 11;  // start with the base size of the mem tags
+				s += (VarsEnd-VarsStart)*2;
+				PrintHTTPHeader(s);
+				PROGMEMprint(XML_MEM_OPEN);
+				byte m; 
+				for ( int x = VarsStart; x < VarsEnd; x++ )
+				{
+					m=InternalMemory.read(x);
+					if (m<17) WIFI_SERIAL.print("0");
+					WIFI_SERIAL.print(m,HEX);
+				}  // for x
+				PROGMEMprint(XML_MEM_CLOSE);
+				break;
+			}  // REQ_M_RAW
 			case REQ_M_ALL:
 			{
 				// TODO update all memory function
@@ -519,11 +505,7 @@ void processHTTP()
 					count += offsets[x];
 				}  // for x
 
-				P(WebBodyMsg) = SERVER_HEADER_XML;
-				printP(WebBodyMsg);
-				WIFI_SERIAL.print(s, DEC);
-				P(WebBodyMsg1) = SERVER_HEADER3;
-				printP(WebBodyMsg1);
+				PrintHTTPHeader(s);
 				PROGMEMprint(XML_MEM_OPEN);
 				/*
 				Loop through all the memory locations starting at VarsStart
@@ -554,11 +536,7 @@ void processHTTP()
 			{
 				int s = 7;
 				s += strlen(ReefAngel_Version);
-				P(WebBodyMsg) = SERVER_HEADER_XML;
-				printP(WebBodyMsg);
-				WIFI_SERIAL.print(s, DEC);
-				P(WebBodyMsg1) = SERVER_HEADER3;
-				printP(WebBodyMsg1);
+				PrintHTTPHeader(s);
 				WIFI_SERIAL.print("<V>"ReefAngel_Version"</V>");
 				break;
 			}  // REQ_VERSION
@@ -604,11 +582,7 @@ void processHTTP()
 					//  7  = base xml tags (open & close d)
 					s += 60;
 				}
-				P(WebBodyMsg) = SERVER_HEADER_XML;
-				printP(WebBodyMsg);
-				WIFI_SERIAL.print(s, DEC);
-				P(WebBodyMsg1) = SERVER_HEADER3;
-				printP(WebBodyMsg1);
+				PrintHTTPHeader(s);
 				PROGMEMprint(XML_DATE_OPEN);
 				if ( weboption == -1 )
 				{
@@ -725,13 +699,22 @@ void processHTTP()
 		if (reqtype>0)
 		{
 		  P(WebBodyMsg) = SERVER_DENY;
-		  printP(WebBodyMsg);
+		  PROGMEMprint(WebBodyMsg);
 		}
     }
 	WIFI_SERIAL.flush();
 	m_pushbackindex=0;
     reqtype=0;
     weboption=0;
+}
+
+void PrintHTTPHeader(int s)
+{
+	P(WebBodyMsg) = SERVER_HEADER_XML;
+	PROGMEMprint(WebBodyMsg);
+	WIFI_SERIAL.print(s, DEC);
+	P(WebBodyMsg1) = SERVER_HEADER3;
+	PROGMEMprint(WebBodyMsg1);
 }
 
 char GetC(int c)

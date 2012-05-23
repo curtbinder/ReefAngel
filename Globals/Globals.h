@@ -340,6 +340,7 @@ When adding more variables, use the previous value plus 1 or 2
 #define Mem_B_RadionSlopeDurationI    VarsStart+119
 #define Mem_B_DelayedStart            VarsStart+120
 
+#define VarsEnd                 921
 // Next value starts VarsStart+121
 
 // Internal Memory Check Pointer

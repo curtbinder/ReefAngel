@@ -138,6 +138,7 @@ const prog_char XML_ERR[] PROGMEM = "ERR";
 #define REQ_CAL_RELOAD	14		// Reload calibration values from memory
 #define REQ_ALARM_ATO	15		// Clears the ATO alarm
 #define REQ_ALARM_OVERHEAT	16	// Clears the Overheat alarm
+#define REQ_M_RAW		17  	// All memory raw values
 #define REQ_HTTP		127		// HTTP get request from  external server
 #define REQ_UNKNOWN		128	 	// Unknown request
 
@@ -361,8 +362,8 @@ static byte bCommaCount = 0;
 
 
 void WebResponse (const prog_char *response, long strsize);
-void printP(const prog_char *str);
 void pushbuffer(byte inStr);
+void PrintHTTPHeader(int s);
 char GetC(int c);
 void ConvertC(char* strIn, char* strOut, byte len);
 void WifiAuthentication(char* userpass);
