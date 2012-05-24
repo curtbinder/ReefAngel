@@ -173,7 +173,7 @@ void pushbuffer(byte inStr)
             else if (strncmp("GET /bp", m_pushback, 7)==0) reqtype = -REQ_BTN_PRESS;
             else if (strncmp("GET /mf", m_pushback, 7)==0) reqtype = -REQ_FEEDING;
             else if (strncmp("GET /mw", m_pushback, 7)==0) reqtype = -REQ_WATER;
-            else if (strncmp("GET /cr", m_pushback, 7)==0) reqtype = -REQ_CAL_RELOAD;
+//            else if (strncmp("GET /cr", m_pushback, 7)==0) reqtype = -REQ_CAL_RELOAD;
             else if (strncmp("GET /mt", m_pushback, 7)==0) reqtype = -REQ_ALARM_ATO;
             else if (strncmp("GET /mo", m_pushback, 7)==0) reqtype = -REQ_ALARM_OVERHEAT;
             //else reqtype = -REQ_UNKNOWN;
@@ -269,7 +269,7 @@ void processHTTP()
 				}
 				ReefAngel.Relay.Write();
 				// Force update of the Portal after relay change
-				ReefAngel.Timer[PORTAL_TIMER].ForceTrigger();
+//				ReefAngel.Timer[PORTAL_TIMER].ForceTrigger();
 			}
 			case REQ_RA_STATUS:
 			case REQ_R_STATUS:
@@ -389,20 +389,20 @@ void processHTTP()
 					{
 						ReefAngel.Timer[LCD_TIMER].SetInterval(weboption);
 					}
-#ifdef DisplayLEDPWM
-					else if ( weboption2 == Mem_B_LEDPWMActinic )
-					{
-						ReefAngel.PWM.SetActinic(weboption);
-						// Force update of the Portal after change
-						ReefAngel.Timer[PORTAL_TIMER].ForceTrigger();
-					}
-					else if ( weboption2 == Mem_B_LEDPWMDaylight )
-					{
-						ReefAngel.PWM.SetDaylight(weboption);
-						// Force update of the Portal after change
-						ReefAngel.Timer[PORTAL_TIMER].ForceTrigger();
-					}
-#endif  // DisplayLEDPWM
+//#ifdef DisplayLEDPWM
+//					else if ( weboption2 == Mem_B_LEDPWMActinic )
+//					{
+//						ReefAngel.PWM.SetActinic(weboption);
+//						// Force update of the Portal after change
+//						ReefAngel.Timer[PORTAL_TIMER].ForceTrigger();
+//					}
+//					else if ( weboption2 == Mem_B_LEDPWMDaylight )
+//					{
+//						ReefAngel.PWM.SetDaylight(weboption);
+//						// Force update of the Portal after change
+//						ReefAngel.Timer[PORTAL_TIMER].ForceTrigger();
+//					}
+//#endif  // DisplayLEDPWM
 
 					s = 9;  // <M>OK</M>
 					// add in the location, twice
@@ -658,21 +658,21 @@ void processHTTP()
 				ModeResponse(true);
 				break;
 			}
-			case REQ_CAL_RELOAD:
-			{
-				// Reload calibration values from memory
-				ReefAngel.PHMin = InternalMemory.PHMin_read();
-				ReefAngel.PHMax = InternalMemory.PHMax_read();
-#ifdef SALINITYEXPANSION
-				ReefAngel.SalMax = InternalMemory.SalMax_read();
-#endif  // SALINITYEXPANSION
-#ifdef ORPEXPANSION
-				ReefAngel.ORPMin = InternalMemory.ORPMin_read();
-				ReefAngel.ORPMax = InternalMemory.ORPMax_read();
-#endif  // ORPEXPANSION
-			    PROGMEMprint(XML_OK);
-			    break;
-			}
+//			case REQ_CAL_RELOAD:
+//			{
+//				// Reload calibration values from memory
+//				ReefAngel.PHMin = InternalMemory.PHMin_read();
+//				ReefAngel.PHMax = InternalMemory.PHMax_read();
+//#ifdef SALINITYEXPANSION
+//				ReefAngel.SalMax = InternalMemory.SalMax_read();
+//#endif  // SALINITYEXPANSION
+//#ifdef ORPEXPANSION
+//				ReefAngel.ORPMin = InternalMemory.ORPMin_read();
+//				ReefAngel.ORPMax = InternalMemory.ORPMax_read();
+//#endif  // ORPEXPANSION
+//			    PROGMEMprint(XML_OK);
+//			    break;
+//			}
 			case REQ_ALARM_ATO:
 			{
 				ReefAngel.ATOClear();
