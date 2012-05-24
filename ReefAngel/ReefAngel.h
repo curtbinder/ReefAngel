@@ -149,8 +149,8 @@ public:
 	void Refresh();
 	void SetTemperatureUnit(byte unit);
 	void ConvertTempUnit();
-	void inline StandardMenu() {};
-	void inline Wifi() {};
+	void inline AddStandardMenu() {};
+	void inline AddWifi() {};
 	void inline AddDateTimeMenu() {};
 	void inline AddWDT() {};
 	void StandardLights(byte LightsRelay, byte OnHour, byte OnMinute, byte OffHour, byte OffMinute);

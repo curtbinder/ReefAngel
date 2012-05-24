@@ -25,8 +25,8 @@ Init	KEYWORD2
 Refresh	KEYWORD2
 SetTemperatureUnit	KEYWORD2
 ConvertTempUnit	KEYWORD2
-StandardMenu	KEYWORD2
-Wifi	KEYWORD2
+AddStandardMenu	KEYWORD2
+AddWifi	KEYWORD2
 StandardLights	KEYWORD2
 AddWDT	KEYWORD2
 AddDateTimeMenu	KEYWORD2
