@@ -22,7 +22,7 @@
 #ifndef	__REEFANGEL_H__
 #define __REEFANGEL_H__
 
-#define ReefAngel_Version "0.9.6"
+#define ReefAngel_Version "0.9.7"
 
 #include <Globals.h>
 #include <InternalEEPROM.h>  // NOTE read/write internal memory
@@ -157,8 +157,8 @@ public:
 	void MHLights(byte LightsRelay, byte OnHour, byte OnMinute, byte OffHour, byte OffMinute, byte MHDelay);
 	void StandardHeater(byte HeaterRelay, int LowTemp, int HighTemp);
 	void StandardFan(byte FanRelay, int LowTemp, int HighTemp);
-	void CO2Control(byte CO2Relay, int LowPH, int HighPH);	
-	void PHControl(byte PHControlRelay, int LowPH, int HighPH);	
+	void CO2Control(byte CO2Relay, int LowPH, int HighPH);
+	void PHControl(byte PHControlRelay, int LowPH, int HighPH);
 	void StandardATO(byte ATORelay, int ATOTimeout);
 	void SingleATO(bool bLow, byte ATORelay, int intTimeout, byte byteHrInterval);
 	void DosingPump(byte DPRelay, byte DPTimer, byte OnHour, byte OnMinute, int RunTime);
@@ -181,8 +181,8 @@ public:
 	void StandardHeater(byte Relay);
 	void StandardFan(byte Relay);
 	void StandardATO(byte Relay);
-	void CO2Control(byte Relay);	
-	void PHControl(byte Relay);	
+	void CO2Control(byte Relay);
+	void PHControl(byte Relay);
 	void SingleATOLow(byte Relay);
 	void SingleATOHigh(byte Relay);
 	void StandardATOExtended(byte Relay);
