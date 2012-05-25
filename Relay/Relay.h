@@ -47,7 +47,7 @@ public:
 #ifdef SaveRelaysPresent
 	boolean IsRelayPresent (byte module);
 	boolean RelayPresent;
-#endif
+#endif  // SaveRelaysPresent
 	byte RelayData;
 	byte RelayMaskOn;
 	byte RelayMaskOff;
@@ -57,7 +57,7 @@ public:
 	byte RelayMaskOffE[MAX_RELAY_EXPANSION_MODULES];
 #ifdef SaveRelaysPresent
 	boolean RelayPresentE[MAX_RELAY_EXPANSION_MODULES];
-#endif	
+#endif  // SaveRelaysPresent
 #endif  // RelayExp
 };
 

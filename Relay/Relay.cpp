@@ -46,7 +46,7 @@ RelayClass::RelayClass()
 		RelayMaskOffE[EID] = 0xff;
 #ifdef SaveRelaysPresent
 		RelayPresentE[EID] = true;
-#endif
+#endif  // SaveRelaysPresent
 	}
 #endif  // RelayExp
 }
@@ -158,7 +158,7 @@ void RelayClass::Write()
     present = Wire.endTransmission();
 #ifdef SaveRelaysPresent
 	RelayPresent = (present == 0);
-#endif
+#endif  // SaveRelaysPresent
 
 #ifdef RelayExp
 	for ( byte EID = 0; EID < MAX_RELAY_EXPANSION_MODULES; EID++ )
@@ -171,7 +171,7 @@ void RelayClass::Write()
 		present = Wire.endTransmission();
 #ifdef SaveRelaysPresent
 		RelayPresentE[EID] = (present == 0);
-#endif
+#endif  // SaveRelaysPresent
 	}
 #endif  // RelayExp
 }
@@ -183,10 +183,10 @@ boolean RelayClass::IsRelayPresent (byte module)
 		return RelayPresent;
 	if (module >= MAX_RELAY_EXPANSION_MODULES)
 		return false;
-#ifdef RelayExp	
+#ifdef RelayExp
 	return RelayPresentE[module];
-#else#
+#else
 	return false;
-#endif  // RelayExp	
+#endif  // RelayExp
 }
-#endif
+#endif  // SaveRelaysPresent
