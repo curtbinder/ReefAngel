@@ -340,7 +340,7 @@ When adding more variables, use the previous value plus 1 or 2
 #define Mem_B_RadionSlopeDurationI    VarsStart+119
 #define Mem_B_DelayedStart            VarsStart+120
 
-#define VarsEnd                 921
+#define VarsEnd                 VarsStart+121
 // Next value starts VarsStart+121
 
 // Internal Memory Check Pointer
@@ -812,7 +812,7 @@ typedef struct {
 #define	R87Name						0x960
 #define	R88Name						0x970
 
-// IsRelayPresent function from Don Edvalson 
+// IsRelayPresent function from Don Edvalson
 #define MAIN_RELAY 0xff
 #define EXP1_RELAY 0
 #define EXP2_RELAY 1
