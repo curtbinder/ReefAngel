@@ -152,7 +152,6 @@ public:
 	void inline AddStandardMenu() {};
 	void inline AddWifi() {};
 	void inline AddDateTimeMenu() {};
-	void inline AddWDT() {};
 	void StandardLights(byte LightsRelay, byte OnHour, byte OnMinute, byte OffHour, byte OffMinute);
 	void MHLights(byte LightsRelay, byte OnHour, byte OnMinute, byte OffHour, byte OffMinute, byte MHDelay);
 	void StandardHeater(byte HeaterRelay, int LowTemp, int HighTemp);
