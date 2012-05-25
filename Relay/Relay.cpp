@@ -34,12 +34,19 @@ RelayClass::RelayClass()
 	RelayData = 0;
 	RelayMaskOn = 0;
 	RelayMaskOff = 0xff;
+#ifdef SaveRelaysPresent
+	// assume relay is present till we hear otherwise.
+	RelayPresent = true;
+#endif
 #ifdef RelayExp
 	for ( byte EID = 0; EID < MAX_RELAY_EXPANSION_MODULES; EID++ )
 	{
 		RelayDataE[EID] = 0;
 		RelayMaskOnE[EID] = 0;
 		RelayMaskOffE[EID] = 0xff;
+#ifdef SaveRelaysPresent
+		RelayPresentE[EID] = true;
+#endif
 	}
 #endif  // RelayExp
 }
@@ -142,12 +149,17 @@ void RelayClass::Set(byte ID, boolean Status)
 void RelayClass::Write()
 {
     byte TempRelay = RelayData;
+	byte present = 0;
     TempRelay &= RelayMaskOff;
     TempRelay |= RelayMaskOn;
 
     Wire.beginTransmission(I2CExpander1);
     Wire.write(~TempRelay);   // MSB
-    Wire.endTransmission();
+    present = Wire.endTransmission();
+#ifdef SaveRelaysPresent
+	RelayPresent = (present == 0);
+#endif
+
 #ifdef RelayExp
 	for ( byte EID = 0; EID < MAX_RELAY_EXPANSION_MODULES; EID++ )
 	{
@@ -156,7 +168,25 @@ void RelayClass::Write()
 		TempRelay |= RelayMaskOnE[EID];
 		Wire.beginTransmission(I2CExpModule+EID);
 		Wire.write(~TempRelay);  // MSB
-		Wire.endTransmission();
+		present = Wire.endTransmission();
+#ifdef SaveRelaysPresent
+		RelayPresentE[EID] = (present == 0);
+#endif
 	}
 #endif  // RelayExp
 }
+
+#ifdef SaveRelaysPresent
+boolean RelayClass::IsRelayPresent (byte module)
+{
+	if (module == 0xff)
+		return RelayPresent;
+	if (module >= MAX_RELAY_EXPANSION_MODULES)
+		return false;
+#ifdef RelayExp	
+	return RelayPresentE[module];
+#else#
+	return false;
+#endif  // RelayExp	
+}
+#endif

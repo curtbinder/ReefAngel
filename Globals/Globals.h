@@ -812,6 +812,17 @@ typedef struct {
 #define	R87Name						0x960
 #define	R88Name						0x970
 
+// IsRelayPresent function from Don Edvalson 
+#define MAIN_RELAY 0xff
+#define EXP1_RELAY 0
+#define EXP2_RELAY 1
+#define EXP3_RELAY 2
+#define EXP4_RELAY 3
+#define EXP5_RELAY 4
+#define EXP6_RELAY 5
+#define EXP7_RELAY 6
+#define EXP8_RELAY 7
+
 //Main Screens
 #define MAIN_SCREEN			0
 #define RELAY_BOX			1

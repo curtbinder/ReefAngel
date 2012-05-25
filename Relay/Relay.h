@@ -19,6 +19,11 @@
   * Updates Released under Apache License, Version 2.0
   */
 
+ /*
+  * Updated by: Don Edvalson
+  * Added RelayPresence functionality
+  */
+
 #ifndef __RELAY_H__
 #define __RELAY_H__
 
@@ -39,7 +44,10 @@ public:
 	void Set(byte ID, boolean Status);
 	void Write();
 	inline boolean Status(byte Port)  { return bitRead((RelayData & RelayMaskOff) | RelayMaskOn,Port-1); }
-
+#ifdef SaveRelaysPresent
+	boolean IsRelayPresent (byte module);
+	boolean RelayPresent;
+#endif
 	byte RelayData;
 	byte RelayMaskOn;
 	byte RelayMaskOff;
@@ -47,6 +55,9 @@ public:
 	byte RelayDataE[MAX_RELAY_EXPANSION_MODULES];
 	byte RelayMaskOnE[MAX_RELAY_EXPANSION_MODULES];
 	byte RelayMaskOffE[MAX_RELAY_EXPANSION_MODULES];
+#ifdef SaveRelaysPresent
+	boolean RelayPresentE[MAX_RELAY_EXPANSION_MODULES];
+#endif	
 #endif  // RelayExp
 };
 
