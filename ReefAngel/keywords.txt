@@ -28,7 +28,7 @@ ConvertTempUnit	KEYWORD2
 AddStandardMenu	KEYWORD2
 AddWifi	KEYWORD2
 StandardLights	KEYWORD2
-AddWDT	KEYWORD2
+AddRFExpansion	KEYWORD2
 AddDateTimeMenu	KEYWORD2
 DelayedStartLights	KEYWORD2
 ActinicLights	KEYWORD2
