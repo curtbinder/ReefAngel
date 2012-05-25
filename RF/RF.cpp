@@ -73,62 +73,62 @@ void RFClass::RadionWrite()
 
 void RFClass::ChannelWhiteSlope()
 {
-	ChannelRadionSlope(0,InternalMemory.RadionSlopeStartW_read(),InternalMemory.RadionSlopeEndW_read(),InternalMemory.RadionSlopeDurationW_read());
+	ChannelRadionSlope(Radion_White,InternalMemory.RadionSlopeStartW_read(),InternalMemory.RadionSlopeEndW_read(),InternalMemory.RadionSlopeDurationW_read());
 }
 
 void RFClass::ChannelRoyalBlueSlope()
 {
-	ChannelRadionSlope(1,InternalMemory.RadionSlopeStartRB_read(),InternalMemory.RadionSlopeEndRB_read(),InternalMemory.RadionSlopeDurationRB_read());
+	ChannelRadionSlope(Radion_RoyalBlue,InternalMemory.RadionSlopeStartRB_read(),InternalMemory.RadionSlopeEndRB_read(),InternalMemory.RadionSlopeDurationRB_read());
 }
 
 void RFClass::ChannelRedSlope()
 {
-	ChannelRadionSlope(2,InternalMemory.RadionSlopeStartR_read(),InternalMemory.RadionSlopeEndR_read(),InternalMemory.RadionSlopeDurationR_read());
+	ChannelRadionSlope(Radion_Red,InternalMemory.RadionSlopeStartR_read(),InternalMemory.RadionSlopeEndR_read(),InternalMemory.RadionSlopeDurationR_read());
 }
 
 void RFClass::ChannelGreenSlope()
 {
-	ChannelRadionSlope(3,InternalMemory.RadionSlopeStartG_read(),InternalMemory.RadionSlopeEndG_read(),InternalMemory.RadionSlopeDurationG_read());
+	ChannelRadionSlope(Radion_Green,InternalMemory.RadionSlopeStartG_read(),InternalMemory.RadionSlopeEndG_read(),InternalMemory.RadionSlopeDurationG_read());
 }
 
 void RFClass::ChannelBlueSlope()
 {
-	ChannelRadionSlope(4,InternalMemory.RadionSlopeStartB_read(),InternalMemory.RadionSlopeEndB_read(),InternalMemory.RadionSlopeDurationB_read());
+	ChannelRadionSlope(Radion_Blue,InternalMemory.RadionSlopeStartB_read(),InternalMemory.RadionSlopeEndB_read(),InternalMemory.RadionSlopeDurationB_read());
 }
 
 void RFClass::ChannelIntensitySlope()
 {
-	ChannelRadionSlope(5,InternalMemory.RadionSlopeStartI_read(),InternalMemory.RadionSlopeEndI_read(),InternalMemory.RadionSlopeDurationI_read());
+	ChannelRadionSlope(Radion_Intensity,InternalMemory.RadionSlopeStartI_read(),InternalMemory.RadionSlopeEndI_read(),InternalMemory.RadionSlopeDurationI_read());
 }
 
 void RFClass::ChannelWhiteSlope(byte MinuteOffset)
 {
-	ChannelRadionSlope(0,InternalMemory.RadionSlopeStartW_read(),InternalMemory.RadionSlopeEndW_read(),InternalMemory.RadionSlopeDurationW_read(), MinuteOffset);
+	ChannelRadionSlope(Radion_White,InternalMemory.RadionSlopeStartW_read(),InternalMemory.RadionSlopeEndW_read(),InternalMemory.RadionSlopeDurationW_read(), MinuteOffset);
 }
 
 void RFClass::ChannelRoyalBlueSlope(byte MinuteOffset)
 {
-	ChannelRadionSlope(1,InternalMemory.RadionSlopeStartRB_read(),InternalMemory.RadionSlopeEndRB_read(),InternalMemory.RadionSlopeDurationRB_read(), MinuteOffset);
+	ChannelRadionSlope(Radion_RoyalBlue,InternalMemory.RadionSlopeStartRB_read(),InternalMemory.RadionSlopeEndRB_read(),InternalMemory.RadionSlopeDurationRB_read(), MinuteOffset);
 }
 
 void RFClass::ChannelRedSlope(byte MinuteOffset)
 {
-	ChannelRadionSlope(2,InternalMemory.RadionSlopeStartR_read(),InternalMemory.RadionSlopeEndR_read(),InternalMemory.RadionSlopeDurationR_read(), MinuteOffset);
+	ChannelRadionSlope(Radion_Red,InternalMemory.RadionSlopeStartR_read(),InternalMemory.RadionSlopeEndR_read(),InternalMemory.RadionSlopeDurationR_read(), MinuteOffset);
 }
 
 void RFClass::ChannelGreenSlope(byte MinuteOffset)
 {
-	ChannelRadionSlope(3,InternalMemory.RadionSlopeStartG_read(),InternalMemory.RadionSlopeEndG_read(),InternalMemory.RadionSlopeDurationG_read(), MinuteOffset);
+	ChannelRadionSlope(Radion_Green,InternalMemory.RadionSlopeStartG_read(),InternalMemory.RadionSlopeEndG_read(),InternalMemory.RadionSlopeDurationG_read(), MinuteOffset);
 }
 
 void RFClass::ChannelBlueSlope(byte MinuteOffset)
 {
-	ChannelRadionSlope(4,InternalMemory.RadionSlopeStartB_read(),InternalMemory.RadionSlopeEndB_read(),InternalMemory.RadionSlopeDurationB_read(), MinuteOffset);
+	ChannelRadionSlope(Radion_Blue,InternalMemory.RadionSlopeStartB_read(),InternalMemory.RadionSlopeEndB_read(),InternalMemory.RadionSlopeDurationB_read(), MinuteOffset);
 }
 
 void RFClass::ChannelIntensitySlope(byte MinuteOffset)
 {
-	ChannelRadionSlope(5,InternalMemory.RadionSlopeStartI_read(),InternalMemory.RadionSlopeEndI_read(),InternalMemory.RadionSlopeDurationI_read(), MinuteOffset);
+	ChannelRadionSlope(Radion_Intensity,InternalMemory.RadionSlopeStartI_read(),InternalMemory.RadionSlopeEndI_read(),InternalMemory.RadionSlopeDurationI_read(), MinuteOffset);
 }
 
 void RFClass::ChannelRadionSlope(byte Channel, byte Start, byte End, byte Duration)
@@ -139,10 +139,10 @@ void RFClass::ChannelRadionSlope(byte Channel, byte Start, byte End, byte Durati
 		InternalMemory.StdLightsOffHour_read(),
 		InternalMemory.StdLightsOffMinute_read(),
 		Start,
-		End, 
-		Duration,  
-		RadionChannels[Channel] 
-	));	
+		End,
+		Duration,
+		RadionChannels[Channel]
+	));
 }
 
 void RFClass::ChannelRadionSlope(byte Channel, byte Start, byte End, byte Duration, byte MinuteOffset)
@@ -155,70 +155,70 @@ void RFClass::ChannelRadionSlope(byte Channel, byte Start, byte End, byte Durati
 		offTime/60,
 		offTime%60,
 		Start,
-		End, 
-		Duration,  
-		RadionChannels[Channel] 
-	));	
+		End,
+		Duration,
+		RadionChannels[Channel]
+	));
 }
 
 void RFClass::ChannelWhiteParabola()
 {
-	ChannelRadionParabola(0,InternalMemory.RadionSlopeStartW_read(),InternalMemory.RadionSlopeEndW_read(),InternalMemory.RadionSlopeDurationW_read());
+	ChannelRadionParabola(Radion_White,InternalMemory.RadionSlopeStartW_read(),InternalMemory.RadionSlopeEndW_read(),InternalMemory.RadionSlopeDurationW_read());
 }
 
 void RFClass::ChannelRoyalBlueParabola()
 {
-	ChannelRadionParabola(1,InternalMemory.RadionSlopeStartRB_read(),InternalMemory.RadionSlopeEndRB_read(),InternalMemory.RadionSlopeDurationRB_read());
+	ChannelRadionParabola(Radion_RoyalBlue,InternalMemory.RadionSlopeStartRB_read(),InternalMemory.RadionSlopeEndRB_read(),InternalMemory.RadionSlopeDurationRB_read());
 }
 
 void RFClass::ChannelRedParabola()
 {
-	ChannelRadionParabola(2,InternalMemory.RadionSlopeStartR_read(),InternalMemory.RadionSlopeEndR_read(),InternalMemory.RadionSlopeDurationR_read());
+	ChannelRadionParabola(Radion_Red,InternalMemory.RadionSlopeStartR_read(),InternalMemory.RadionSlopeEndR_read(),InternalMemory.RadionSlopeDurationR_read());
 }
 
 void RFClass::ChannelGreenParabola()
 {
-	ChannelRadionParabola(3,InternalMemory.RadionSlopeStartG_read(),InternalMemory.RadionSlopeEndG_read(),InternalMemory.RadionSlopeDurationG_read());
+	ChannelRadionParabola(Radion_Green,InternalMemory.RadionSlopeStartG_read(),InternalMemory.RadionSlopeEndG_read(),InternalMemory.RadionSlopeDurationG_read());
 }
 
 void RFClass::ChannelBlueParabola()
 {
-	ChannelRadionParabola(4,InternalMemory.RadionSlopeStartB_read(),InternalMemory.RadionSlopeEndB_read(),InternalMemory.RadionSlopeDurationB_read());
+	ChannelRadionParabola(Radion_Blue,InternalMemory.RadionSlopeStartB_read(),InternalMemory.RadionSlopeEndB_read(),InternalMemory.RadionSlopeDurationB_read());
 }
 
 void RFClass::ChannelIntensityParabola()
 {
-	ChannelRadionParabola(5,InternalMemory.RadionSlopeStartI_read(),InternalMemory.RadionSlopeEndI_read(),InternalMemory.RadionSlopeDurationI_read());
+	ChannelRadionParabola(Radion_Intensity,InternalMemory.RadionSlopeStartI_read(),InternalMemory.RadionSlopeEndI_read(),InternalMemory.RadionSlopeDurationI_read());
 }
 
 void RFClass::ChannelWhiteParabola(byte MinuteOffset)
 {
-	ChannelRadionParabola(0,InternalMemory.RadionSlopeStartW_read(),InternalMemory.RadionSlopeEndW_read(),InternalMemory.RadionSlopeDurationW_read(), MinuteOffset);
+	ChannelRadionParabola(Radion_White,InternalMemory.RadionSlopeStartW_read(),InternalMemory.RadionSlopeEndW_read(),InternalMemory.RadionSlopeDurationW_read(), MinuteOffset);
 }
 
 void RFClass::ChannelRoyalBlueParabola(byte MinuteOffset)
 {
-	ChannelRadionParabola(1,InternalMemory.RadionSlopeStartRB_read(),InternalMemory.RadionSlopeEndRB_read(),InternalMemory.RadionSlopeDurationRB_read(), MinuteOffset);
+	ChannelRadionParabola(Radion_RoyalBlue,InternalMemory.RadionSlopeStartRB_read(),InternalMemory.RadionSlopeEndRB_read(),InternalMemory.RadionSlopeDurationRB_read(), MinuteOffset);
 }
 
 void RFClass::ChannelRedParabola(byte MinuteOffset)
 {
-	ChannelRadionParabola(2,InternalMemory.RadionSlopeStartR_read(),InternalMemory.RadionSlopeEndR_read(),InternalMemory.RadionSlopeDurationR_read(), MinuteOffset);
+	ChannelRadionParabola(Radion_Red,InternalMemory.RadionSlopeStartR_read(),InternalMemory.RadionSlopeEndR_read(),InternalMemory.RadionSlopeDurationR_read(), MinuteOffset);
 }
 
 void RFClass::ChannelGreenParabola(byte MinuteOffset)
 {
-	ChannelRadionParabola(3,InternalMemory.RadionSlopeStartG_read(),InternalMemory.RadionSlopeEndG_read(),InternalMemory.RadionSlopeDurationG_read(), MinuteOffset);
+	ChannelRadionParabola(Radion_Green,InternalMemory.RadionSlopeStartG_read(),InternalMemory.RadionSlopeEndG_read(),InternalMemory.RadionSlopeDurationG_read(), MinuteOffset);
 }
 
 void RFClass::ChannelBlueParabola(byte MinuteOffset)
 {
-	ChannelRadionParabola(4,InternalMemory.RadionSlopeStartB_read(),InternalMemory.RadionSlopeEndB_read(),InternalMemory.RadionSlopeDurationB_read(), MinuteOffset);
+	ChannelRadionParabola(Radion_Blue,InternalMemory.RadionSlopeStartB_read(),InternalMemory.RadionSlopeEndB_read(),InternalMemory.RadionSlopeDurationB_read(), MinuteOffset);
 }
 
 void RFClass::ChannelIntensityParabola(byte MinuteOffset)
 {
-	ChannelRadionParabola(5,InternalMemory.RadionSlopeStartI_read(),InternalMemory.RadionSlopeEndI_read(),InternalMemory.RadionSlopeDurationI_read(), MinuteOffset);
+	ChannelRadionParabola(Radion_Intensity,InternalMemory.RadionSlopeStartI_read(),InternalMemory.RadionSlopeEndI_read(),InternalMemory.RadionSlopeDurationI_read(), MinuteOffset);
 }
 
 void RFClass::ChannelRadionParabola(byte Channel, byte Start, byte End, byte Duration)
@@ -229,10 +229,10 @@ void RFClass::ChannelRadionParabola(byte Channel, byte Start, byte End, byte Dur
 		InternalMemory.StdLightsOffHour_read(),
 		InternalMemory.StdLightsOffMinute_read(),
 		Start,
-		End, 
-		Duration,  
-		RadionChannels[Channel] 
-	));	
+		End,
+		Duration,
+		RadionChannels[Channel]
+	));
 }
 
 void RFClass::ChannelRadionParabola(byte Channel, byte Start, byte End, byte Duration, byte MinuteOffset)
@@ -245,9 +245,9 @@ void RFClass::ChannelRadionParabola(byte Channel, byte Start, byte End, byte Dur
 		offTime/60,
 		offTime%60,
 		Start,
-		End, 
-		Duration,  
-		RadionChannels[Channel] 
-	));	
+		End,
+		Duration,
+		RadionChannels[Channel]
+	));
 }
 
