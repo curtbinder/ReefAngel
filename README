@@ -1,9 +1,7 @@
-This is the development copy of ReefAngelLibrary.
+This repository is no longer the main copy.
 
-This development copy is modified by Curt Binder.
+The development libraries have now been merged and converted into the main libraries for Reef Angel.  If you are seeking the latest updates, please look at the main repository now.
 
-The main copy of ReefAngelLibrary is located at 
+https://github.com/reefangel/Libraries
 
-http://github.com/reefangel
-
-
+curt
